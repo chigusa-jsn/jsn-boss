@@ -12,5 +12,9 @@
   "entity.jsnboss.ice_spear": "Ice Spear",
   "entity.jsnboss.ice_spike": "Ice Spike",
   "entity.jsnboss.frost_field": "Frozen Ground",
-  "item.jsnboss.ice_witch_spawn_egg": "Ice Witch Spawn Egg"
+  "item.jsnboss.ice_witch_spawn_egg": "Ice Witch Spawn Egg",
+  "entity.jsnboss.zombie_king": "Zombie King",
+  "entity.jsnboss.shockwave": "Shockwave",
+  "entity.jsnboss.grave_hand": "Grave Hand",
+  "item.jsnboss.zombie_king_spawn_egg": "Zombie King Spawn Egg"
 }

@@ -12,5 +12,9 @@
   "entity.jsnboss.ice_spear": "氷の槍",
   "entity.jsnboss.ice_spike": "氷のトゲ",
   "entity.jsnboss.frost_field": "凍てつく大地",
-  "item.jsnboss.ice_witch_spawn_egg": "氷の魔女のスポーンエッグ"
+  "item.jsnboss.ice_witch_spawn_egg": "氷の魔女のスポーンエッグ",
+  "entity.jsnboss.zombie_king": "ゾンビの王",
+  "entity.jsnboss.shockwave": "衝撃波",
+  "entity.jsnboss.grave_hand": "死者の手",
+  "item.jsnboss.zombie_king_spawn_egg": "ゾンビの王のスポーンエッグ"
 }

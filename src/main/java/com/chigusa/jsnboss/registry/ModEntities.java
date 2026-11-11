@@ -8,6 +8,9 @@ import com.chigusa.jsnboss.entity.FrostFieldEntity;
 import com.chigusa.jsnboss.entity.IceSpearEntity;
 import com.chigusa.jsnboss.entity.IceSpikeEntity;
 import com.chigusa.jsnboss.entity.IceWitchEntity;
+import com.chigusa.jsnboss.entity.GraveHandEntity;
+import com.chigusa.jsnboss.entity.ShockwaveEntity;
+import com.chigusa.jsnboss.entity.ZombieKingEntity;
 import com.chigusa.jsnboss.entity.KnightFireballEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
@@ -58,6 +61,20 @@ public final class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<FrostFieldEntity>> FROST_FIELD =
             ENTITY_TYPES.register("frost_field", () -> EntityType.Builder.<FrostFieldEntity>of(FrostFieldEntity::new, MobCategory.MISC)
                     .sized(1.0F, 0.5F).clientTrackingRange(8).noSave().build("frost_field"));
+
+    // ------------------------------------------------------------ ゾンビの王
+    /** 幅2.2 × 高さ4.0ブロック */
+    public static final DeferredHolder<EntityType<?>, EntityType<ZombieKingEntity>> ZOMBIE_KING =
+            ENTITY_TYPES.register("zombie_king", () -> EntityType.Builder.<ZombieKingEntity>of(ZombieKingEntity::new, MobCategory.MONSTER)
+                    .sized(2.2F, 4.0F).clientTrackingRange(10).build("zombie_king"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<ShockwaveEntity>> SHOCKWAVE =
+            ENTITY_TYPES.register("shockwave", () -> EntityType.Builder.<ShockwaveEntity>of(ShockwaveEntity::new, MobCategory.MISC)
+                    .sized(1.0F, 0.5F).clientTrackingRange(10).noSave().build("shockwave"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<GraveHandEntity>> GRAVE_HAND =
+            ENTITY_TYPES.register("grave_hand", () -> EntityType.Builder.<GraveHandEntity>of(GraveHandEntity::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F).clientTrackingRange(8).noSave().build("grave_hand"));
 
     private ModEntities() {}
 }

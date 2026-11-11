@@ -2,6 +2,7 @@ package com.chigusa.jsnboss;
 
 import com.chigusa.jsnboss.entity.FireKnightEntity;
 import com.chigusa.jsnboss.entity.IceWitchEntity;
+import com.chigusa.jsnboss.entity.ZombieKingEntity;
 import com.chigusa.jsnboss.registry.ModEffects;
 import com.chigusa.jsnboss.registry.ModEntities;
 import com.chigusa.jsnboss.registry.ModItems;
@@ -42,12 +43,14 @@ public final class BossSetup {
         event.put(ModEntities.FIRE_KNIGHT.get(), FireKnightEntity.createAttributes().build());
         event.put(ModEntities.ICE_WITCH.get(), IceWitchEntity.createAttributes().build());
         event.put(ModEntities.ICE_WITCH_CLONE.get(), IceWitchEntity.createCloneAttributes().build());
+        event.put(ModEntities.ZOMBIE_KING.get(), ZombieKingEntity.createAttributes().build());
     }
 
     private static void onCreativeTab(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(ModItems.FIRE_KNIGHT_SPAWN_EGG.get());
             event.accept(ModItems.ICE_WITCH_SPAWN_EGG.get());
+            event.accept(ModItems.ZOMBIE_KING_SPAWN_EGG.get());
         }
     }
 
