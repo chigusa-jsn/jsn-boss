@@ -24,7 +24,8 @@ m.bone("waist", [0, 18, 0], parent="root", cubes=[
 
 # 胴体：前かがみ（猫背）。前を開けたローブから肋骨がのぞく
 m.bone("torso", [0, 21, 0], parent="waist", rotation=[15, 0, 0], cubes=[
-    ([-10, 21, -5.5], [20, 9, 11], "skin", "belly"),
+    ([-10.5, 21, -5.5], [21, 9, 11], "skin", "belly"),
+    ([-11.5, 27, -6.2], [23, 4, 12], "robe", "chest_low"),
     ([-12, 30, -7], [24, 12, 14], "robe", "chest"),
     ([-6, 30, -7.5], [12, 11, 1], "skin", "ribs"),
     ([-14, 41, -8], [28, 5, 16], "fur", "mantle"),
@@ -52,14 +53,14 @@ m.bone("cape", [0, 44, 7], parent="torso", cubes=[
 ])
 
 ARM = [
-    ([-19, 28, -3.5], [6, 13, 7], "skin", "upper_arm"),
+    ([-19.5, 26, -3.5], [7, 15, 7], "skin", "upper_arm"),
     ([-21, 38, -5.5], [9, 6, 11], "gold", "pauldron"),
     ([-20, 44, -2], [2, 3, 2], "gold", "pauldron_spike"),
 ]
 HAND = [
-    ([-19.5, 14, -4], [7, 14, 8], "skin", "forearm"),
+    ([-19.5, 13, -3.5], [7, 15, 7], "skin", "forearm"),
     ([-20, 18, -4.5], [8, 4, 9], "bandage", "wrap"),
-    ([-20, 7, -4.5], [8, 7, 9], "skin", "fist"),
+    ([-20, 7, -4], [8, 7, 8], "skin", "fist"),
     ([-19, 5, -4], [2, 2, 2], "bone", "claw"),
     ([-16, 5, -4], [2, 2, 2], "bone", "claw"),
 ]
@@ -159,5 +160,6 @@ def details(m, mat, tag, face, rect):
                 m.put(fx + k, fy + j, hexc("#8a7f62"))
 
 
-m.paint(PAL, details, glow_mats={"gem"}, outline_skip={"gem", "cape", "robe"})
+m.paint(PAL, details, glow_mats={"gem"}, outline_skip={"gem", "cape", "robe", "fur", "bandage"},
+        soft={"mats": {"skin", "robe", "cape", "fur"}, "y": (0, 58), "dark": 0.62})
 m.save()

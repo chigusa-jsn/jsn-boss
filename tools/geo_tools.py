@@ -78,8 +78,10 @@ class Model:
     def clear(self, x, y):
         self.tex[y, x] = 0; self.glow[y, x] = 0
 
-    def paint(self, palette, details=None, glow_mats=(), outline_skip=()):
-        """palette: mat -> (base, highlight, outline)。details(m, mat, tag, face, rect) で描き足す"""
+    def paint(self, palette, details=None, glow_mats=(), outline_skip=(), soft=None):
+        """palette: mat -> (base, highlight, outline)。details(m, mat, tag, face, rect) で描き足す
+        soft = {"mats": {...}, "y": (下端, 上端), "dark": 0.7}: その素材はふちの線を描かず、
+        体全体の高さで上が明るく下が暗いなめらかな陰影にする（パーツの区切りが目立たない）"""
         self._pack()
         self.flat = []
         for i, (b, (o, s, mat, tag)) in enumerate(self.all):
@@ -89,6 +91,26 @@ class Model:
                 fx, fy, fw, fh = rect
                 if fw and fh and mat in palette:
                     base, hi, lo = (hexc(c) for c in palette[mat])
+                    if soft and mat in soft["mats"]:
+                        y0, y1 = soft["y"]
+                        for j in range(fh):
+                            if fname == "up":
+                                wy = o[1] + s[1]
+                            elif fname == "down":
+                                wy = o[1]
+                            else:
+                                wy = o[1] + s[1] - (j + 0.5) * s[1] / fh
+                            f_ = min(1.0, max(0.0, (wy - y0) / (y1 - y0)))
+                            shade = soft.get("dark", 0.7) + (1 - soft.get("dark", 0.7)) * f_
+                            for k in range(fw):
+                                c = base * shade + self.rng.uniform(-4, 4)
+                                if fname == "down":
+                                    c = c * 0.8
+                                self.put(fx + k, fy + j, c, glow=mat in glow_mats)
+                        if details:
+                            details(self, mat, tag, fname, rect)
+                        self.flat.append((b["name"], f, mat))
+                        continue
                     for j in range(fh):
                         for k in range(fw):
                             c = base + self.rng.uniform(-6, 6)
