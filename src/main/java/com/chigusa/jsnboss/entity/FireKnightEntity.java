@@ -52,12 +52,8 @@ import java.util.UUID;
  * アニメーションの決まったタイミング（tick）に当たり判定や弾の発射を行う。
  * 1 tick = 0.05 秒。アニメーションの秒数 × 20 = tick。
  */
-public class FireKnightEntity extends Monster implements GeoEntity {
+public class FireKnightEntity extends AbstractBoss {
 
-    private static final EntityDataAccessor<Integer> PHASE =
-            SynchedEntityData.defineId(FireKnightEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> SHAKE =
-            SynchedEntityData.defineId(FireKnightEntity.class, EntityDataSerializers.INT);
 
     // ------------------------------------------------------------ animations
     private static final String A = "animation.fire_knight.";
@@ -88,10 +84,6 @@ public class FireKnightEntity extends Monster implements GeoEntity {
         }
     }
 
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private final ServerBossEvent bossEvent = (ServerBossEvent) new ServerBossEvent(
-            this.getDisplayName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.NOTCHED_10)
-            .setDarkenScreen(true);
 
     private Attack attack = Attack.NONE;
     private Attack lastAttack = Attack.NONE;
@@ -106,9 +98,7 @@ public class FireKnightEntity extends Monster implements GeoEntity {
     public final Set<UUID> pillarHits = new HashSet<>();
 
     public FireKnightEntity(EntityType<? extends Monster> type, Level level) {
-        super(type, level);
-        this.xpReward = 200;
-        this.setPersistenceRequired();
+        super(type, level, BossEvent.BossBarColor.RED, BossEvent.BossBarColor.BLUE);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -132,39 +122,12 @@ public class FireKnightEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(PHASE, 1);
-        builder.define(SHAKE, 0);
-    }
-
-    public int getPhase() { return this.entityData.get(PHASE); }
-    public int getShake() { return this.entityData.get(SHAKE); }
-    private boolean blue() { return getPhase() >= 2; }
-
-    /** 第1形態 / 第2形態のダメージを切り替える */
-    private float dmg(float phase1, float phase2) { return blue() ? phase2 : phase1; }
-
-    private void shake(int ticks) {
-        if (ticks > getShake()) this.entityData.set(SHAKE, ticks);
-    }
-
-    // ============================================================ main loop
-    @Override
-    public void tick() {
-        super.tick();
-        if (level().isClientSide) {
-            if (isAlive()) ambientParticles();
-        } else if (getShake() > 0) {
-            this.entityData.set(SHAKE, getShake() - 1);
-        }
+    protected void clientTick() {
+        ambientParticles();
     }
 
     @Override
-    protected void customServerAiStep() {
-        super.customServerAiStep();
-        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
-
+    protected void bossAiStep() {
         LivingEntity target = this.getTarget();
         if (attack != Attack.NONE) {
             tickAttack(target);
@@ -195,7 +158,7 @@ public class FireKnightEntity extends Monster implements GeoEntity {
                 - (this.getBbWidth() + target.getBbWidth()) / 2.0;
         boolean sight = this.hasLineOfSight(target);
         List<Attack> pool = new ArrayList<>();
-        if (!blue()) {
+        if (!isPhase2()) {
             if (dist < 3.5) { add(pool, Attack.SWEEP, 5); add(pool, Attack.PILLAR, 1); }
             else if (dist < 11) { add(pool, Attack.DASH, 4); add(pool, Attack.PILLAR, 3); if (sight) add(pool, Attack.WAVE_H, 3); }
             else if (sight) { add(pool, Attack.FIREBALL, 4); add(pool, Attack.WAVE_H, 2); add(pool, Attack.PILLAR, 2); }
@@ -232,9 +195,33 @@ public class FireKnightEntity extends Monster implements GeoEntity {
             return;
         }
         this.cooldowns.put(done, done.cooldown);
-        this.globalCooldown = blue() ? 14 : 24;
+        this.globalCooldown = isPhase2() ? 14 : 24;
         // 第2形態の縦斬撃は、そのまま横斬撃につなげて2連発にする
-        if (done == Attack.WAVE_V && blue()) startAttack(Attack.WAVE_H);
+        if (done == Attack.WAVE_V && isPhase2()) startAttack(Attack.WAVE_H);
+    }
+
+    @Override
+    protected void onPhaseChanged(int phase) {
+        AttributeInstance speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (speed != null) speed.setBaseValue(phase >= 2 ? 0.33 : 0.27);
+    }
+
+    /** 変身中は無敵 */
+    @Override
+    protected boolean isInvulnerableNow() {
+        return attack == Attack.PHASE_CHANGE;
+    }
+
+    @Override
+    protected void deathParticles() {
+        ParticleOptions fire = isPhase2() ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
+        int n = Math.max(0, 6 - this.deathTime / 10);
+        for (int i = 0; i < n; i++) {
+            level().addParticle(fire, getX() + (random.nextDouble() - 0.5) * 1.5, getY() + random.nextDouble() * 3,
+                    getZ() + (random.nextDouble() - 0.5) * 1.5, 0, 0.05, 0);
+        }
+        level().addParticle(ParticleTypes.LARGE_SMOKE, getX() + (random.nextDouble() - 0.5), getY() + random.nextDouble() * 2.5,
+                getZ() + (random.nextDouble() - 0.5), 0, 0.03, 0);
     }
 
     // ============================================================ attacks
@@ -299,7 +286,7 @@ public class FireKnightEntity extends Monster implements GeoEntity {
                 if (t == 18 && target != null) {
                     impact(this.position().add(forward().scale(2.0)), 1.5F, 6);
                     spawnPillar(target.getX(), target.getY(), target.getZ());
-                    if (blue()) {
+                    if (isPhase2()) {
                         Vec3 lead = target.getDeltaMovement().multiply(12, 0, 12);
                         spawnPillar(target.getX() + lead.x, target.getY(), target.getZ() + lead.z);
                         double a = this.random.nextDouble() * Math.PI * 2;
@@ -313,10 +300,10 @@ public class FireKnightEntity extends Monster implements GeoEntity {
                 if (t == 16 && target != null) {
                     Vec3 start = this.position().add(forward().scale(1.6)).add(0, 2.6, 0);
                     Vec3 aim = target.getEyePosition().subtract(start).normalize();
-                    int count = blue() ? 3 : 1;
+                    int count = isPhase2() ? 3 : 1;
                     for (int i = 0; i < count; i++) {
                         float spread = (i - (count - 1) / 2.0F) * 15.0F * Mth.DEG_TO_RAD;
-                        KnightFireballEntity.shoot(this, start, aim.yRot(spread).scale(0.9), blue(), dmg(9, 12));
+                        KnightFireballEntity.shoot(this, start, aim.yRot(spread).scale(0.9), isPhase2(), dmg(9, 12));
                     }
                     playSound(SoundEvents.BLAZE_SHOOT, 2.0F, 0.6F);
                 }
@@ -329,15 +316,12 @@ public class FireKnightEntity extends Monster implements GeoEntity {
                     swingSound();
                     Vec3 dir = forward();
                     Vec3 start = this.position().add(dir.scale(1.5));
-                    FlameSlashEntity.shoot(this, start, dir.scale(1.0), vertical, blue(), dmg(10, 14));
+                    FlameSlashEntity.shoot(this, start, dir.scale(1.0), vertical, isPhase2(), dmg(10, 14));
                 }
             }
             case PHASE_CHANGE -> {                  // 第2形態へ  1.0秒で炎が青く爆発
                 if (t == 20) {
-                    this.entityData.set(PHASE, 2);
-                    this.bossEvent.setColor(BossEvent.BossBarColor.BLUE);
-                    AttributeInstance speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
-                    if (speed != null) speed.setBaseValue(0.33);
+                    setPhase(2);
                     playSound(SoundEvents.GENERIC_EXPLODE.value(), 3.0F, 0.6F);
                     playSound(SoundEvents.RAVAGER_ROAR, 3.0F, 0.5F);
                     shake(30);
@@ -359,68 +343,13 @@ public class FireKnightEntity extends Monster implements GeoEntity {
         if (t >= attack.length) endAttack();
     }
 
-    // ------------------------------------------------------------ helpers
-    private Vec3 forward() {
-        return Vec3.directionFromRotation(0, this.getYRot());
-    }
-
-    /** ターゲットの方へ体を向ける（1 tick に最大 maxStep 度） */
-    private void face(LivingEntity target, float maxStep) {
-        if (target == null) return;
-        double dx = target.getX() - getX(), dz = target.getZ() - getZ();
-        float want = (float) (Mth.atan2(dz, dx) * Mth.RAD_TO_DEG) - 90.0F;
-        float yaw = Mth.approachDegrees(this.getYRot(), want, maxStep);
-        this.setYRot(yaw);
-        this.yBodyRot = yaw;
-        this.yHeadRot = yaw;
-    }
-
-    private boolean canHit(LivingEntity e) {
-        return e != this && e.isAlive() && !(e instanceof FireKnightEntity) && !e.isSpectator();
-    }
-
-    private void damage(LivingEntity e, float amount, double knock) {
-        if (e.hurt(this.damageSources().mobAttack(this), amount)) {
-            e.knockback(knock, getX() - e.getX(), getZ() - e.getZ());
-        }
-    }
-
-    /** 前方の扇形（range ブロック、左右 halfAngle 度）に当てる */
-    private void hitArc(double range, double halfAngle, float amount, double knock) {
-        Vec3 look = forward();
-        for (LivingEntity e : level().getEntitiesOfClass(LivingEntity.class,
-                this.getBoundingBox().inflate(range, 2.0, range), this::canHit)) {
-            Vec3 to = new Vec3(e.getX() - getX(), 0, e.getZ() - getZ());
-            if (to.length() - e.getBbWidth() / 2.0 > range) continue;
-            if (to.lengthSqr() > 1.0E-4) {
-                double angle = Math.toDegrees(Math.acos(Mth.clamp(to.normalize().dot(look), -1.0, 1.0)));
-                if (angle > halfAngle) continue;
-            }
-            if (e.getY() > getY() + 4.0 || e.getY() + e.getBbHeight() < getY() - 1.0) continue;
-            damage(e, amount, knock);
-        }
-    }
-
-    /** 円の範囲に当てる（着地の衝撃など） */
-    private void hitRadius(Vec3 center, double radius, float amount, double knock) {
-        for (LivingEntity e : level().getEntitiesOfClass(LivingEntity.class,
-                this.getBoundingBox().inflate(radius, 2.0, radius), this::canHit)) {
-            double dx = e.getX() - center.x, dz = e.getZ() - center.z;
-            if (Math.sqrt(dx * dx + dz * dz) - e.getBbWidth() / 2.0 > radius) continue;
-            if (e.getY() > center.y + 3.0 || e.getY() + e.getBbHeight() < center.y - 1.0) continue;
-            damage(e, amount, knock);
-            e.setDeltaMovement(e.getDeltaMovement().add(0, 0.4, 0));
-            e.hurtMarked = true;
-        }
-    }
-
     /** 地面を叩いた演出：揺れ、音、地面の破片、炎の輪 */
     private void impact(Vec3 at, float radius, int shakeTicks) {
         shake(shakeTicks);
         playSound(SoundEvents.GENERIC_EXPLODE.value(), 1.5F, 0.7F);
         playSound(SoundEvents.ANVIL_LAND, 1.0F, 0.5F);
         if (!(level() instanceof ServerLevel sl)) return;
-        ParticleOptions fire = blue() ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
+        ParticleOptions fire = isPhase2() ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
         BlockState ground = level().getBlockState(BlockPos.containing(at.x, at.y - 0.5, at.z));
         int ring = (int) (radius * 12);
         for (int i = 0; i < ring; i++) {
@@ -436,15 +365,7 @@ public class FireKnightEntity extends Monster implements GeoEntity {
     }
 
     private void spawnPillar(double x, double y, double z) {
-        FirePillarEntity.spawn(this, x, groundY(x, y, z), z, blue(), false);
-    }
-
-    /** 真下の地面の高さを探す（空中のプレイヤーを狙っても地面から出るように） */
-    private double groundY(double x, double y, double z) {
-        BlockPos.MutableBlockPos pos = BlockPos.containing(x, y, z).mutable();
-        for (int i = 0; i < 8 && level().getBlockState(pos.below()).isAir(); i++) pos.move(0, -1, 0);
-        for (int i = 0; i < 4 && !level().getBlockState(pos).isAir(); i++) pos.move(0, 1, 0);
-        return pos.getY();
+        FirePillarEntity.spawn(this, x, groundY(x, y, z), z, isPhase2(), false);
     }
 
     private void swingSound() {
@@ -454,7 +375,7 @@ public class FireKnightEntity extends Monster implements GeoEntity {
 
     /** 兜と肩から立ちのぼる炎、ひびから漏れる煙 */
     private void ambientParticles() {
-        ParticleOptions fire = blue() ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
+        ParticleOptions fire = isPhase2() ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
         float yaw = this.yBodyRot * Mth.DEG_TO_RAD;
         double rx = -Mth.cos(yaw), rz = -Mth.sin(yaw);
         if (this.random.nextInt(2) == 0) {
@@ -471,98 +392,16 @@ public class FireKnightEntity extends Monster implements GeoEntity {
             level().addParticle(ParticleTypes.SMOKE, getX() + (random.nextDouble() - 0.5), getY() + 1.0 + random.nextDouble() * 1.6,
                     getZ() + (random.nextDouble() - 0.5), 0, 0.02, 0);
         }
-        if (this.random.nextInt(blue() ? 4 : 8) == 0) {
-            level().addParticle(blue() ? ParticleTypes.SOUL : ParticleTypes.LAVA, getX(), getY() + 2.0, getZ(), 0, 0, 0);
+        if (this.random.nextInt(isPhase2() ? 4 : 8) == 0) {
+            level().addParticle(isPhase2() ? ParticleTypes.SOUL : ParticleTypes.LAVA, getX(), getY() + 2.0, getZ(), 0, 0, 0);
         }
-    }
-
-    // ============================================================ damage / death
-    @Override
-    public boolean hurt(DamageSource source, float amount) {
-        if (attack == Attack.PHASE_CHANGE) return false;     // 変身中は無敵
-        return super.hurt(source, amount);
-    }
-
-    @Override
-    public boolean causeFallDamage(float distance, float multiplier, DamageSource source) {
-        return false;
     }
 
     @Override
     public void die(DamageSource source) {
         super.die(source);
         this.attack = Attack.NONE;
-        if (!level().isClientSide) {
-            this.triggerAnim("main", "death");
-            playSound(SoundEvents.WITHER_DEATH, 2.0F, 0.7F);
-        }
-    }
-
-    /** 死亡アニメ（3秒）を最後まで見せてから消える */
-    @Override
-    protected void tickDeath() {
-        ++this.deathTime;
-        if (level().isClientSide) {
-            ParticleOptions fire = blue() ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
-            int n = Math.max(0, 6 - this.deathTime / 10);
-            for (int i = 0; i < n; i++) {
-                level().addParticle(fire, getX() + (random.nextDouble() - 0.5) * 1.5, getY() + random.nextDouble() * 3,
-                        getZ() + (random.nextDouble() - 0.5) * 1.5, 0, 0.05, 0);
-            }
-            level().addParticle(ParticleTypes.LARGE_SMOKE, getX() + (random.nextDouble() - 0.5), getY() + random.nextDouble() * 2.5,
-                    getZ() + (random.nextDouble() - 0.5), 0, 0.03, 0);
-        }
-        if (this.deathTime >= 60 && !level().isClientSide() && !this.isRemoved()) {
-            if (level() instanceof ServerLevel sl) {
-                sl.sendParticles(ParticleTypes.EXPLOSION_EMITTER, getX(), getY() + 1.5, getZ(), 1, 0, 0, 0, 0);
-            }
-            playSound(SoundEvents.GENERIC_EXPLODE.value(), 2.0F, 0.8F);
-            level().broadcastEntityEvent(this, (byte) 60);
-            this.remove(RemovalReason.KILLED);
-        }
-    }
-
-    // ============================================================ boss bar / save
-    @Override
-    public void startSeenByPlayer(ServerPlayer player) {
-        super.startSeenByPlayer(player);
-        this.bossEvent.addPlayer(player);
-    }
-
-    @Override
-    public void stopSeenByPlayer(ServerPlayer player) {
-        super.stopSeenByPlayer(player);
-        this.bossEvent.removePlayer(player);
-    }
-
-    @Override
-    public void setCustomName(Component name) {
-        super.setCustomName(name);
-        this.bossEvent.setName(this.getDisplayName());
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
-        tag.putInt("Phase", getPhase());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
-        int phase = Math.max(1, tag.getInt("Phase"));
-        this.entityData.set(PHASE, phase);
-        if (phase >= 2) {
-            this.bossEvent.setColor(BossEvent.BossBarColor.BLUE);
-            AttributeInstance speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
-            if (speed != null) speed.setBaseValue(0.33);
-        }
-        if (this.hasCustomName()) this.bossEvent.setName(this.getDisplayName());
-    }
-
-    @Override
-    public boolean removeWhenFarAway(double distance) {
-        return false;
+        if (!level().isClientSide) playSound(SoundEvents.WITHER_DEATH, 2.0F, 0.7F);
     }
 
     // ============================================================ sounds
@@ -597,8 +436,4 @@ public class FireKnightEntity extends Monster implements GeoEntity {
         controllers.add(main);
     }
 
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
-    }
 }

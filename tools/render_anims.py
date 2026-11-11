@@ -4,12 +4,17 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import render_preview as R
-import fire_knight_anims as FA
+import importlib
+FA = importlib.import_module(sys.argv[2] if len(sys.argv) > 2 else "fire_knight_anims")
+if len(sys.argv) > 3:
+    R.load(sys.argv[3])
 
 JP = {"idle": "待機", "walk": "歩き", "attack_sweep": "横なぎ", "attack_dash": "突進斬り",
       "attack_pillar": "火柱", "attack_fireball": "火の玉", "attack_wave_v": "飛ぶ斬撃(縦)",
       "attack_wave_h": "飛ぶ斬撃(横)", "attack_leap": "跳躍叩きつけ", "attack_combo": "3連撃",
-      "phase_change": "第2形態へ", "death": "死亡"}
+      "phase_change": "第2形態へ", "death": "死亡",
+      "cast_spear": "氷の槍", "cast_spikes": "氷のトゲ", "cast_field": "凍てつく大地", "nova": "氷の爆発",
+      "teleport": "テレポート", "cast_hail": "雹", "summon_clones": "分身", "absolute_zero": "絶対零度"}
 
 def sample(chan, t):
     ks = sorted((float(k), v) for k, v in chan.items())

@@ -80,7 +80,7 @@ public class KnightFireballEntity extends Projectile {
 
     @Override
     protected boolean canHitEntity(Entity target) {
-        return super.canHitEntity(target) && !(target instanceof FireKnightEntity);
+        return super.canHitEntity(target) && !(target instanceof AbstractBoss);
     }
 
     @Override

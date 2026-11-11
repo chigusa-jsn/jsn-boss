@@ -1,7 +1,7 @@
 package com.chigusa.jsnboss.client;
 
 import com.chigusa.jsnboss.BossConstants;
-import com.chigusa.jsnboss.entity.FireKnightEntity;
+import com.chigusa.jsnboss.entity.AbstractBoss;
 import com.chigusa.jsnboss.registry.ModEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.NoopRenderer;
@@ -36,7 +36,7 @@ public final class BossClientEvents {
             Minecraft mc = Minecraft.getInstance();
             if (mc.player == null || mc.level == null) return;
             float strength = 0.0F;
-            for (FireKnightEntity knight : mc.level.getEntitiesOfClass(FireKnightEntity.class,
+            for (AbstractBoss knight : mc.level.getEntitiesOfClass(AbstractBoss.class,
                     mc.player.getBoundingBox().inflate(SHAKE_RANGE))) {
                 int shake = knight.getShake();
                 if (shake <= 0) continue;

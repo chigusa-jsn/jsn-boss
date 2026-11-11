@@ -90,7 +90,7 @@ public class FirePillarEntity extends Entity {
         Set<UUID> hits = owner != null ? owner.pillarHits : localHits;
         for (LivingEntity e : level().getEntitiesOfClass(LivingEntity.class,
                 this.getBoundingBox().inflate(RADIUS + 1, HEIGHT, RADIUS + 1),
-                e -> e.isAlive() && !(e instanceof FireKnightEntity) && !e.isSpectator())) {
+                e -> e.isAlive() && !(e instanceof AbstractBoss) && !e.isSpectator())) {
             double dx = e.getX() - getX(), dz = e.getZ() - getZ();
             if (Math.sqrt(dx * dx + dz * dz) - e.getBbWidth() / 2.0 > RADIUS) continue;
             if (e.getY() > getY() + HEIGHT || e.getY() + e.getBbHeight() < getY()) continue;
@@ -109,7 +109,7 @@ public class FirePillarEntity extends Entity {
 
     private void burnGround() {
         for (LivingEntity e : level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.2, 0.5, 1.2),
-                e -> e.isAlive() && !(e instanceof FireKnightEntity) && !e.isSpectator())) {
+                e -> e.isAlive() && !(e instanceof AbstractBoss) && !e.isSpectator())) {
             if (e.hurt(this.damageSources().magic(), 2.0F)) {
                 e.addEffect(new MobEffectInstance(ModEffects.SOUL_BURN, 40, 0));
             }

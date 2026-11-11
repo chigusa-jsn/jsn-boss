@@ -79,7 +79,7 @@ public class FlameSlashEntity extends Projectile {
         LivingEntity owner = this.getOwner() instanceof LivingEntity le ? le : null;
         boolean vertical = isVertical();
         for (LivingEntity e : level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(3.0, 4.0, 3.0),
-                e -> e.isAlive() && !(e instanceof FireKnightEntity) && !e.isSpectator())) {
+                e -> e.isAlive() && !(e instanceof AbstractBoss) && !e.isSpectator())) {
             Vec3 rel = e.position().subtract(this.position());
             double f = rel.dot(dir), l = rel.dot(right), w = e.getBbWidth() / 2.0;
             double bottom = e.getY() - getY(), top = bottom + e.getBbHeight();
