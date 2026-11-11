@@ -43,12 +43,31 @@ m.bone("mane", p(0, 18, -19), parent="head", cubes=[
     c([-5, 9, -21], [10, 3, 6], "mane", "mane_chin"),
 ])
 # たてがみから放射状に突き出す稲妻のトゲ（先が光る）
-for i, ang in enumerate([0, 30, -30, 60, -60, 90, -90, 120, -120, 145, -145]):
-    m.bone(f"bolt{i}", p(0, 18, -18), parent="mane", rotation=[-18, 0, ang], cubes=[
-        c([-1, 24, -19], [2, 4, 2], "mane", "spike"),
-        c([-0.5, 28, -18.5], [1, 2, 1], "bolt", "spike_mid"),
-        c([0, 29.5, -18.5], [1, 2, 1], "bolt", "spike_tip"),
-    ])
+BOLT = 0
+for ring, (angles, lean, z, r0, length) in enumerate((
+        ([0, 30, -30, 60, -60, 90, -90, 120, -120, 145, -145], -18, -19, 24, 6),
+        ([15, -15, 45, -45, 75, -75, 105, -105, 135, -135], -40, -16, 22, 5))):
+    for ang in angles:
+        m.bone(f"bolt{BOLT}", p(0, 18, z + 1), parent="mane", rotation=[lean, 0, ang], cubes=[
+            c([-1, r0, z], [2, 3, 2], "mane", "spike"),
+            c([-0.5, r0 + 3, z + 0.5], [1, length // 2, 1], "bolt", "spike_mid"),
+            c([0, r0 + 3 + length // 2, z + 0.5], [1, length - length // 2, 1], "bolt", "spike_tip"),
+            c([-1, r0 + 3 + length // 2 - 1, z + 0.5], [1, 1, 1], "bolt", "spike_kink"),
+        ])
+        BOLT += 1
+
+# 体の周りに浮かぶジグザグの電撃（アニメーションで明滅させる）
+def arc(x, y, z, n, dz):
+    """ジグザグに折れ曲がる電撃（小さな光るブロックを互い違いに並べる）"""
+    out = []
+    for i in range(n):
+        out.append(c([x + (0.6 if i % 2 else -0.6), y + i * 1.2, z + i * dz], [1, 1.3, 1], "bolt", "arc"))
+    return out
+
+ARCS = [((-7.5, 16, -8), 5, 0.6), ((7, 17, -5), 5, -0.5), ((-7, 15, 6), 4, 0.8), ((7, 16, 9), 4, -0.6),
+        ((-2, 21, 2), 4, 1.0), ((2, 21, 10), 3, -1.0)]
+for i, ((x, y, z), n, dz) in enumerate(ARCS):
+    m.bone(f"arc{i}", p(x, y, z), parent="body", cubes=arc(x, y, z, n, dz))
 
 # 脚
 FRONT = [c([-5.5, 0, -10], [4, 9, 4], "fur", "front_leg"), c([-6, 0, -11], [5, 2, 5], "fur_light", "paw")]
@@ -72,9 +91,9 @@ m.bone("tail_tuft", p(0, 15, 34), parent="tail2", rotation=[15, 0, 0], cubes=[
 
 # ---------------------------------------------------------------- texture
 PAL = {
-    "fur": ("#d9a441", "#f0c46a", "#8a5e1a"),
+    "fur": ("#c8923a", "#e2b25e", "#7a5216"),
     "fur_light": ("#f1d79a", "#fbe9bf", "#b89a5a"),
-    "mane": ("#3a2616", "#5a3c22", "#1a1008"),
+    "mane": ("#161b30", "#243052", "#0a0d18"),
     "nose": ("#3a2620", "#4e352c", "#1a100c"),
     "bolt": ("#7fe3ff", "#ffffff", "#2fa8e0"),
 }
@@ -98,9 +117,15 @@ def details(m, mat, tag, face, rect):
         for _ in range(max(1, fw * fh // 12)):
             m.put(fx + r.randrange(fw), fy + r.randrange(fh), hexc("#c48f32"))
     # 肩と腰の横に光る稲妻のライン
-    if tag in ("chest", "hips") and face in ("west", "east"):
-        zigzag(m, fx, fy, fw, fh, fw // 3, fh)
-        zigzag(m, fx, fy, fw, fh, 2 * fw // 3, fh - 3)
+    if tag in ("chest", "hips", "belly") and face in ("west", "east"):
+        zigzag(m, fx, fy, fw, fh, fw // 4, fh)
+        zigzag(m, fx, fy, fw, fh, fw // 2, fh - 2)
+        zigzag(m, fx, fy, fw, fh, 3 * fw // 4, fh - 4)
+    if tag in ("front_leg", "thigh", "shin", "tail") and face in ("west", "east", "north", "south"):
+        zigzag(m, fx, fy, fw, fh, fw // 2, fh)
+    if tag in ("chest", "belly", "hips") and face == "up":
+        for j in range(fh):                               # 背骨にそって走る稲妻
+            m.put(fx + fw // 2 + (1 if (j // 2) % 2 else -1), fy + j, ELEC[1] if j % 3 else ELEC[2], glow=True)
     if tag == "belly" and face == "up":
         for j in range(1, fh, 5):
             for k in range(fw // 2 - 1, fw // 2 + 1):
@@ -110,9 +135,13 @@ def details(m, mat, tag, face, rect):
         for k in range(0, fw, 2):
             for j in range(fh):
                 if r.random() < 0.5:
-                    m.put(fx + k, fy + j, hexc("#2a1a0e"))
-        for _ in range(max(1, fw * fh // 40)):
-            m.put(fx + r.randrange(fw), fy + r.randrange(fh), ELEC[1], glow=True)
+                    m.put(fx + k, fy + j, hexc("#0f1324"))
+        for _ in range(max(1, fw * fh // 14)):           # たてがみを走る青い電気
+            x0, y0 = r.randrange(fw), r.randrange(fh)
+            for s_ in range(3):
+                if 0 <= x0 < fw and 0 <= y0 + s_ < fh:
+                    m.put(fx + x0, fy + y0 + s_, ELEC[1] if s_ != 1 else ELEC[2], glow=True)
+                x0 += r.choice((-1, 1))
     # 顔：青く光る目、鼻筋
     if tag == "skull" and face == "north":
         ye = fh // 2 - 1
