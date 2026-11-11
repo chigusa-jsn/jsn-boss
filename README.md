@@ -116,6 +116,23 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 | 空中跳び（踏みつけ、半径4） | 16 | 20 |
 | まとう竜巻（周りを回る2つ、触れると押し出される） | — | 5 |
 
+### 雷の獅子（`jsnboss:thunder_lion`）
+
+肩の高さ約2.4ブロック、HP 1800。青い電気をまとった大きなライオンで、たてがみから稲妻のトゲが突き出している。HP が半分（900）を切ると第2形態になり、全身の毛に稲妻が走って、体に触れるだけでしびれるようになる。
+
+| 技 | 第1形態 | 第2形態 |
+|---|---|---|
+| 突進 | 16 | 20 |
+| 落雷（地面に青い輪の予告、1秒後に本物の雷が落ちる） | 12 × 3回（足元を追いかける） | 14 × 6本（3本ずつ2回） |
+| 咆哮（半径5） | 10 | 13 |
+| 地を走る雷（地面をはう電撃、跳べば避けられる） | 11 × 3方向 | 13 × 5方向 |
+| 雷のリング（地面を走る雷の輪、ジャンプで避ける） | 8＋スタン2秒 | 10＋スタン2秒（2重の輪） |
+| 帯電（体に触れる） | — | 4＋鈍化 |
+| 雷雲（6秒間、近くの全員の足元に雷が落ち続ける） | — | 10 |
+
+- スタン：2秒間、動けない・跳べない・攻撃が弱くなる。牛乳で治る
+- 落雷は見た目だけ本物の雷なので、火事にはならない
+
 ## 最大HPの上限について
 
 バニラの最大HPは1024が上限なので、この MOD は起動時に上限を100000まで引き上げている（`BossSetup.raiseMaxHealthCap()`、`META-INF/accesstransformer.cfg`）。ほかのモブのHPは変わらない。
@@ -127,8 +144,8 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 ```
 
 - クリエイティブの「スポーンエッグ」タブに各ボスのスポーンエッグ
-- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`、`/summon jsnboss:blade_dragon`、`/summon jsnboss:white_fox`、`/summon jsnboss:wind_cat`
-- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f、white_fox と wind_cat は 790f）
+- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`、`/summon jsnboss:blade_dragon`、`/summon jsnboss:white_fox`、`/summon jsnboss:wind_cat`、`/summon jsnboss:thunder_lion`
+- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f、white_fox と wind_cat は 790f、thunder_lion は 890f）
 
 配布用の jar は `./gradlew build` で `build/libs/` にできる。GitHub に push すると Actions が自動でビルドする（jar は Actions の実行結果からダウンロードできる）。
 
@@ -137,7 +154,7 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 | 内容 | 場所 |
 |---|---|
 | ボス共通の土台 | `src/main/java/com/chigusa/jsnboss/entity/AbstractBoss.java` |
-| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java`、`entity/DarkMageEntity.java`、`entity/BladeDragonEntity.java`、`entity/WhiteFoxEntity.java`、`entity/WindCatEntity.java` |
+| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java`、`entity/DarkMageEntity.java`、`entity/BladeDragonEntity.java`、`entity/WhiteFoxEntity.java`、`entity/WindCatEntity.java`、`entity/ThunderLionEntity.java` |
 | 火の玉・斬撃・火柱 | `src/main/java/com/chigusa/jsnboss/entity/` |
 | モデル | `src/main/resources/assets/jsnboss/geo/entity/fire_knight.geo.json` |
 | アニメーション | `src/main/resources/assets/jsnboss/animations/entity/fire_knight.animation.json` |
