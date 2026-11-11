@@ -31,5 +31,9 @@
   "entity.jsnboss.foxfire": "Foxfire",
   "entity.jsnboss.light_pillar": "Pillar of Light",
   "entity.jsnboss.light_sword": "Sword of Light",
-  "item.jsnboss.white_fox_spawn_egg": "Radiant White Fox Spawn Egg"
+  "item.jsnboss.white_fox_spawn_egg": "Radiant White Fox Spawn Egg",
+  "entity.jsnboss.wind_cat": "Gale Lynx",
+  "entity.jsnboss.wind_blade": "Wind Blade",
+  "entity.jsnboss.tornado": "Tornado",
+  "item.jsnboss.wind_cat_spawn_egg": "Gale Lynx Spawn Egg"
 }

@@ -46,6 +46,10 @@ public final class BossClientEvents {
             event.registerEntityRenderer(ModEntities.FOXFIRE.get(), NoopRenderer::new);
             event.registerEntityRenderer(ModEntities.LIGHT_PILLAR.get(), NoopRenderer::new);
             event.registerEntityRenderer(ModEntities.LIGHT_SWORD.get(), LightSwordRenderer::new);
+
+            event.registerEntityRenderer(ModEntities.WIND_CAT.get(), WindCatRenderer::new);
+            event.registerEntityRenderer(ModEntities.WIND_BLADE.get(), NoopRenderer::new);
+            event.registerEntityRenderer(ModEntities.TORNADO.get(), NoopRenderer::new);
         }
     }
 

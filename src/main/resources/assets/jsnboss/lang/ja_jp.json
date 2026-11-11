@@ -31,5 +31,9 @@
   "entity.jsnboss.foxfire": "狐火",
   "entity.jsnboss.light_pillar": "光の柱",
   "entity.jsnboss.light_sword": "光の剣",
-  "item.jsnboss.white_fox_spawn_egg": "光の白狐のスポーンエッグ"
+  "item.jsnboss.white_fox_spawn_egg": "光の白狐のスポーンエッグ",
+  "entity.jsnboss.wind_cat": "風の猫",
+  "entity.jsnboss.wind_blade": "かまいたち",
+  "entity.jsnboss.tornado": "竜巻",
+  "item.jsnboss.wind_cat_spawn_egg": "風の猫のスポーンエッグ"
 }

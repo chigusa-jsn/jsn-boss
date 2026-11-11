@@ -20,6 +20,9 @@ import com.chigusa.jsnboss.entity.FoxfireEntity;
 import com.chigusa.jsnboss.entity.LightPillarEntity;
 import com.chigusa.jsnboss.entity.LightSwordEntity;
 import com.chigusa.jsnboss.entity.WhiteFoxEntity;
+import com.chigusa.jsnboss.entity.TornadoEntity;
+import com.chigusa.jsnboss.entity.WindBladeEntity;
+import com.chigusa.jsnboss.entity.WindCatEntity;
 import com.chigusa.jsnboss.entity.KnightFireballEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
@@ -131,6 +134,20 @@ public final class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<LightSwordEntity>> LIGHT_SWORD =
             ENTITY_TYPES.register("light_sword", () -> EntityType.Builder.<LightSwordEntity>of(LightSwordEntity::new, MobCategory.MISC)
                     .sized(1.0F, 2.5F).clientTrackingRange(8).noSave().build("light_sword"));
+
+    // ------------------------------------------------------------ 風の猫
+    /** 幅2.0 × 高さ2.2ブロック */
+    public static final DeferredHolder<EntityType<?>, EntityType<WindCatEntity>> WIND_CAT =
+            ENTITY_TYPES.register("wind_cat", () -> EntityType.Builder.<WindCatEntity>of(WindCatEntity::new, MobCategory.MONSTER)
+                    .sized(2.0F, 2.2F).clientTrackingRange(10).build("wind_cat"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<WindBladeEntity>> WIND_BLADE =
+            ENTITY_TYPES.register("wind_blade", () -> EntityType.Builder.<WindBladeEntity>of(WindBladeEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).clientTrackingRange(6).updateInterval(1).noSave().build("wind_blade"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<TornadoEntity>> TORNADO =
+            ENTITY_TYPES.register("tornado", () -> EntityType.Builder.<TornadoEntity>of(TornadoEntity::new, MobCategory.MISC)
+                    .sized(1.5F, 3.0F).clientTrackingRange(8).updateInterval(1).noSave().build("tornado"));
 
     private ModEntities() {}
 }

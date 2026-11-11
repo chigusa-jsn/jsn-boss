@@ -34,5 +34,9 @@ public final class ModItems {
             ITEMS.register("white_fox_spawn_egg",
                     () -> new DeferredSpawnEggItem(ModEntities.WHITE_FOX, 0xFBFAF6, 0xE0402A, new Item.Properties()));
 
+    public static final DeferredItem<DeferredSpawnEggItem> WIND_CAT_SPAWN_EGG =
+            ITEMS.register("wind_cat_spawn_egg",
+                    () -> new DeferredSpawnEggItem(ModEntities.WIND_CAT, 0xCDD6CF, 0x3AA688, new Item.Properties()));
+
     private ModItems() {}
 }
