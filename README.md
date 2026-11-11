@@ -22,6 +22,24 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 - 青い火柱は防具・エンチャント・効果・盾・難易度を無視する（`data/minecraft/tags/damage_type/`）。不死のトーテムは効く
 - 蒼炎：1秒ごとに1ダメージ。水に入っても消えない
 
+### 氷の魔女（`jsnboss:ice_witch`）
+
+身長約3ブロック、HP 1500。少し浮いて移動し、7〜12ブロックの距離を保って魔法で戦う。近づくとテレポートで逃げる。HP が半分（750）を切ると第2形態「吹雪」になり、氷の光がオーロラ紫に変わる。
+
+| 技 | 第1形態 | 第2形態 |
+|---|---|---|
+| 氷の槍 | 9×3連射 | 12×3連射（3方向） |
+| 氷のトゲ | 12（足元に1本） | 15（魔女から奥へトゲの列） |
+| 凍てつく大地 | 半径5、8秒 | 半径7、8秒 |
+| 氷の爆発（近づかれたとき） | 12 | 16 |
+| テレポート（消えるときに足元で） | 8 | 10 |
+| 雹 | — | 12×8発（地面に予告） |
+| 分身 | — | 3人に分かれる。分身はHP1で弱い槍だけ。**本物だけ周りに結晶が回っている** |
+| 絶対零度（HP40%以下） | — | 22（半径14。雪の輪の外へ逃げれば当たらない） |
+
+- 氷の攻撃に当たると「凍える」（粉雪に埋まったときと同じ）。溜まると動きが鈍り、凍結ダメージを受ける。**革防具を着ていると凍らない**
+- 第2形態の近くでは吹雪で遠くが見えにくくなる（離れると晴れる）
+
 ## 最大HPの上限について
 
 バニラの最大HPは1024が上限なので、この MOD は起動時に上限を100000まで引き上げている（`BossSetup.raiseMaxHealthCap()`、`META-INF/accesstransformer.cfg`）。ほかのモブのHPは変わらない。
@@ -32,9 +50,9 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 ./gradlew runClient
 ```
 
-- クリエイティブの「スポーンエッグ」タブに「炎の騎士のスポーンエッグ」
-- コマンド：`/summon jsnboss:fire_knight`
-- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`
+- クリエイティブの「スポーンエッグ」タブに各ボスのスポーンエッグ
+- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`
+- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ）
 
 配布用の jar は `./gradlew build` で `build/libs/` にできる。GitHub に push すると Actions が自動でビルドする（jar は Actions の実行結果からダウンロードできる）。
 
@@ -42,7 +60,8 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 
 | 内容 | 場所 |
 |---|---|
-| ボスの AI・技 | `src/main/java/com/chigusa/jsnboss/entity/FireKnightEntity.java` |
+| ボス共通の土台 | `src/main/java/com/chigusa/jsnboss/entity/AbstractBoss.java` |
+| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java` |
 | 火の玉・斬撃・火柱 | `src/main/java/com/chigusa/jsnboss/entity/` |
 | モデル | `src/main/resources/assets/jsnboss/geo/entity/fire_knight.geo.json` |
 | アニメーション | `src/main/resources/assets/jsnboss/animations/entity/fire_knight.animation.json` |
