@@ -70,6 +70,22 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 - 詠唱中はボスバーに「詠唱を止めろ！ 54 / 120」と進み具合が出る。止めると3秒ふらつき、その間は受けるダメージが1.5倍
 - 走って半径24の輪の外へ逃げても避けられる
 
+### 影刃竜（`jsnboss:blade_dragon`）
+
+鼻先から尻尾まで約5.5ブロック、HP 2000。全身にいろいろな剣を生やした黒い竜で、地面を駆け回るスピード型。HP が半分（1000）を切ると第2形態になり、目と全身の剣の刃先が赤く光って、動くと残像が出る。
+
+| 技 | 第1形態 | 第2形態 |
+|---|---|---|
+| 飛びかかり | 16 | 20（2連続） |
+| 翼斬り（前方5ブロック） | 14 | 18 |
+| 回転斬り（半径6、周り全部） | 15 | 19 |
+| 剣を飛ばす（本物の剣が扇状に飛ぶ） | 8 × 5本 | 10 × 7本 |
+| 刃の道（地面から剣が一直線に生える、予告0.6秒） | 14 | 18（3列） |
+| 影の奇襲（消えて横か後ろから飛びかかる） | 18 | 22 |
+| 急降下（着地の半径5） | — | 24 |
+
+- 第2形態の剣の攻撃には「裂傷」がつく（3秒間、0.5秒ごとに1ダメージ。牛乳で治る）
+
 ## 最大HPの上限について
 
 バニラの最大HPは1024が上限なので、この MOD は起動時に上限を100000まで引き上げている（`BossSetup.raiseMaxHealthCap()`、`META-INF/accesstransformer.cfg`）。ほかのモブのHPは変わらない。
@@ -81,8 +97,8 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 ```
 
 - クリエイティブの「スポーンエッグ」タブに各ボスのスポーンエッグ
-- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`
-- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f）
+- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`、`/summon jsnboss:blade_dragon`
+- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f）
 
 配布用の jar は `./gradlew build` で `build/libs/` にできる。GitHub に push すると Actions が自動でビルドする（jar は Actions の実行結果からダウンロードできる）。
 
@@ -91,7 +107,7 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 | 内容 | 場所 |
 |---|---|
 | ボス共通の土台 | `src/main/java/com/chigusa/jsnboss/entity/AbstractBoss.java` |
-| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java`、`entity/DarkMageEntity.java` |
+| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java`、`entity/DarkMageEntity.java`、`entity/BladeDragonEntity.java` |
 | 火の玉・斬撃・火柱 | `src/main/java/com/chigusa/jsnboss/entity/` |
 | モデル | `src/main/resources/assets/jsnboss/geo/entity/fire_knight.geo.json` |
 | アニメーション | `src/main/resources/assets/jsnboss/animations/entity/fire_knight.animation.json` |
