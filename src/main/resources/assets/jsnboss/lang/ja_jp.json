@@ -35,5 +35,10 @@
   "entity.jsnboss.wind_cat": "風の猫",
   "entity.jsnboss.wind_blade": "かまいたち",
   "entity.jsnboss.tornado": "竜巻",
-  "item.jsnboss.wind_cat_spawn_egg": "風の猫のスポーンエッグ"
+  "item.jsnboss.wind_cat_spawn_egg": "風の猫のスポーンエッグ",
+  "entity.jsnboss.thunder_lion": "雷の獅子",
+  "entity.jsnboss.lightning_mark": "落雷",
+  "entity.jsnboss.ground_bolt": "地を走る雷",
+  "item.jsnboss.thunder_lion_spawn_egg": "雷の獅子のスポーンエッグ",
+  "effect.jsnboss.stun": "スタン"
 }

@@ -27,12 +27,16 @@ public class ShockwaveEntity extends Entity {
             SynchedEntityData.defineId(ShockwaveEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> SPEED =
             SynchedEntityData.defineId(ShockwaveEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Boolean> ELECTRIC =
+            SynchedEntityData.defineId(ShockwaveEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final org.joml.Vector3f BLUE = new org.joml.Vector3f(0.5F, 0.9F, 1.0F);
 
     private static final double THICKNESS = 0.9;   // 輪の太さ
     private static final double JUMP_CLEAR = 0.7;  // 足元がこれより高ければ当たらない
 
     private AbstractBoss owner;
     private float damage = 12.0F;
+    private int stunTicks;
     private final Set<UUID> hits = new HashSet<>();
 
     public ShockwaveEntity(EntityType<? extends ShockwaveEntity> type, Level level) {
@@ -50,12 +54,27 @@ public class ShockwaveEntity extends Entity {
         owner.level().addFreshEntity(e);
     }
 
+    /** 雷のリング：電気の輪。当たるとスタン（stunTicks）。ジャンプで避けられるのは同じ */
+    public static void spawnElectric(AbstractBoss owner, double x, double y, double z, float maxRadius, float speed,
+                                     float damage, int stunTicks) {
+        ShockwaveEntity e = new ShockwaveEntity(ModEntities.SHOCKWAVE.get(), owner.level());
+        e.owner = owner;
+        e.damage = damage;
+        e.stunTicks = stunTicks;
+        e.setPos(x, y, z);
+        e.entityData.set(MAX_RADIUS, maxRadius);
+        e.entityData.set(SPEED, speed);
+        e.entityData.set(ELECTRIC, true);
+        owner.level().addFreshEntity(e);
+    }
+
     private double radius() { return 1.5 + this.tickCount * this.entityData.get(SPEED); }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         builder.define(MAX_RADIUS, 12.0F);
         builder.define(SPEED, 0.45F);
+        builder.define(ELECTRIC, false);
     }
 
     @Override
@@ -79,6 +98,9 @@ public class ShockwaveEntity extends Entity {
             if (!hits.add(e.getUUID())) continue;
             boolean ok = owner != null ? e.hurt(this.damageSources().mobAttack(owner), damage)
                     : e.hurt(this.damageSources().generic(), damage);
+            if (ok && stunTicks > 0) {
+                e.addEffect(new net.minecraft.world.effect.MobEffectInstance(com.chigusa.jsnboss.registry.ModEffects.STUN, stunTicks, 0));
+            }
             if (ok && d > 0.01) {
                 e.knockback(1.2, -dx / d, -dz / d);
                 e.setDeltaMovement(e.getDeltaMovement().add(0, 0.45, 0));
@@ -88,6 +110,20 @@ public class ShockwaveEntity extends Entity {
     }
 
     private void particles(double r) {
+        if (this.entityData.get(ELECTRIC)) {
+            int n = (int) (r * 6);
+            double offset = random.nextDouble();
+            for (int i = 0; i < n; i++) {
+                double a = Math.PI * 2 * (i + offset) / n;
+                double x = getX() + Math.cos(a) * r, z = getZ() + Math.sin(a) * r;
+                level().addParticle(new net.minecraft.core.particles.DustParticleOptions(BLUE, 1.4F), x, getY() + 0.15, z, 0, 0, 0);
+                if (i % 2 == 0) {
+                    level().addParticle(ParticleTypes.ELECTRIC_SPARK, x, getY() + 0.2 + random.nextDouble() * 0.5, z,
+                            (random.nextDouble() - 0.5) * 0.2, 0.15, (random.nextDouble() - 0.5) * 0.2);
+                }
+            }
+            return;
+        }
         int n = (int) (r * 5);
         double offset = random.nextDouble();
         for (int i = 0; i < n; i++) {

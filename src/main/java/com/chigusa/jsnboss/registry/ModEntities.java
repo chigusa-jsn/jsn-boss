@@ -21,6 +21,9 @@ import com.chigusa.jsnboss.entity.LightPillarEntity;
 import com.chigusa.jsnboss.entity.LightSwordEntity;
 import com.chigusa.jsnboss.entity.WhiteFoxEntity;
 import com.chigusa.jsnboss.entity.TornadoEntity;
+import com.chigusa.jsnboss.entity.GroundBoltEntity;
+import com.chigusa.jsnboss.entity.LightningMarkEntity;
+import com.chigusa.jsnboss.entity.ThunderLionEntity;
 import com.chigusa.jsnboss.entity.WindBladeEntity;
 import com.chigusa.jsnboss.entity.WindCatEntity;
 import com.chigusa.jsnboss.entity.KnightFireballEntity;
@@ -148,6 +151,20 @@ public final class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<TornadoEntity>> TORNADO =
             ENTITY_TYPES.register("tornado", () -> EntityType.Builder.<TornadoEntity>of(TornadoEntity::new, MobCategory.MISC)
                     .sized(1.5F, 3.0F).clientTrackingRange(8).updateInterval(1).noSave().build("tornado"));
+
+    // ------------------------------------------------------------ 雷の獅子
+    /** 幅2.6 × 高さ2.4ブロック */
+    public static final DeferredHolder<EntityType<?>, EntityType<ThunderLionEntity>> THUNDER_LION =
+            ENTITY_TYPES.register("thunder_lion", () -> EntityType.Builder.<ThunderLionEntity>of(ThunderLionEntity::new, MobCategory.MONSTER)
+                    .sized(2.6F, 2.4F).clientTrackingRange(10).build("thunder_lion"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<LightningMarkEntity>> LIGHTNING_MARK =
+            ENTITY_TYPES.register("lightning_mark", () -> EntityType.Builder.<LightningMarkEntity>of(LightningMarkEntity::new, MobCategory.MISC)
+                    .sized(1.0F, 0.5F).clientTrackingRange(8).noSave().build("lightning_mark"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<GroundBoltEntity>> GROUND_BOLT =
+            ENTITY_TYPES.register("ground_bolt", () -> EntityType.Builder.<GroundBoltEntity>of(GroundBoltEntity::new, MobCategory.MISC)
+                    .sized(0.8F, 0.8F).clientTrackingRange(8).updateInterval(1).noSave().build("ground_bolt"));
 
     private ModEntities() {}
 }

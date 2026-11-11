@@ -3,6 +3,7 @@ package com.chigusa.jsnboss.registry;
 import com.chigusa.jsnboss.BossConstants;
 import com.chigusa.jsnboss.effect.LacerationEffect;
 import com.chigusa.jsnboss.effect.SoulBurnEffect;
+import com.chigusa.jsnboss.effect.StunEffect;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -17,6 +18,9 @@ public final class ModEffects {
 
     public static final DeferredHolder<MobEffect, LacerationEffect> LACERATION =
             MOB_EFFECTS.register("laceration", LacerationEffect::new);
+
+    public static final DeferredHolder<MobEffect, StunEffect> STUN =
+            MOB_EFFECTS.register("stun", StunEffect::new);
 
     private ModEffects() {}
 }

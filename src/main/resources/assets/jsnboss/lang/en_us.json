@@ -35,5 +35,10 @@
   "entity.jsnboss.wind_cat": "Gale Lynx",
   "entity.jsnboss.wind_blade": "Wind Blade",
   "entity.jsnboss.tornado": "Tornado",
-  "item.jsnboss.wind_cat_spawn_egg": "Gale Lynx Spawn Egg"
+  "item.jsnboss.wind_cat_spawn_egg": "Gale Lynx Spawn Egg",
+  "entity.jsnboss.thunder_lion": "Thunder Lion",
+  "entity.jsnboss.lightning_mark": "Lightning Strike",
+  "entity.jsnboss.ground_bolt": "Ground Bolt",
+  "item.jsnboss.thunder_lion_spawn_egg": "Thunder Lion Spawn Egg",
+  "effect.jsnboss.stun": "Stun"
 }
