@@ -9,75 +9,75 @@ m = Model("zombie_king", 256, 256, seed=21)
 m.bone("root", [0, 0, 0])
 
 LEG = [
-    ([-9, 0, -4.5], [8, 4, 9], "iron", "boot"),
-    ([-8.5, 4, -3.5], [7, 14, 7], "skin", "shin"),
+    ([-10, 0, -5.5], [9, 4, 11], "iron", "boot"),
+    ([-9.5, 4, -4.5], [9, 14, 9], "skin", "shin"),
 ]
 m.bone("right_leg", [-5, 18, 0], parent="root", cubes=LEG)
 m.bone("left_leg", [5, 18, 0], parent="root", cubes=mirror(LEG))
 
 # 腰：ボロボロのローブのすそと金のベルト
 m.bone("waist", [0, 18, 0], parent="root", cubes=[
-    ([-11, 7, -6], [22, 12, 12], "robe", "skirt"),
-    ([-11.5, 18, -6.5], [23, 3, 13], "gold", "belt"),
-    ([-2, 18, -7], [4, 3, 1], "gem", "buckle"),
+    ([-12, 7, -7.5], [24, 12, 15], "robe", "skirt"),
+    ([-12.5, 18, -8], [25, 3, 16], "gold", "belt"),
+    ([-2, 18, -8.5], [4, 3, 1], "gem", "buckle"),
 ])
 
-# 胴体：前かがみ（猫背）。前を開けたローブから肋骨がのぞく
+# 胴体：前かがみ（猫背）。突き出た太鼓腹、前を開けたローブから肋骨がのぞく
 m.bone("torso", [0, 21, 0], parent="waist", rotation=[15, 0, 0], cubes=[
-    ([-10.5, 21, -5.5], [21, 9, 11], "skin", "belly"),
-    ([-11.5, 27, -6.2], [23, 4, 12], "robe", "chest_low"),
-    ([-12, 30, -7], [24, 12, 14], "robe", "chest"),
-    ([-6, 30, -7.5], [12, 11, 1], "skin", "ribs"),
-    ([-14, 41, -8], [28, 5, 16], "fur", "mantle"),
-    ([-15, 42, -6], [3, 3, 12], "fur", "mantle_side"),
-    ([12, 42, -6], [3, 3, 12], "fur", "mantle_side"),
+    ([-11.5, 20, -10], [23, 10, 17], "skin", "belly"),
+    ([-12.5, 27, -8.5], [25, 4, 16], "robe", "chest_low"),
+    ([-13, 30, -8], [26, 12, 16], "robe", "chest"),
+    ([-6, 30, -8.6], [12, 11, 1], "skin", "ribs"),
+    ([-15, 41, -9], [30, 5, 18], "fur", "mantle"),
+    ([-17, 42, -7], [3, 3, 14], "fur", "mantle_side"),
+    ([14, 42, -7], [3, 3, 14], "fur", "mantle_side"),
 ])
 
 m.bone("head", [0, 45, -2], parent="torso", cubes=[
-    ([-6, 45, -9], [12, 11, 12], "skin", "face"),
-    ([-5, 42, -9.5], [10, 3, 9], "bone", "jaw"),
+    ([-6.5, 45, -10], [13, 11, 14], "skin", "face"),
+    ([-5.5, 42, -10.5], [11, 3, 10], "bone", "jaw"),
 ])
-CROWN_SPIKE = [([-7, 59, -8], [2, 4, 2], "gold", "crown_spike"),
-               ([-1, 59, -8.5], [2, 5, 2], "gold", "crown_spike"),
-               ([-7, 59, 1], [2, 3, 2], "gold", "crown_spike")]
+CROWN_SPIKE = [([-7.5, 59, -9], [2, 4, 2], "gold", "crown_spike"),
+               ([-1, 59, -9.5], [2, 5, 2], "gold", "crown_spike"),
+               ([-7.5, 59, 2], [2, 3, 2], "gold", "crown_spike")]
 m.bone("crown", [0, 56, -3], parent="head", cubes=[
-    ([-7, 56, -10], [14, 3, 13], "gold", "crown"),
-    ([-1, 57, -10.5], [2, 2, 1], "gem", "crown_gem"),
-    ([-5, 57, -10.5], [1, 1, 1], "gem", "crown_gem"),
-    ([4, 57, -10.5], [1, 1, 1], "gem", "crown_gem"),
+    ([-7.5, 56, -10.5], [15, 3, 15], "gold", "crown"),
+    ([-1, 57, -11], [2, 2, 1], "gem", "crown_gem"),
+    ([-5, 57, -11], [1, 1, 1], "gem", "crown_gem"),
+    ([4, 57, -11], [1, 1, 1], "gem", "crown_gem"),
 ] + CROWN_SPIKE + mirror(CROWN_SPIKE[:1] + CROWN_SPIKE[2:]))
 
 # マント：背中から地面近くまで、すそが破れている
-m.bone("cape", [0, 44, 7], parent="torso", cubes=[
-    ([-12, 12, 7], [24, 32, 1], "cape", "cape"),
+m.bone("cape", [0, 44, 8], parent="torso", cubes=[
+    ([-12.5, 12, 8], [25, 32, 1], "cape", "cape"),
 ])
 
 ARM = [
-    ([-19.5, 26, -3.5], [7, 15, 7], "skin", "upper_arm"),
-    ([-21, 38, -5.5], [9, 6, 11], "gold", "pauldron"),
-    ([-20, 44, -2], [2, 3, 2], "gold", "pauldron_spike"),
+    ([-21, 26, -4], [8, 15, 8], "skin", "upper_arm"),
+    ([-23, 38, -6], [10, 6, 12], "gold", "pauldron"),
+    ([-22, 44, -2], [2, 3, 2], "gold", "pauldron_spike"),
 ]
 HAND = [
-    ([-19.5, 13, -3.5], [7, 15, 7], "skin", "forearm"),
-    ([-20, 18, -4.5], [8, 4, 9], "bandage", "wrap"),
-    ([-20, 7, -4], [8, 7, 8], "skin", "fist"),
-    ([-19, 5, -4], [2, 2, 2], "bone", "claw"),
-    ([-16, 5, -4], [2, 2, 2], "bone", "claw"),
+    ([-21, 13, -4], [8, 15, 8], "skin", "forearm"),
+    ([-21.5, 18, -4.5], [9, 4, 9], "bandage", "wrap"),
+    ([-21.5, 7, -4.5], [9, 7, 9], "skin", "fist"),
+    ([-20.5, 5, -4.5], [2, 2, 2], "bone", "claw"),
+    ([-17.5, 5, -4.5], [2, 2, 2], "bone", "claw"),
 ]
-m.bone("right_arm", [-15.5, 40, 0], parent="torso", cubes=ARM)
-m.bone("right_hand", [-16, 28, 0], parent="right_arm", cubes=HAND)
-m.bone("left_arm", [15.5, 40, 0], parent="torso", cubes=mirror(ARM))
-m.bone("left_hand", [16, 28, 0], parent="left_arm", cubes=mirror(HAND))
+m.bone("right_arm", [-17, 40, 0], parent="torso", cubes=ARM)
+m.bone("right_hand", [-17, 28, 0], parent="right_arm", cubes=HAND)
+m.bone("left_arm", [17, 40, 0], parent="torso", cubes=mirror(ARM))
+m.bone("left_hand", [17, 28, 0], parent="left_arm", cubes=mirror(HAND))
 
 # 王笏：重い金の頭がついた大きな杖。ふだんは先を前の地面につけている
-m.bone("scepter", [-16, 10, 0], parent="right_hand", rotation=[-70, 0, 0], cubes=[
-    ([-17, -12, -1], [2, 24, 2], "iron", "shaft"),
-    ([-17.5, 12, -1.5], [3, 3, 3], "gold", "pommel"),
-    ([-19.5, -19, -3.5], [7, 7, 7], "gold", "head_gold"),
-    ([-17, -21, -1], [2, 2, 2], "gold", "head_tip"),
-    ([-20.5, -17, -1], [1, 3, 2], "gold", "head_spike"),
-    ([-12.5, -17, -1], [1, 3, 2], "gold", "head_spike"),
-    ([-17.5, -17, -4], [3, 3, 1], "gem", "scepter_gem"),
+m.bone("scepter", [-17, 10, 0], parent="right_hand", rotation=[-70, 0, 0], cubes=[
+    ([-18, -12, -1], [2, 24, 2], "iron", "shaft"),
+    ([-18.5, 12, -1.5], [3, 3, 3], "gold", "pommel"),
+    ([-20.5, -19, -3.5], [7, 7, 7], "gold", "head_gold"),
+    ([-18, -21, -1], [2, 2, 2], "gold", "head_tip"),
+    ([-21.5, -17, -1], [1, 3, 2], "gold", "head_spike"),
+    ([-13.5, -17, -1], [1, 3, 2], "gold", "head_spike"),
+    ([-18.5, -17, -4], [3, 3, 1], "gem", "scepter_gem"),
 ])
 
 # ---------------------------------------------------------------- texture
