@@ -6,7 +6,7 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 
 ### 炎の騎士（`jsnboss:fire_knight`）
 
-身長3.5ブロック、HP 400。燃える大剣を持った黒鉄の騎士。HP が半分を切ると第2形態になり、炎が青く変わる。
+身長3.5ブロック、HP 1500。燃える大剣を持った黒鉄の騎士。HP が半分（750）を切ると第2形態になり、炎が青く変わる。
 
 | 技 | 第1形態 | 第2形態 | 使う距離 |
 |---|---|---|---|
@@ -22,6 +22,10 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 - 青い火柱は防具・エンチャント・効果・盾・難易度を無視する（`data/minecraft/tags/damage_type/`）。不死のトーテムは効く
 - 蒼炎：1秒ごとに1ダメージ。水に入っても消えない
 
+## 最大HPの上限について
+
+バニラの最大HPは1024が上限なので、この MOD は起動時に上限を100000まで引き上げている（`BossSetup.raiseMaxHealthCap()`、`META-INF/accesstransformer.cfg`）。ほかのモブのHPは変わらない。
+
 ## 遊び方
 
 ```
@@ -30,7 +34,7 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 
 - クリエイティブの「スポーンエッグ」タブに「炎の騎士のスポーンエッグ」
 - コマンド：`/summon jsnboss:fire_knight`
-- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:190f}`
+- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`
 
 配布用の jar は `./gradlew build` で `build/libs/` にできる。GitHub に push すると Actions が自動でビルドする（jar は Actions の実行結果からダウンロードできる）。
 

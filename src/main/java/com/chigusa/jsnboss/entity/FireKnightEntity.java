@@ -113,7 +113,7 @@ public class FireKnightEntity extends Monster implements GeoEntity {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 400.0)
+                .add(Attributes.MAX_HEALTH, 1500.0)
                 .add(Attributes.ARMOR, 10.0)
                 .add(Attributes.ARMOR_TOUGHNESS, 4.0)
                 .add(Attributes.ATTACK_DAMAGE, 12.0)
