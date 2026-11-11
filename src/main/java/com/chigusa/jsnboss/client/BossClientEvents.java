@@ -33,6 +33,9 @@ public final class BossClientEvents {
             event.registerEntityRenderer(ModEntities.ZOMBIE_KING.get(), ZombieKingRenderer::new);
             event.registerEntityRenderer(ModEntities.SHOCKWAVE.get(), NoopRenderer::new);
             event.registerEntityRenderer(ModEntities.GRAVE_HAND.get(), NoopRenderer::new);
+
+            event.registerEntityRenderer(ModEntities.DARK_MAGE.get(), DarkMageRenderer::new);
+            event.registerEntityRenderer(ModEntities.DARK_ORB.get(), NoopRenderer::new);
         }
     }
 

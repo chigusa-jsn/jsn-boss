@@ -16,7 +16,9 @@ JP = {"idle": "待機", "walk": "歩き", "attack_sweep": "横なぎ", "attack_d
       "cast_spear": "氷の槍", "cast_spikes": "氷のトゲ", "cast_field": "凍てつく大地", "nova": "氷の爆発",
       "teleport": "テレポート", "cast_hail": "雹", "summon_clones": "分身", "absolute_zero": "絶対零度",
       "smash": "振り下ろし", "sweep": "薙ぎ払い", "pound": "衝撃波", "summon": "手下召喚", "breath": "腐毒のブレス",
-      "hands": "死者の手", "roar": "第2形態へ", "revive": "復活"}
+      "hands": "死者の手", "roar": "第2形態へ", "revive": "復活",
+      "cast_orbs": "闇の弾", "blink": "背後斬り", "drain": "命を吸う鎖", "beam": "闇の光線", "abyss": "深淵の詠唱",
+      "stagger": "ふらつき", "burst": "闇の爆発"}
 
 def sample(chan, t):
     ks = sorted((float(k), v) for k, v in chan.items())

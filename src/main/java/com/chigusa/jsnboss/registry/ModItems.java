@@ -22,5 +22,9 @@ public final class ModItems {
             ITEMS.register("zombie_king_spawn_egg",
                     () -> new DeferredSpawnEggItem(ModEntities.ZOMBIE_KING, 0x4A1D4F, 0xC9A227, new Item.Properties()));
 
+    public static final DeferredItem<DeferredSpawnEggItem> DARK_MAGE_SPAWN_EGG =
+            ITEMS.register("dark_mage_spawn_egg",
+                    () -> new DeferredSpawnEggItem(ModEntities.DARK_MAGE, 0x1B1426, 0xB06BFF, new Item.Properties()));
+
     private ModItems() {}
 }

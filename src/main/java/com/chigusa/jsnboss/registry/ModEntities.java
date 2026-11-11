@@ -11,6 +11,8 @@ import com.chigusa.jsnboss.entity.IceWitchEntity;
 import com.chigusa.jsnboss.entity.GraveHandEntity;
 import com.chigusa.jsnboss.entity.ShockwaveEntity;
 import com.chigusa.jsnboss.entity.ZombieKingEntity;
+import com.chigusa.jsnboss.entity.DarkMageEntity;
+import com.chigusa.jsnboss.entity.DarkOrbEntity;
 import com.chigusa.jsnboss.entity.KnightFireballEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
@@ -75,6 +77,16 @@ public final class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<GraveHandEntity>> GRAVE_HAND =
             ENTITY_TYPES.register("grave_hand", () -> EntityType.Builder.<GraveHandEntity>of(GraveHandEntity::new, MobCategory.MISC)
                     .sized(1.0F, 1.0F).clientTrackingRange(8).noSave().build("grave_hand"));
+
+    // ------------------------------------------------------------ 闇の魔導士
+    /** 幅1.0 × 高さ2.6ブロック */
+    public static final DeferredHolder<EntityType<?>, EntityType<DarkMageEntity>> DARK_MAGE =
+            ENTITY_TYPES.register("dark_mage", () -> EntityType.Builder.<DarkMageEntity>of(DarkMageEntity::new, MobCategory.MONSTER)
+                    .sized(1.0F, 2.6F).clientTrackingRange(10).build("dark_mage"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<DarkOrbEntity>> DARK_ORB =
+            ENTITY_TYPES.register("dark_orb", () -> EntityType.Builder.<DarkOrbEntity>of(DarkOrbEntity::new, MobCategory.MISC)
+                    .sized(0.6F, 0.6F).clientTrackingRange(6).updateInterval(1).noSave().build("dark_orb"));
 
     private ModEntities() {}
 }

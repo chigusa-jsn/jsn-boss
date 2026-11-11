@@ -16,5 +16,9 @@
   "entity.jsnboss.zombie_king": "Zombie King",
   "entity.jsnboss.shockwave": "Shockwave",
   "entity.jsnboss.grave_hand": "Grave Hand",
-  "item.jsnboss.zombie_king_spawn_egg": "Zombie King Spawn Egg"
+  "item.jsnboss.zombie_king_spawn_egg": "Zombie King Spawn Egg",
+  "entity.jsnboss.dark_mage": "Dark Mage",
+  "entity.jsnboss.dark_orb": "Dark Orb",
+  "item.jsnboss.dark_mage_spawn_egg": "Dark Mage Spawn Egg",
+  "boss.jsnboss.dark_mage.channel": "%1$s — Interrupt the incantation! %2$s / %3$s"
 }
