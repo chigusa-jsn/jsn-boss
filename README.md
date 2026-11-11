@@ -54,6 +54,22 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 | 死者の手（全員の足元、予告0.9秒） | — | 10＋1.5秒ほぼ動けない |
 | 復活の衝撃（半径7） | — | 10 |
 
+### 闇の魔導士（`jsnboss:dark_mage`）
+
+身長約2.5ブロック、HP 1200。素早く動き回り、追いかけてくる闇の弾・背後への瞬間移動・命を吸う鎖で追い詰めてくる。HP が半分（600）を切ると第2形態「深淵」になり、宙に浮かんで光が深紅に変わる。
+
+| 技 | 第1形態 | 第2形態 |
+|---|---|---|
+| 闇の弾（追いかけてくる、叩けば消せる） | 8＋衰弱 ×3連射 | 10＋衰弱 ×3方向×3連射 |
+| 背後斬り（後ろに瞬間移動して斬る） | 12 | 16（2回続けて） |
+| 命を吸う鎖（離れる・物陰に隠れると切れる） | 0.5秒ごとに3（防具無視）、吸った分の2倍回復 | 近くの全員から吸う |
+| 闇の爆発（近づかれたとき） | 10 | 13 |
+| 闇の光線（長さ20、左から右へなぎ払う） | — | 0.2秒ごとに8 |
+| 深淵の詠唱（6秒溜め、半径24） | — | 30＋暗闇。**溜めの間に120ダメージ与えると止められる** |
+
+- 詠唱中はボスバーに「詠唱を止めろ！ 54 / 120」と進み具合が出る。止めると3秒ふらつき、その間は受けるダメージが1.5倍
+- 走って半径24の輪の外へ逃げても避けられる
+
 ## 最大HPの上限について
 
 バニラの最大HPは1024が上限なので、この MOD は起動時に上限を100000まで引き上げている（`BossSetup.raiseMaxHealthCap()`、`META-INF/accesstransformer.cfg`）。ほかのモブのHPは変わらない。
@@ -65,8 +81,8 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 ```
 
 - クリエイティブの「スポーンエッグ」タブに各ボスのスポーンエッグ
-- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`
-- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f）
+- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`
+- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f）
 
 配布用の jar は `./gradlew build` で `build/libs/` にできる。GitHub に push すると Actions が自動でビルドする（jar は Actions の実行結果からダウンロードできる）。
 
@@ -75,7 +91,7 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 | 内容 | 場所 |
 |---|---|
 | ボス共通の土台 | `src/main/java/com/chigusa/jsnboss/entity/AbstractBoss.java` |
-| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java` |
+| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java`、`entity/DarkMageEntity.java` |
 | 火の玉・斬撃・火柱 | `src/main/java/com/chigusa/jsnboss/entity/` |
 | モデル | `src/main/resources/assets/jsnboss/geo/entity/fire_knight.geo.json` |
 | アニメーション | `src/main/resources/assets/jsnboss/animations/entity/fire_knight.animation.json` |
