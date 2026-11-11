@@ -18,7 +18,9 @@ JP = {"idle": "待機", "walk": "歩き", "attack_sweep": "横なぎ", "attack_d
       "smash": "振り下ろし", "sweep": "薙ぎ払い", "pound": "衝撃波", "summon": "手下召喚", "breath": "腐毒のブレス",
       "hands": "死者の手", "roar": "第2形態へ", "revive": "復活",
       "cast_orbs": "闇の弾", "blink": "背後斬り", "drain": "命を吸う鎖", "beam": "闇の光線", "abyss": "深淵の詠唱",
-      "stagger": "ふらつき", "burst": "闇の爆発"}
+      "stagger": "ふらつき", "burst": "闇の爆発",
+      "run": "走り", "pounce": "飛びかかり", "wing_slash": "翼斬り", "tail_spin": "回転斬り", "sword_volley": "剣を飛ばす",
+      "blade_path": "刃の道", "vanish": "影に消える", "emerge": "影から現れる", "dive": "急降下"}
 
 def sample(chan, t):
     ks = sorted((float(k), v) for k, v in chan.items())
@@ -52,10 +54,13 @@ if __name__ == "__main__":
     names = list(FA.A.keys())
     fps, scale, yaw, pitch = 10, 3, -40, 12
     bounds = (-55, 55, -78, 18)
+    if len(sys.argv) > 4:                       # 大きいボス用： "x0,x1,y0,y1" と倍率
+        bounds = tuple(float(v) for v in sys.argv[4].split(","))
+        scale = float(sys.argv[5]) if len(sys.argv) > 5 else scale
     total = max(a["length"] for a in FA.A.values()) + 0.6
     nfr = int(total * fps)
     cols = 4; rows = math.ceil(len(names) / cols)
-    cw, ch = int(110 * scale), int(96 * scale) + 26
+    cw, ch = int((bounds[1] - bounds[0]) * scale), int((bounds[3] - bounds[2]) * scale) + 26
     frames = []
     for fi in range(nfr):
         t = fi / fps
