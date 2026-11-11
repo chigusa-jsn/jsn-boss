@@ -5,10 +5,18 @@ from PIL import Image, ImageFilter, ImageDraw
 
 SCR = "tools"
 A = "src/main/resources/assets/jsnboss"
-tex = np.array(Image.open(f"{A}/textures/entity/fire_knight.png").convert("RGBA")).astype(float)
-glw = np.array(Image.open(f"{A}/textures/entity/fire_knight_glowmask.png").convert("RGBA")).astype(float)
-data = json.load(open(f"{SCR}/fk_faces.json"))
-bones = {b["name"]: b for b in data["bones"]}
+tex = glw = data = bones = None
+
+def load(name="fire_knight", texture=None):
+    """name のモデル（tools/<name>_faces.json）とテクスチャを読み込む"""
+    global tex, glw, data, bones
+    texture = texture or name
+    tex = np.array(Image.open(f"{A}/textures/entity/{texture}.png").convert("RGBA")).astype(float)
+    glw = np.array(Image.open(f"{A}/textures/entity/{texture}_glowmask.png").convert("RGBA")).astype(float)
+    data = json.load(open(f"{SCR}/{name}_faces.json"))
+    bones = {b["name"]: b for b in data["bones"]}
+
+load()
 
 def rot(rx, ry, rz):
     ax, ay, az = math.radians(-rx), math.radians(ry), math.radians(rz)
@@ -129,6 +137,8 @@ def to_image(img, gl, cover, bg_top=(28, 24, 34), bg_bot=(64, 40, 34)):
     return Image.fromarray(out.astype(np.uint8))
 
 if __name__ == "__main__":
+    if len(sys.argv) > 2:
+        load(sys.argv[2])
     S = 7
     views = [(0, 6, "正面"), (-35, 14, "ななめ前"), (155, 10, "うしろ"), (90, 6, "よこ")]
     imgs = []

@@ -336,5 +336,5 @@ with open(f"{OUT}/geo/entity/fire_knight.geo.json", "w") as fp:
     json.dump(geo, fp, indent=1)
 
 json.dump({"bones": BONES, "flat": [(n, list(f), m) for n, f, m in flat]},
-          open("tools/fk_faces.json", "w"))
+          open("tools/fire_knight_faces.json", "w"))
 print("cubes", len(all_cubes), "texture rows used", USED_H)

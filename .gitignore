@@ -40,7 +40,7 @@ repo/
 !**/src/**/repo/
 
 ### Asset tools ###
-tools/fk_faces.json
+tools/*_faces.json
 tools/*.png
 tools/*.gif
 tools/__pycache__/
