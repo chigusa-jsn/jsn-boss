@@ -16,6 +16,10 @@ import com.chigusa.jsnboss.entity.DarkOrbEntity;
 import com.chigusa.jsnboss.entity.BladeDragonEntity;
 import com.chigusa.jsnboss.entity.BladeSpikeEntity;
 import com.chigusa.jsnboss.entity.FlyingSwordEntity;
+import com.chigusa.jsnboss.entity.FoxfireEntity;
+import com.chigusa.jsnboss.entity.LightPillarEntity;
+import com.chigusa.jsnboss.entity.LightSwordEntity;
+import com.chigusa.jsnboss.entity.WhiteFoxEntity;
 import com.chigusa.jsnboss.entity.KnightFireballEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
@@ -104,6 +108,29 @@ public final class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<BladeSpikeEntity>> BLADE_SPIKE =
             ENTITY_TYPES.register("blade_spike", () -> EntityType.Builder.<BladeSpikeEntity>of(BladeSpikeEntity::new, MobCategory.MISC)
                     .sized(1.0F, 2.5F).clientTrackingRange(8).noSave().build("blade_spike"));
+
+    // ------------------------------------------------------------ 光の白狐
+    /** 幅2.0 × 高さ2.6ブロック */
+    public static final DeferredHolder<EntityType<?>, EntityType<WhiteFoxEntity>> WHITE_FOX =
+            ENTITY_TYPES.register("white_fox", () -> EntityType.Builder.<WhiteFoxEntity>of(WhiteFoxEntity::new, MobCategory.MONSTER)
+                    .sized(2.0F, 2.6F).clientTrackingRange(10).build("white_fox"));
+
+    /** 分身（見た目は第1形態のまま、HP1、ボスバーなし） */
+    public static final DeferredHolder<EntityType<?>, EntityType<WhiteFoxEntity>> WHITE_FOX_CLONE =
+            ENTITY_TYPES.register("white_fox_clone", () -> EntityType.Builder.<WhiteFoxEntity>of(WhiteFoxEntity::new, MobCategory.MONSTER)
+                    .sized(2.0F, 2.6F).clientTrackingRange(10).noSave().noSummon().build("white_fox_clone"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<FoxfireEntity>> FOXFIRE =
+            ENTITY_TYPES.register("foxfire", () -> EntityType.Builder.<FoxfireEntity>of(FoxfireEntity::new, MobCategory.MISC)
+                    .sized(0.6F, 0.6F).clientTrackingRange(6).updateInterval(1).noSave().build("foxfire"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<LightPillarEntity>> LIGHT_PILLAR =
+            ENTITY_TYPES.register("light_pillar", () -> EntityType.Builder.<LightPillarEntity>of(LightPillarEntity::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F).clientTrackingRange(8).noSave().build("light_pillar"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<LightSwordEntity>> LIGHT_SWORD =
+            ENTITY_TYPES.register("light_sword", () -> EntityType.Builder.<LightSwordEntity>of(LightSwordEntity::new, MobCategory.MISC)
+                    .sized(1.0F, 2.5F).clientTrackingRange(8).noSave().build("light_sword"));
 
     private ModEntities() {}
 }

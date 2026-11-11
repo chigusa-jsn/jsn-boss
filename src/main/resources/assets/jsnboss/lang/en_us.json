@@ -25,5 +25,11 @@
   "entity.jsnboss.flying_sword": "Flying Sword",
   "entity.jsnboss.blade_spike": "Blade Path",
   "item.jsnboss.blade_dragon_spawn_egg": "Shadowblade Dragon Spawn Egg",
-  "effect.jsnboss.laceration": "Laceration"
+  "effect.jsnboss.laceration": "Laceration",
+  "entity.jsnboss.white_fox": "Radiant White Fox",
+  "entity.jsnboss.white_fox_clone": "White Fox Illusion",
+  "entity.jsnboss.foxfire": "Foxfire",
+  "entity.jsnboss.light_pillar": "Pillar of Light",
+  "entity.jsnboss.light_sword": "Sword of Light",
+  "item.jsnboss.white_fox_spawn_egg": "Radiant White Fox Spawn Egg"
 }

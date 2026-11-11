@@ -25,5 +25,11 @@
   "entity.jsnboss.flying_sword": "飛ぶ剣",
   "entity.jsnboss.blade_spike": "刃の道",
   "item.jsnboss.blade_dragon_spawn_egg": "影刃竜のスポーンエッグ",
-  "effect.jsnboss.laceration": "裂傷"
+  "effect.jsnboss.laceration": "裂傷",
+  "entity.jsnboss.white_fox": "光の白狐",
+  "entity.jsnboss.white_fox_clone": "白狐の幻",
+  "entity.jsnboss.foxfire": "狐火",
+  "entity.jsnboss.light_pillar": "光の柱",
+  "entity.jsnboss.light_sword": "光の剣",
+  "item.jsnboss.white_fox_spawn_egg": "光の白狐のスポーンエッグ"
 }

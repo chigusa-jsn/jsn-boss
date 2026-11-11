@@ -5,6 +5,7 @@ import com.chigusa.jsnboss.entity.IceWitchEntity;
 import com.chigusa.jsnboss.entity.ZombieKingEntity;
 import com.chigusa.jsnboss.entity.DarkMageEntity;
 import com.chigusa.jsnboss.entity.BladeDragonEntity;
+import com.chigusa.jsnboss.entity.WhiteFoxEntity;
 import com.chigusa.jsnboss.registry.ModEffects;
 import com.chigusa.jsnboss.registry.ModEntities;
 import com.chigusa.jsnboss.registry.ModItems;
@@ -48,6 +49,8 @@ public final class BossSetup {
         event.put(ModEntities.ZOMBIE_KING.get(), ZombieKingEntity.createAttributes().build());
         event.put(ModEntities.DARK_MAGE.get(), DarkMageEntity.createAttributes().build());
         event.put(ModEntities.BLADE_DRAGON.get(), BladeDragonEntity.createAttributes().build());
+        event.put(ModEntities.WHITE_FOX.get(), WhiteFoxEntity.createAttributes().build());
+        event.put(ModEntities.WHITE_FOX_CLONE.get(), WhiteFoxEntity.createCloneAttributes().build());
     }
 
     private static void onCreativeTab(BuildCreativeModeTabContentsEvent event) {
@@ -57,6 +60,7 @@ public final class BossSetup {
             event.accept(ModItems.ZOMBIE_KING_SPAWN_EGG.get());
             event.accept(ModItems.DARK_MAGE_SPAWN_EGG.get());
             event.accept(ModItems.BLADE_DRAGON_SPAWN_EGG.get());
+            event.accept(ModItems.WHITE_FOX_SPAWN_EGG.get());
         }
     }
 
