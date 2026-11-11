@@ -26,5 +26,9 @@ public final class ModItems {
             ITEMS.register("dark_mage_spawn_egg",
                     () -> new DeferredSpawnEggItem(ModEntities.DARK_MAGE, 0x1B1426, 0xB06BFF, new Item.Properties()));
 
+    public static final DeferredItem<DeferredSpawnEggItem> BLADE_DRAGON_SPAWN_EGG =
+            ITEMS.register("blade_dragon_spawn_egg",
+                    () -> new DeferredSpawnEggItem(ModEntities.BLADE_DRAGON, 0x17181F, 0xFF3048, new Item.Properties()));
+
     private ModItems() {}
 }

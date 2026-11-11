@@ -13,6 +13,9 @@ import com.chigusa.jsnboss.entity.ShockwaveEntity;
 import com.chigusa.jsnboss.entity.ZombieKingEntity;
 import com.chigusa.jsnboss.entity.DarkMageEntity;
 import com.chigusa.jsnboss.entity.DarkOrbEntity;
+import com.chigusa.jsnboss.entity.BladeDragonEntity;
+import com.chigusa.jsnboss.entity.BladeSpikeEntity;
+import com.chigusa.jsnboss.entity.FlyingSwordEntity;
 import com.chigusa.jsnboss.entity.KnightFireballEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
@@ -87,6 +90,20 @@ public final class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<DarkOrbEntity>> DARK_ORB =
             ENTITY_TYPES.register("dark_orb", () -> EntityType.Builder.<DarkOrbEntity>of(DarkOrbEntity::new, MobCategory.MISC)
                     .sized(0.6F, 0.6F).clientTrackingRange(6).updateInterval(1).noSave().build("dark_orb"));
+
+    // ------------------------------------------------------------ 影刃竜
+    /** 幅3.0 × 高さ2.4ブロック（体は鼻先から尻尾まで約5.5ブロック） */
+    public static final DeferredHolder<EntityType<?>, EntityType<BladeDragonEntity>> BLADE_DRAGON =
+            ENTITY_TYPES.register("blade_dragon", () -> EntityType.Builder.<BladeDragonEntity>of(BladeDragonEntity::new, MobCategory.MONSTER)
+                    .sized(3.0F, 2.4F).clientTrackingRange(12).build("blade_dragon"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<FlyingSwordEntity>> FLYING_SWORD =
+            ENTITY_TYPES.register("flying_sword", () -> EntityType.Builder.<FlyingSwordEntity>of(FlyingSwordEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).clientTrackingRange(6).updateInterval(1).noSave().build("flying_sword"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<BladeSpikeEntity>> BLADE_SPIKE =
+            ENTITY_TYPES.register("blade_spike", () -> EntityType.Builder.<BladeSpikeEntity>of(BladeSpikeEntity::new, MobCategory.MISC)
+                    .sized(1.0F, 2.5F).clientTrackingRange(8).noSave().build("blade_spike"));
 
     private ModEntities() {}
 }

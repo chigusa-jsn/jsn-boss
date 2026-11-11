@@ -20,5 +20,10 @@
   "entity.jsnboss.dark_mage": "闇の魔導士",
   "entity.jsnboss.dark_orb": "闇の弾",
   "item.jsnboss.dark_mage_spawn_egg": "闇の魔導士のスポーンエッグ",
-  "boss.jsnboss.dark_mage.channel": "%1$s ― 詠唱を止めろ！ %2$s / %3$s"
+  "boss.jsnboss.dark_mage.channel": "%1$s ― 詠唱を止めろ！ %2$s / %3$s",
+  "entity.jsnboss.blade_dragon": "影刃竜",
+  "entity.jsnboss.flying_sword": "飛ぶ剣",
+  "entity.jsnboss.blade_spike": "刃の道",
+  "item.jsnboss.blade_dragon_spawn_egg": "影刃竜のスポーンエッグ",
+  "effect.jsnboss.laceration": "裂傷"
 }

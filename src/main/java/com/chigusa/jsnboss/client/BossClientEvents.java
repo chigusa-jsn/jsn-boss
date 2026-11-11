@@ -36,6 +36,10 @@ public final class BossClientEvents {
 
             event.registerEntityRenderer(ModEntities.DARK_MAGE.get(), DarkMageRenderer::new);
             event.registerEntityRenderer(ModEntities.DARK_ORB.get(), NoopRenderer::new);
+
+            event.registerEntityRenderer(ModEntities.BLADE_DRAGON.get(), BladeDragonRenderer::new);
+            event.registerEntityRenderer(ModEntities.FLYING_SWORD.get(), FlyingSwordRenderer::new);
+            event.registerEntityRenderer(ModEntities.BLADE_SPIKE.get(), BladeSpikeRenderer::new);
         }
     }
 

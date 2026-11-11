@@ -20,5 +20,10 @@
   "entity.jsnboss.dark_mage": "Dark Mage",
   "entity.jsnboss.dark_orb": "Dark Orb",
   "item.jsnboss.dark_mage_spawn_egg": "Dark Mage Spawn Egg",
-  "boss.jsnboss.dark_mage.channel": "%1$s — Interrupt the incantation! %2$s / %3$s"
+  "boss.jsnboss.dark_mage.channel": "%1$s — Interrupt the incantation! %2$s / %3$s",
+  "entity.jsnboss.blade_dragon": "Shadowblade Dragon",
+  "entity.jsnboss.flying_sword": "Flying Sword",
+  "entity.jsnboss.blade_spike": "Blade Path",
+  "item.jsnboss.blade_dragon_spawn_egg": "Shadowblade Dragon Spawn Egg",
+  "effect.jsnboss.laceration": "Laceration"
 }
