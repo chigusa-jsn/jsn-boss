@@ -1,0 +1,18 @@
+package com.chigusa.jsnboss.registry;
+
+import com.chigusa.jsnboss.BossConstants;
+import com.chigusa.jsnboss.effect.SoulBurnEffect;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.effect.MobEffect;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+public final class ModEffects {
+    public static final DeferredRegister<MobEffect> MOB_EFFECTS =
+            DeferredRegister.create(Registries.MOB_EFFECT, BossConstants.MODID);
+
+    public static final DeferredHolder<MobEffect, SoulBurnEffect> SOUL_BURN =
+            MOB_EFFECTS.register("soul_burn", SoulBurnEffect::new);
+
+    private ModEffects() {}
+}

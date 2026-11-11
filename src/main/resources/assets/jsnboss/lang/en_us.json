@@ -1,0 +1,10 @@
+{
+  "entity.jsnboss.fire_knight": "Flame Knight",
+  "entity.jsnboss.knight_fireball": "Knight Fireball",
+  "entity.jsnboss.flame_slash": "Flame Slash",
+  "entity.jsnboss.fire_pillar": "Fire Pillar",
+  "item.jsnboss.fire_knight_spawn_egg": "Flame Knight Spawn Egg",
+  "effect.jsnboss.soul_burn": "Soul Burn",
+  "death.attack.jsnboss.blue_fire": "%1$s was consumed by a pillar of soul fire",
+  "death.attack.jsnboss.blue_fire.player": "%1$s was consumed by %2$s's pillar of soul fire"
+}

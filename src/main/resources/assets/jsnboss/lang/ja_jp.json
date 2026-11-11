@@ -1,0 +1,10 @@
+{
+  "entity.jsnboss.fire_knight": "炎の騎士",
+  "entity.jsnboss.knight_fireball": "騎士の火の玉",
+  "entity.jsnboss.flame_slash": "炎の斬撃",
+  "entity.jsnboss.fire_pillar": "火柱",
+  "item.jsnboss.fire_knight_spawn_egg": "炎の騎士のスポーンエッグ",
+  "effect.jsnboss.soul_burn": "蒼炎",
+  "death.attack.jsnboss.blue_fire": "%1$s は蒼炎の火柱に焼き尽くされた",
+  "death.attack.jsnboss.blue_fire.player": "%1$s は %2$s の蒼炎の火柱に焼き尽くされた"
+}
