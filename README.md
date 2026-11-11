@@ -40,6 +40,20 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 - 氷の攻撃に当たると「凍える」（粉雪に埋まったときと同じ）。溜まると動きが鈍り、凍結ダメージを受ける。**革防具を着ていると凍らない**
 - 第2形態の近くでは吹雪で遠くが見えにくくなる（離れると晴れる）
 
+### ゾンビの王（`jsnboss:zombie_king`）
+
+身長約4ブロック、HP 2000。重くて遅いが一撃が重い。手下のゾンビが生きている間は1体につき毎秒2回復する。HP が半分（1000）を切ると第2形態「不死の王」になり、目と宝石が緑に光る。第2形態で倒されると一度だけ HP 500 で復活する（実質 HP 2500）。
+
+| 技 | 第1形態 | 第2形態 |
+|---|---|---|
+| 王笏の振り下ろし | 18 | 22 |
+| 薙ぎ払い | 13 | 17 |
+| 衝撃波（地面を走る輪、ジャンプで避ける） | 12（1回） | 15（2回） |
+| 手下召喚（最大6体） | ゾンビ3体 | 鉄の鎧と剣の近衛兵4体 |
+| 腐毒のブレス（前方8ブロック） | — | 0.25秒ごとに3＋毒II |
+| 死者の手（全員の足元、予告0.9秒） | — | 10＋1.5秒ほぼ動けない |
+| 復活の衝撃（半径7） | — | 10 |
+
 ## 最大HPの上限について
 
 バニラの最大HPは1024が上限なので、この MOD は起動時に上限を100000まで引き上げている（`BossSetup.raiseMaxHealthCap()`、`META-INF/accesstransformer.cfg`）。ほかのモブのHPは変わらない。
@@ -51,8 +65,8 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 ```
 
 - クリエイティブの「スポーンエッグ」タブに各ボスのスポーンエッグ
-- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`
-- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ）
+- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`
+- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f）
 
 配布用の jar は `./gradlew build` で `build/libs/` にできる。GitHub に push すると Actions が自動でビルドする（jar は Actions の実行結果からダウンロードできる）。
 
@@ -61,7 +75,7 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 | 内容 | 場所 |
 |---|---|
 | ボス共通の土台 | `src/main/java/com/chigusa/jsnboss/entity/AbstractBoss.java` |
-| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java` |
+| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java` |
 | 火の玉・斬撃・火柱 | `src/main/java/com/chigusa/jsnboss/entity/` |
 | モデル | `src/main/resources/assets/jsnboss/geo/entity/fire_knight.geo.json` |
 | アニメーション | `src/main/resources/assets/jsnboss/animations/entity/fire_knight.animation.json` |
