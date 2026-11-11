@@ -6,5 +6,11 @@
   "item.jsnboss.fire_knight_spawn_egg": "Flame Knight Spawn Egg",
   "effect.jsnboss.soul_burn": "Soul Burn",
   "death.attack.jsnboss.blue_fire": "%1$s was consumed by a pillar of soul fire",
-  "death.attack.jsnboss.blue_fire.player": "%1$s was consumed by %2$s's pillar of soul fire"
+  "death.attack.jsnboss.blue_fire.player": "%1$s was consumed by %2$s's pillar of soul fire",
+  "entity.jsnboss.ice_witch": "Ice Witch",
+  "entity.jsnboss.ice_witch_clone": "Ice Witch Illusion",
+  "entity.jsnboss.ice_spear": "Ice Spear",
+  "entity.jsnboss.ice_spike": "Ice Spike",
+  "entity.jsnboss.frost_field": "Frozen Ground",
+  "item.jsnboss.ice_witch_spawn_egg": "Ice Witch Spawn Egg"
 }

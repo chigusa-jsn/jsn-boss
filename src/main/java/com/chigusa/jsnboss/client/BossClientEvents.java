@@ -23,6 +23,12 @@ public final class BossClientEvents {
             event.registerEntityRenderer(ModEntities.KNIGHT_FIREBALL.get(), NoopRenderer::new);
             event.registerEntityRenderer(ModEntities.FLAME_SLASH.get(), NoopRenderer::new);
             event.registerEntityRenderer(ModEntities.FIRE_PILLAR.get(), NoopRenderer::new);
+
+            event.registerEntityRenderer(ModEntities.ICE_WITCH.get(), IceWitchRenderer::new);
+            event.registerEntityRenderer(ModEntities.ICE_WITCH_CLONE.get(), IceWitchRenderer::new);
+            event.registerEntityRenderer(ModEntities.ICE_SPEAR.get(), NoopRenderer::new);
+            event.registerEntityRenderer(ModEntities.ICE_SPIKE.get(), NoopRenderer::new);
+            event.registerEntityRenderer(ModEntities.FROST_FIELD.get(), NoopRenderer::new);
         }
     }
 

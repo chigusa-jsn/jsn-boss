@@ -14,5 +14,9 @@ public final class ModItems {
             ITEMS.register("fire_knight_spawn_egg",
                     () -> new DeferredSpawnEggItem(ModEntities.FIRE_KNIGHT, 0x1D1A24, 0xFF7A1C, new Item.Properties()));
 
+    public static final DeferredItem<DeferredSpawnEggItem> ICE_WITCH_SPAWN_EGG =
+            ITEMS.register("ice_witch_spawn_egg",
+                    () -> new DeferredSpawnEggItem(ModEntities.ICE_WITCH, 0x1D2B53, 0x7FE3FF, new Item.Properties()));
+
     private ModItems() {}
 }

@@ -6,5 +6,11 @@
   "item.jsnboss.fire_knight_spawn_egg": "炎の騎士のスポーンエッグ",
   "effect.jsnboss.soul_burn": "蒼炎",
   "death.attack.jsnboss.blue_fire": "%1$s は蒼炎の火柱に焼き尽くされた",
-  "death.attack.jsnboss.blue_fire.player": "%1$s は %2$s の蒼炎の火柱に焼き尽くされた"
+  "death.attack.jsnboss.blue_fire.player": "%1$s は %2$s の蒼炎の火柱に焼き尽くされた",
+  "entity.jsnboss.ice_witch": "氷の魔女",
+  "entity.jsnboss.ice_witch_clone": "氷の魔女の幻影",
+  "entity.jsnboss.ice_spear": "氷の槍",
+  "entity.jsnboss.ice_spike": "氷のトゲ",
+  "entity.jsnboss.frost_field": "凍てつく大地",
+  "item.jsnboss.ice_witch_spawn_egg": "氷の魔女のスポーンエッグ"
 }

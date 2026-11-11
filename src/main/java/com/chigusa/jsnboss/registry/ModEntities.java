@@ -4,6 +4,10 @@ import com.chigusa.jsnboss.BossConstants;
 import com.chigusa.jsnboss.entity.FireKnightEntity;
 import com.chigusa.jsnboss.entity.FirePillarEntity;
 import com.chigusa.jsnboss.entity.FlameSlashEntity;
+import com.chigusa.jsnboss.entity.FrostFieldEntity;
+import com.chigusa.jsnboss.entity.IceSpearEntity;
+import com.chigusa.jsnboss.entity.IceSpikeEntity;
+import com.chigusa.jsnboss.entity.IceWitchEntity;
 import com.chigusa.jsnboss.entity.KnightFireballEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
@@ -31,6 +35,29 @@ public final class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<FirePillarEntity>> FIRE_PILLAR =
             ENTITY_TYPES.register("fire_pillar", () -> EntityType.Builder.<FirePillarEntity>of(FirePillarEntity::new, MobCategory.MISC)
                     .sized(1.0F, 1.0F).clientTrackingRange(8).noSave().build("fire_pillar"));
+
+    // ------------------------------------------------------------ 氷の魔女
+    /** 幅1.2 × 高さ3.1ブロック */
+    public static final DeferredHolder<EntityType<?>, EntityType<IceWitchEntity>> ICE_WITCH =
+            ENTITY_TYPES.register("ice_witch", () -> EntityType.Builder.<IceWitchEntity>of(IceWitchEntity::new, MobCategory.MONSTER)
+                    .sized(1.2F, 3.1F).immuneTo(net.minecraft.world.level.block.Blocks.POWDER_SNOW).clientTrackingRange(10).build("ice_witch"));
+
+    /** 分身（見た目は同じ、HP1、ボスバーなし） */
+    public static final DeferredHolder<EntityType<?>, EntityType<IceWitchEntity>> ICE_WITCH_CLONE =
+            ENTITY_TYPES.register("ice_witch_clone", () -> EntityType.Builder.<IceWitchEntity>of(IceWitchEntity::new, MobCategory.MONSTER)
+                    .sized(1.2F, 3.1F).clientTrackingRange(10).noSave().noSummon().build("ice_witch_clone"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<IceSpearEntity>> ICE_SPEAR =
+            ENTITY_TYPES.register("ice_spear", () -> EntityType.Builder.<IceSpearEntity>of(IceSpearEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).clientTrackingRange(6).updateInterval(1).noSave().build("ice_spear"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<IceSpikeEntity>> ICE_SPIKE =
+            ENTITY_TYPES.register("ice_spike", () -> EntityType.Builder.<IceSpikeEntity>of(IceSpikeEntity::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F).clientTrackingRange(8).noSave().build("ice_spike"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<FrostFieldEntity>> FROST_FIELD =
+            ENTITY_TYPES.register("frost_field", () -> EntityType.Builder.<FrostFieldEntity>of(FrostFieldEntity::new, MobCategory.MISC)
+                    .sized(1.0F, 0.5F).clientTrackingRange(8).noSave().build("frost_field"));
 
     private ModEntities() {}
 }
