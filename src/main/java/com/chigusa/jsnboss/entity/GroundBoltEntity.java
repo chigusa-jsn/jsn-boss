@@ -66,7 +66,7 @@ public class GroundBoltEntity extends Entity {
         if (this.tickCount % 4 == 0) playSound(net.minecraft.sounds.SoundEvents.FIREWORK_ROCKET_TWINKLE, 0.6F, 1.6F);
         for (LivingEntity e : level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.2, 1.5, 1.2),
                 e -> e.isAlive() && !(e instanceof AbstractBoss) && !e.isSpectator())) {
-            if (e.getY() > getY() + 1.2 || !hit.add(e.getUUID())) continue;   // 高く跳んでいれば当たらない
+            if (e.getY() > getY() + 0.8 || !hit.add(e.getUUID())) continue;   // 高く跳んでいれば当たらない
             if (e.hurt(this.damageSources().mobAttack(owner), damage)) {
                 e.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 30, 1));
                 e.setDeltaMovement(e.getDeltaMovement().add(0, 0.35, 0));
