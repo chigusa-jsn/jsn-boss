@@ -15,3 +15,22 @@ for src, dst in [("zombie_king.png", "zombie_king_phase2.png"), ("zombie_king_gl
         im[y, x, :3] = np.array(colorsys.hls_to_rgb(h, l, s)) * 255
     Image.fromarray(im.astype(np.uint8)).save(f"{T}/{dst}")
 print("ok")
+
+# 肋骨のすき間から緑の光が漏れる（第2形態だけ）
+import json
+faces = json.load(open("tools/zombie_king_faces.json"))["flat"]
+rect = next(f[4] for b, f, mat in faces if b == "torso" and f[0] == "north" and mat == "skin" and f[4][2:] == [12, 11])
+fx, fy, fw, fh = rect
+tex = np.array(Image.open(f"{T}/zombie_king_phase2.png").convert("RGBA"))
+glw = np.array(Image.open(f"{T}/zombie_king_phase2_glowmask.png").convert("RGBA"))
+for j in range(2, fh - 1, 2):
+    for k in range(1, fw - 1):
+        if k in (fw // 2 - 1, fw // 2):
+            continue                                   # 背骨はそのまま
+        center = 1 - abs(k - (fw - 1) / 2) / (fw / 2)  # 真ん中ほど明るい
+        c = np.array([90, 200, 60]) + center * np.array([110, 55, 60])
+        tex[fy + j, fx + k, :3] = c; tex[fy + j, fx + k, 3] = 255
+        glw[fy + j, fx + k, :3] = c; glw[fy + j, fx + k, 3] = 255
+Image.fromarray(tex).save(f"{T}/zombie_king_phase2.png")
+Image.fromarray(glw).save(f"{T}/zombie_king_phase2_glowmask.png")
+print("ribs glow", rect)
