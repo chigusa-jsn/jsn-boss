@@ -182,7 +182,7 @@ public class WindCatEntity extends AbstractBoss {
         this.attack = Attack.NONE;
         this.lastAttack = done;
         this.cooldowns.put(done, done.cooldown);
-        this.globalCooldown = done == Attack.PHASE_CHANGE ? 10 : (isPhase2() ? 10 : 18);
+        this.globalCooldown = done == Attack.PHASE_CHANGE ? 10 : (isPhase2() ? 22 : 36);
     }
 
     // ============================================================ attacks

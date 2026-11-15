@@ -213,7 +213,7 @@ public class ThunderLionEntity extends AbstractBoss {
         this.attack = Attack.NONE;
         this.lastAttack = done;
         this.cooldowns.put(done, done.cooldown);
-        this.globalCooldown = done == Attack.PHASE_CHANGE ? 10 : (isPhase2() ? 12 : 20);
+        this.globalCooldown = done == Attack.PHASE_CHANGE ? 10 : (isPhase2() ? 24 : 40);
     }
 
     // ============================================================ attacks

@@ -199,7 +199,7 @@ public class BladeDragonEntity extends AbstractBoss {
         this.setNoGravity(false);
         this.setInvisible(false);
         this.cooldowns.put(done, done.cooldown);
-        this.globalCooldown = done == Attack.PHASE_CHANGE ? 10 : (isPhase2() ? 10 : 18);
+        this.globalCooldown = done == Attack.PHASE_CHANGE ? 10 : (isPhase2() ? 22 : 36);
         // 第2形態の飛びかかりは2連続
         if (done == Attack.POUNCE && isPhase2() && !chained) {
             chained = true;

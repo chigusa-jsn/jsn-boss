@@ -211,7 +211,7 @@ public class ZombieKingEntity extends AbstractBoss {
         this.attack = Attack.NONE;
         this.lastAttack = done;
         this.cooldowns.put(done, done.cooldown);
-        this.globalCooldown = (done == Attack.PHASE_CHANGE || done == Attack.REVIVE) ? 10 : (isPhase2() ? 18 : 28);
+        this.globalCooldown = (done == Attack.PHASE_CHANGE || done == Attack.REVIVE) ? 10 : (isPhase2() ? 32 : 50);
     }
 
     // ============================================================ attacks

@@ -195,7 +195,7 @@ public class FireKnightEntity extends AbstractBoss {
             return;
         }
         this.cooldowns.put(done, done.cooldown);
-        this.globalCooldown = isPhase2() ? 14 : 24;
+        this.globalCooldown = isPhase2() ? 26 : 44;
         // 第2形態の縦斬撃は、そのまま横斬撃につなげて2連発にする
         if (done == Attack.WAVE_V && isPhase2()) startAttack(Attack.WAVE_H);
     }

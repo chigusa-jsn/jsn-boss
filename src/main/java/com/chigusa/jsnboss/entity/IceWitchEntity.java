@@ -214,7 +214,7 @@ public class IceWitchEntity extends AbstractBoss {
         this.attack = Attack.NONE;
         this.lastAttack = done;
         this.cooldowns.put(done, isClone() ? 60 + this.random.nextInt(30) : done.cooldown);
-        this.globalCooldown = done == Attack.PHASE_CHANGE ? 10 : (isPhase2() ? 16 : 26);
+        this.globalCooldown = done == Attack.PHASE_CHANGE ? 10 : (isPhase2() ? 30 : 48);
     }
 
     @Override

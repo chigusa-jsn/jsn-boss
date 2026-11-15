@@ -207,7 +207,7 @@ public class DarkMageEntity extends AbstractBoss {
         if (done == Attack.ABYSS || done == Attack.STAGGER) this.bossEvent.setName(this.getDisplayName());
         if (done != Attack.STAGGER) this.lastAttack = done;
         this.cooldowns.put(done, done.cooldown);
-        this.globalCooldown = (done == Attack.PHASE_CHANGE || done == Attack.STAGGER) ? 10 : (isPhase2() ? 12 : 20);
+        this.globalCooldown = (done == Attack.PHASE_CHANGE || done == Attack.STAGGER) ? 10 : (isPhase2() ? 24 : 40);
         // 第2形態の背後斬りは2回続けて
         if (done == Attack.BLINK && isPhase2() && !blinkChained) {
             blinkChained = true;
