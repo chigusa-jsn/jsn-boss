@@ -45,5 +45,9 @@
   "entity.jsnboss.rock_pillar": "岩の柱",
   "entity.jsnboss.boulder": "大岩",
   "entity.jsnboss.fissure": "地割れ",
-  "item.jsnboss.rock_giant_spawn_egg": "岩の巨人のスポーンエッグ"
+  "item.jsnboss.rock_giant_spawn_egg": "岩の巨人のスポーンエッグ",
+  "entity.jsnboss.ender_sentinel": "虚空の監視者",
+  "entity.jsnboss.drone_shot": "ドローンの弾",
+  "entity.jsnboss.black_hole": "虚空の崩壊",
+  "item.jsnboss.ender_sentinel_spawn_egg": "虚空の監視者のスポーンエッグ"
 }

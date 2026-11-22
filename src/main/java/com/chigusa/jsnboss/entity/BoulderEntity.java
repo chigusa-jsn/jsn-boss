@@ -21,6 +21,8 @@ import net.minecraft.world.phys.Vec3;
  *  THROWN：大岩投げ。放物線を描いて飛び、当たった所で砕ける（第2形態は破片が飛び散る）
  *  FALL  ：落石。真上から落ちてくる。落ちる場所の地面に影（予告）が出る
  *  SHARD ：砕けた大岩の破片（小さい）
+ * 見た目は VARIANT で変わる（ROCK：苔の丸石、END：エンドストーン＝虚空の監視者の空間の裂け目）。
+ * HOVER の間は空中で止まっている（裂け目が開く予告）。
  */
 public class BoulderEntity extends Entity {
     public static final int THROWN = 0, FALL = 1, SHARD = 2;
@@ -30,6 +32,11 @@ public class BoulderEntity extends Entity {
             SynchedEntityData.defineId(BoulderEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> GROUND =
             SynchedEntityData.defineId(BoulderEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Integer> VARIANT =
+            SynchedEntityData.defineId(BoulderEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> HOVER =
+            SynchedEntityData.defineId(BoulderEntity.class, EntityDataSerializers.INT);
+    public static final int ROCK = 0, END = 1;
 
     private AbstractBoss owner;
     private float damage = 16.0F;
@@ -64,11 +71,20 @@ public class BoulderEntity extends Entity {
 
     /** (x, z) の真上 height ブロックから落とす */
     public static void drop(AbstractBoss owner, double x, double z, double height, float damage) {
+        drop(owner, x, z, height, damage, ROCK, 0);
+    }
+
+    /** variant の見た目で、hover tick 空中に止まってから落とす */
+    public static void drop(AbstractBoss owner, double x, double z, double height, float damage, int variant, int hover) {
         double ground = owner.groundY(x, owner.getY() + 4, z);
         BoulderEntity e = make(owner, new Vec3(x, ground + height, z), Vec3.ZERO, FALL, 1.3F, damage);
         e.entityData.set(GROUND, (float) ground);
+        e.entityData.set(VARIANT, variant);
+        e.entityData.set(HOVER, hover);
         owner.level().addFreshEntity(e);
     }
+
+    public int variant() { return this.entityData.get(VARIANT); }
 
     public int mode() { return this.entityData.get(MODE); }
     public float size() { return this.entityData.get(SIZE); }
@@ -78,11 +94,27 @@ public class BoulderEntity extends Entity {
         builder.define(MODE, THROWN);
         builder.define(SIZE, 1.6F);
         builder.define(GROUND, 0F);
+        builder.define(VARIANT, ROCK);
+        builder.define(HOVER, 0);
     }
 
     @Override
     public void tick() {
         super.tick();
+        if (this.tickCount < this.entityData.get(HOVER)) {
+            if (level().isClientSide) {
+                // 空間の裂け目：紫の渦
+                for (int i = 0; i < 6; i++) {
+                    double a = random.nextDouble() * Math.PI * 2, r = 0.8 + random.nextDouble() * 0.8;
+                    level().addParticle(ParticleTypes.PORTAL, getX() + Math.cos(a) * r, getY() + 0.6, getZ() + Math.sin(a) * r,
+                            -Math.cos(a) * 0.5, 0, -Math.sin(a) * 0.5);
+                }
+                float g = this.entityData.get(GROUND);
+                double a = random.nextDouble() * Math.PI * 2;
+                level().addParticle(ParticleTypes.REVERSE_PORTAL, getX() + Math.cos(a) * 1.4, g + 0.1, getZ() + Math.sin(a) * 1.4, 0, 0.02, 0);
+            }
+            return;
+        }
         Vec3 v = this.getDeltaMovement().add(0, mode() == FALL ? -0.08 : -0.05, 0);
         this.setDeltaMovement(v);
         if (level().isClientSide) {
@@ -102,7 +134,7 @@ public class BoulderEntity extends Entity {
             }
             return;
         }
-        if (this.tickCount > 120) { this.discard(); return; }
+        if (this.tickCount > 120 + this.entityData.get(HOVER)) { this.discard(); return; }
         this.setPos(getX() + v.x, getY() + v.y, getZ() + v.z);
         boolean hitBlock = !level().noCollision(this, this.getBoundingBox().deflate(0.1));
         boolean hitMob = !level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.2),
@@ -125,7 +157,8 @@ public class BoulderEntity extends Entity {
             }
         }
         if (level() instanceof ServerLevel sl) {
-            sl.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.COBBLESTONE.defaultBlockState()),
+            sl.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK,
+                            (variant() == END ? Blocks.END_STONE : Blocks.COBBLESTONE).defaultBlockState()),
                     getX(), getY() + 0.5, getZ(), mode() == SHARD ? 10 : 50, radius * 0.4, 0.5, radius * 0.4, 0.2);
             if (mode() != SHARD) sl.sendParticles(ParticleTypes.EXPLOSION, getX(), getY() + 0.5, getZ(), 1, 0, 0, 0, 0);
         }

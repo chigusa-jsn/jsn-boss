@@ -21,7 +21,10 @@ import com.chigusa.jsnboss.entity.LightPillarEntity;
 import com.chigusa.jsnboss.entity.LightSwordEntity;
 import com.chigusa.jsnboss.entity.WhiteFoxEntity;
 import com.chigusa.jsnboss.entity.TornadoEntity;
+import com.chigusa.jsnboss.entity.BlackHoleEntity;
 import com.chigusa.jsnboss.entity.BoulderEntity;
+import com.chigusa.jsnboss.entity.DroneShotEntity;
+import com.chigusa.jsnboss.entity.EnderSentinelEntity;
 import com.chigusa.jsnboss.entity.FissureEntity;
 import com.chigusa.jsnboss.entity.GroundBoltEntity;
 import com.chigusa.jsnboss.entity.RockGiantEntity;
@@ -187,6 +190,20 @@ public final class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<FissureEntity>> FISSURE =
             ENTITY_TYPES.register("fissure", () -> EntityType.Builder.<FissureEntity>of(FissureEntity::new, MobCategory.MISC)
                     .sized(1.0F, 0.5F).clientTrackingRange(8).updateInterval(1).noSave().build("fissure"));
+
+    // ------------------------------------------------------------ 虚空の監視者
+    /** 幅1.4 × 高さ4.5ブロック（エンダーマンのように細長い） */
+    public static final DeferredHolder<EntityType<?>, EntityType<EnderSentinelEntity>> ENDER_SENTINEL =
+            ENTITY_TYPES.register("ender_sentinel", () -> EntityType.Builder.<EnderSentinelEntity>of(EnderSentinelEntity::new, MobCategory.MONSTER)
+                    .sized(1.4F, 4.5F).clientTrackingRange(10).build("ender_sentinel"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<DroneShotEntity>> DRONE_SHOT =
+            ENTITY_TYPES.register("drone_shot", () -> EntityType.Builder.<DroneShotEntity>of(DroneShotEntity::new, MobCategory.MISC)
+                    .sized(0.4F, 0.4F).clientTrackingRange(8).updateInterval(1).noSave().build("drone_shot"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<BlackHoleEntity>> BLACK_HOLE =
+            ENTITY_TYPES.register("black_hole", () -> EntityType.Builder.<BlackHoleEntity>of(BlackHoleEntity::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F).clientTrackingRange(10).noSave().build("black_hole"));
 
     private ModEntities() {}
 }

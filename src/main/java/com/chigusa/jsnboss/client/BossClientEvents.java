@@ -59,6 +59,10 @@ public final class BossClientEvents {
             event.registerEntityRenderer(ModEntities.ROCK_PILLAR.get(), RockPillarRenderer::new);
             event.registerEntityRenderer(ModEntities.BOULDER.get(), BoulderRenderer::new);
             event.registerEntityRenderer(ModEntities.FISSURE.get(), NoopRenderer::new);
+
+            event.registerEntityRenderer(ModEntities.ENDER_SENTINEL.get(), EnderSentinelRenderer::new);
+            event.registerEntityRenderer(ModEntities.DRONE_SHOT.get(), NoopRenderer::new);
+            event.registerEntityRenderer(ModEntities.BLACK_HOLE.get(), NoopRenderer::new);
         }
     }
 

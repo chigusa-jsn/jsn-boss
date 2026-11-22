@@ -45,5 +45,9 @@
   "entity.jsnboss.rock_pillar": "Rock Pillar",
   "entity.jsnboss.boulder": "Boulder",
   "entity.jsnboss.fissure": "Fissure",
-  "item.jsnboss.rock_giant_spawn_egg": "Rock Giant Spawn Egg"
+  "item.jsnboss.rock_giant_spawn_egg": "Rock Giant Spawn Egg",
+  "entity.jsnboss.ender_sentinel": "Ender Sentinel",
+  "entity.jsnboss.drone_shot": "Drone Shot",
+  "entity.jsnboss.black_hole": "Void Collapse",
+  "item.jsnboss.ender_sentinel_spawn_egg": "Ender Sentinel Spawn Egg"
 }
