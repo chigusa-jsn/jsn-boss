@@ -6,7 +6,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from geo_tools import Model, mirror, hexc
 
-m = Model("rock_giant", 256, 256, seed=91)
+m = Model("rock_giant", 256, 512, seed=91)
 
 # ---------------------------------------------------------------- model
 m.bone("root", [0, 0, 0])
@@ -35,8 +35,8 @@ m.bone("torso", [0, 27, 2], parent="waist", rotation=[14, 0, 0], cubes=[
 
 # 肩の大岩（苔がのっている）
 SHOULDER = [
-    ([-33, 47, -11], [16, 14, 19], "rock", "shoulder"),
-    ([-33, 60, -10], [15, 3, 17], "moss", "shoulder_moss"),
+    ([-36, 47, -11], [18, 14, 19], "rock", "shoulder"),
+    ([-36, 60, -10], [17, 3, 17], "moss", "shoulder_moss"),
 ]
 m.bone("right_shoulder", [-25, 54, 0], parent="torso", cubes=SHOULDER)
 m.bone("left_shoulder", [25, 54, 0], parent="torso", cubes=mirror(SHOULDER))
@@ -59,23 +59,65 @@ for i, (x, z, h, lean) in enumerate(((-11, 4, 12, -15), (-2, 7, 16, 0), (8, 3, 1
     ])
 
 # 腕：太い上腕、さらに太い前腕、地面近くまで届く大きなこぶし
-UPPER = [([-34, 30, -6], [12, 20, 12], "rock", "upper_arm"),
-         ([-36, 38, -4], [4, 7, 7], "rock_dark", "arm_rock")]
+UPPER = [([-38, 30, -6], [12, 20, 12], "rock", "upper_arm"),
+         ([-40, 38, -4], [4, 7, 7], "rock_dark", "arm_rock")]
 FORE = [
-    ([-36, 12, -8], [16, 19, 16], "rock", "forearm"),
-    ([-36, 22, -8.5], [6, 5, 5], "moss", "arm_moss"),
-    ([-38, 15, -4], [3, 8, 8], "rock_dark", "arm_rock"),
+    ([-40, 12, -8], [16, 19, 16], "rock", "forearm"),
+    ([-40, 22, -8.5], [6, 5, 5], "moss", "arm_moss"),
+    ([-42, 15, -4], [3, 8, 8], "rock_dark", "arm_rock"),
 ]
 FIST = [
-    ([-37, -2, -9], [18, 15, 18], "rock_dark", "fist"),
-    ([-38, 4, -8], [3, 6, 6], "rock_dark", "knuckle"),
+    ([-41, -2, -9], [18, 15, 18], "rock_dark", "fist"),
+    ([-42, 4, -8], [3, 6, 6], "rock_dark", "knuckle"),
 ]
-m.bone("right_arm", [-28, 52, 0], parent="torso", cubes=UPPER)
-m.bone("right_forearm", [-28, 31, 0], parent="right_arm", cubes=FORE)
-m.bone("right_fist", [-28, 13, 0], parent="right_forearm", cubes=FIST)
-m.bone("left_arm", [28, 52, 0], parent="torso", cubes=mirror(UPPER))
-m.bone("left_forearm", [28, 31, 0], parent="left_arm", cubes=mirror(FORE))
-m.bone("left_fist", [28, 13, 0], parent="left_forearm", cubes=mirror(FIST))
+m.bone("right_arm", [-32, 52, 0], parent="torso", cubes=UPPER)
+m.bone("right_forearm", [-32, 31, 0], parent="right_arm", cubes=FORE)
+m.bone("right_fist", [-32, 13, 0], parent="right_forearm", cubes=FIST)
+m.bone("left_arm", [32, 52, 0], parent="torso", cubes=mirror(UPPER))
+m.bone("left_forearm", [32, 31, 0], parent="left_arm", cubes=mirror(FORE))
+m.bone("left_fist", [32, 13, 0], parent="left_forearm", cubes=mirror(FIST))
+
+# ---------------------------------------------------------------- ゴツゴツ
+import random as _random
+_R = _random.Random(5)
+_N = [0]
+
+
+def rugged(parent, box, n, mat_choice=("rock", "rock", "rock_dark"), mirror_to=None, skip=(), size=(4, 9)):
+    """box（origin, size）の表面に、少し傾いた岩のかたまりを n 個くっつける。
+    傾けた骨にするので、四角い輪郭が崩れてゴツゴツして見える。mirror_to を渡すと左右反転して左側にも付ける"""
+    (ox, oy, oz), (w, h, d) = box
+    for _ in range(n):
+        face = _R.choice([f for f in ("north", "south", "west", "east", "up", "up") if f not in skip])
+        sx, sy, sz = (_R.randint(*size) for _ in range(3))
+        out = _R.uniform(2.0, 4.0)                       # どれだけ外へ出っ張るか
+        cx = _R.uniform(ox + 1, ox + w - 1); cy = _R.uniform(oy + 2, oy + h - 1); cz = _R.uniform(oz + 1, oz + d - 1)
+        if face == "north": cz = oz - out + sz / 2
+        if face == "south": cz = oz + d + out - sz / 2
+        if face == "west": cx = ox - out + sx / 2
+        if face == "east": cx = ox + w + out - sx / 2
+        if face == "up": cy = oy + h + out - sy / 2
+        rot = [round(_R.uniform(-22, 22)), round(_R.uniform(-22, 22)), round(_R.uniform(-22, 22))]
+        mat = _R.choice(mat_choice)
+        o = [round((cx - sx / 2) * 2) / 2, round((cy - sy / 2) * 2) / 2, round((cz - sz / 2) * 2) / 2]
+        piv = [round(cx * 2) / 2, round(cy * 2) / 2, round(cz * 2) / 2]
+        i = _N[0]; _N[0] += 1
+        m.bone(f"rk{i}", piv, parent=parent, rotation=rot, cubes=[(o, [sx, sy, sz], mat, "lump")])
+        if mirror_to:
+            m.bone(f"rk{i}m", [-piv[0], piv[1], piv[2]], parent=mirror_to, rotation=[rot[0], -rot[1], -rot[2]],
+                   cubes=[([-(o[0] + sx), o[1], o[2]], [sx, sy, sz], mat, "lump")])
+
+
+SIDE = ("east", "north")      # 体の内側（腕と胴のすき間）と正面にはかたまりを付けない
+rugged("torso", ([-21, 39, -13], [42, 17, 25]), 7, skip=("north", "west", "east"), size=(8, 13))
+rugged("torso", ([-17, 26, -11], [34, 14, 21]), 3, skip=("north", "west", "east", "up"), size=(6, 10))
+rugged("head", ([-7, 46, -22], [14, 12, 12]), 3, skip=("north", "south"), size=(4, 6))
+rugged("right_shoulder", ([-36, 47, -11], [18, 14, 19]), 3, mirror_to="left_shoulder", skip=("south", "north", "east", "west"), size=(8, 12))
+rugged("right_shoulder", ([-36, 47, -11], [18, 14, 19]), 3, mirror_to="left_shoulder", skip=("east", "up"), size=(6, 10))
+rugged("right_arm", ([-38, 30, -6], [12, 20, 12]), 3, mirror_to="left_arm", skip=("up", "east"), size=(5, 8))
+rugged("right_forearm", ([-40, 12, -8], [16, 19, 16]), 4, mirror_to="left_forearm", skip=("up", "east"), size=(6, 10))
+rugged("right_fist", ([-41, -2, -9], [18, 15, 18]), 4, mirror_to="left_fist", skip=("up", "east"), size=(6, 10))
+rugged("right_leg", ([-15, 5, -6], [12, 16, 12]), 3, mirror_to="left_leg", skip=("up", "east"), size=(5, 8))
 
 # ---------------------------------------------------------------- texture
 PAL = {
@@ -113,7 +155,7 @@ def details(m, mat, tag, face, rect):
         if face == "up":
             for _ in range(fw * fh // 4):
                 m.put(fx + r.randrange(fw), fy + r.randrange(fh), hexc(r.choice(("#4f7a2e", "#5f8a36"))))
-        elif face != "down" and tag not in ("face", "jaw", "fist", "knuckle"):
+        elif face != "down" and tag not in ("face", "jaw", "fist", "knuckle", "lump"):
             for k in range(fw):                         # 苔が上から垂れる
                 for j in range(r.choice((0, 0, 1, 1, 2, 3))):
                     m.put(fx + k, fy + j, hexc(r.choice(("#4f7a2e", "#6c9a3c"))))
