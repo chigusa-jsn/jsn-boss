@@ -24,7 +24,8 @@ JP = {"idle": "待機", "walk": "歩き", "attack_sweep": "横なぎ", "attack_d
       "foxfire": "狐火", "pillar": "光の柱", "flash": "閃光", "illusion": "幻", "laser": "白い光線", "leap": "跳躍",
       "sword_rain": "光の剣の雨", "kamaitachi": "かまいたち", "tornado": "竜巻", "gust": "突風", "charge": "疾風の突進",
       "air_jump": "空中跳び", "rush": "突進", "lightning_call": "落雷", "howl": "咆哮",
-      "ground_bolt": "地を走る雷", "ring": "雷のリング", "storm": "雷雲"}
+      "ground_bolt": "地を走る雷", "ring": "雷のリング", "storm": "雷雲",
+      "slam": "叩きつけ", "pillars": "岩の柱", "throw": "大岩投げ", "fissure": "地割れ", "rockfall": "落石", "fury": "怒りの連打"}
 
 def sample(chan, t):
     ks = sorted((float(k), v) for k, v in chan.items())
