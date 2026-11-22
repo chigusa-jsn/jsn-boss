@@ -40,5 +40,10 @@
   "entity.jsnboss.lightning_mark": "落雷",
   "entity.jsnboss.ground_bolt": "地を走る雷",
   "item.jsnboss.thunder_lion_spawn_egg": "雷の獅子のスポーンエッグ",
-  "effect.jsnboss.stun": "スタン"
+  "effect.jsnboss.stun": "スタン",
+  "entity.jsnboss.rock_giant": "岩の巨人",
+  "entity.jsnboss.rock_pillar": "岩の柱",
+  "entity.jsnboss.boulder": "大岩",
+  "entity.jsnboss.fissure": "地割れ",
+  "item.jsnboss.rock_giant_spawn_egg": "岩の巨人のスポーンエッグ"
 }

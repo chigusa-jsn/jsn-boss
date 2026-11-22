@@ -21,7 +21,11 @@ import com.chigusa.jsnboss.entity.LightPillarEntity;
 import com.chigusa.jsnboss.entity.LightSwordEntity;
 import com.chigusa.jsnboss.entity.WhiteFoxEntity;
 import com.chigusa.jsnboss.entity.TornadoEntity;
+import com.chigusa.jsnboss.entity.BoulderEntity;
+import com.chigusa.jsnboss.entity.FissureEntity;
 import com.chigusa.jsnboss.entity.GroundBoltEntity;
+import com.chigusa.jsnboss.entity.RockGiantEntity;
+import com.chigusa.jsnboss.entity.RockPillarEntity;
 import com.chigusa.jsnboss.entity.LightningMarkEntity;
 import com.chigusa.jsnboss.entity.ThunderLionEntity;
 import com.chigusa.jsnboss.entity.WindBladeEntity;
@@ -165,6 +169,24 @@ public final class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<GroundBoltEntity>> GROUND_BOLT =
             ENTITY_TYPES.register("ground_bolt", () -> EntityType.Builder.<GroundBoltEntity>of(GroundBoltEntity::new, MobCategory.MISC)
                     .sized(0.8F, 0.8F).clientTrackingRange(8).updateInterval(1).noSave().build("ground_bolt"));
+
+    // ------------------------------------------------------------ 岩の巨人
+    /** 幅3.2 × 高さ4.4ブロック */
+    public static final DeferredHolder<EntityType<?>, EntityType<RockGiantEntity>> ROCK_GIANT =
+            ENTITY_TYPES.register("rock_giant", () -> EntityType.Builder.<RockGiantEntity>of(RockGiantEntity::new, MobCategory.MONSTER)
+                    .sized(3.2F, 4.4F).clientTrackingRange(10).build("rock_giant"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<RockPillarEntity>> ROCK_PILLAR =
+            ENTITY_TYPES.register("rock_pillar", () -> EntityType.Builder.<RockPillarEntity>of(RockPillarEntity::new, MobCategory.MISC)
+                    .sized(1.2F, 3.0F).clientTrackingRange(8).noSave().build("rock_pillar"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<BoulderEntity>> BOULDER =
+            ENTITY_TYPES.register("boulder", () -> EntityType.Builder.<BoulderEntity>of(BoulderEntity::new, MobCategory.MISC)
+                    .sized(1.4F, 1.4F).clientTrackingRange(10).updateInterval(1).noSave().build("boulder"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<FissureEntity>> FISSURE =
+            ENTITY_TYPES.register("fissure", () -> EntityType.Builder.<FissureEntity>of(FissureEntity::new, MobCategory.MISC)
+                    .sized(1.0F, 0.5F).clientTrackingRange(8).updateInterval(1).noSave().build("fissure"));
 
     private ModEntities() {}
 }
