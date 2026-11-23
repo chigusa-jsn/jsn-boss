@@ -67,6 +67,8 @@ public final class BossClientEvents {
             event.registerEntityRenderer(ModEntities.CREEPER_MOTHER.get(), CreeperMotherRenderer::new);
             event.registerEntityRenderer(ModEntities.MINE.get(), MineRenderer::new);
             event.registerEntityRenderer(ModEntities.CHAIN_BLAST.get(), NoopRenderer::new);
+
+            event.registerEntityRenderer(ModEntities.FENRIR.get(), FenrirRenderer::new);
         }
     }
 

@@ -28,6 +28,7 @@ import com.chigusa.jsnboss.entity.CreeperMotherEntity;
 import com.chigusa.jsnboss.entity.MineEntity;
 import com.chigusa.jsnboss.entity.DroneShotEntity;
 import com.chigusa.jsnboss.entity.EnderSentinelEntity;
+import com.chigusa.jsnboss.entity.FenrirEntity;
 import com.chigusa.jsnboss.entity.FissureEntity;
 import com.chigusa.jsnboss.entity.GroundBoltEntity;
 import com.chigusa.jsnboss.entity.RockGiantEntity;
@@ -221,6 +222,12 @@ public final class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<ChainBlastEntity>> CHAIN_BLAST =
             ENTITY_TYPES.register("chain_blast", () -> EntityType.Builder.<ChainBlastEntity>of(ChainBlastEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F).clientTrackingRange(8).noSave().build("chain_blast"));
+
+    // ------------------------------------------------------------ フェンリル
+    /** 幅2.4 × 高さ2.8ブロック */
+    public static final DeferredHolder<EntityType<?>, EntityType<FenrirEntity>> FENRIR =
+            ENTITY_TYPES.register("fenrir", () -> EntityType.Builder.<FenrirEntity>of(FenrirEntity::new, MobCategory.MONSTER)
+                    .sized(2.4F, 2.8F).clientTrackingRange(10).build("fenrir"));
 
     private ModEntities() {}
 }

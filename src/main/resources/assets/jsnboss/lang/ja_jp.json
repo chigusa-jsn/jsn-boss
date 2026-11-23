@@ -53,5 +53,7 @@
   "entity.jsnboss.creeper_mother": "マザークリーパー",
   "entity.jsnboss.mine": "地雷",
   "entity.jsnboss.chain_blast": "連鎖爆発",
-  "item.jsnboss.creeper_mother_spawn_egg": "マザークリーパーのスポーンエッグ"
+  "item.jsnboss.creeper_mother_spawn_egg": "マザークリーパーのスポーンエッグ",
+  "entity.jsnboss.fenrir": "フェンリル",
+  "item.jsnboss.fenrir_spawn_egg": "フェンリルのスポーンエッグ"
 }

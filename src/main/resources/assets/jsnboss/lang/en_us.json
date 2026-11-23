@@ -53,5 +53,7 @@
   "entity.jsnboss.creeper_mother": "Creeper Mother",
   "entity.jsnboss.mine": "Mine",
   "entity.jsnboss.chain_blast": "Chain Blast",
-  "item.jsnboss.creeper_mother_spawn_egg": "Creeper Mother Spawn Egg"
+  "item.jsnboss.creeper_mother_spawn_egg": "Creeper Mother Spawn Egg",
+  "entity.jsnboss.fenrir": "Fenrir",
+  "item.jsnboss.fenrir_spawn_egg": "Fenrir Spawn Egg"
 }
