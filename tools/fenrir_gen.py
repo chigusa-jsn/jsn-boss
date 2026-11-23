@@ -1,5 +1,5 @@
 """フェンリル：モデル＋テクスチャ＋発光マスク。 python3 tools/fenrir_gen.py
-金色の巨大な狼。首と前脚に千切れた鎖の枷、首まわりと背中に逆立つ毛、氷のように光る目と肩のルーン。
+銀色の巨大な狼（第2形態は金色・赤い目。tools/fenrir_phase2.sh）。首と前脚に千切れた鎖の枷、首まわりと背中に逆立つ毛、氷のように光る目と肩のルーン。
 正面は -Z。全体を K 倍の大きさで作る（肩の高さ 約2.5ブロック）。
 """
 import os, sys
@@ -7,6 +7,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from geo_tools import Model, mirror, hexc
 
 K = 1.9
+# GOLD=1 で実行すると、第2形態（金色の毛・赤い目とルーン）の色で塗る（形と UV は同じ）
+GOLD = os.environ.get("GOLD") == "1"
 m = Model("fenrir", 256, 256, seed=44)
 
 
@@ -82,15 +84,27 @@ m.bone("tail2", p(0, 17, 24), parent="tail1", rotation=[20, 0, 0], cubes=[c([-2.
 m.bone("tail3", p(0, 17, 32), parent="tail2", rotation=[15, 0, 0], cubes=[c([-1.8, 15.3, 32], [3.6, 3.6, 5], "fur_light", "tail_tip")])
 
 # ---------------------------------------------------------------- texture
-PAL = {
+SILVER_PAL = {
+    "fur": ("#8f949c", "#b4b8c0", "#5a5e66"),
+    "fur_light": ("#c9ccd2", "#e4e6ea", "#8e9198"),
+    "fur_dark": ("#4a4e57", "#62666f", "#2a2d33"),
+}
+GOLD_PAL = {
     "fur": ("#f0bc38", "#ffd966", "#b07a10"),
     "fur_light": ("#ffe49a", "#fff4cc", "#d0a850"),
     "fur_dark": ("#b07a18", "#c88e26", "#6e4806"),
+}
+PAL = {
+    **(GOLD_PAL if GOLD else SILVER_PAL),
     "nose": ("#1c1d22", "#2c2d33", "#0c0c10"),
     "fang": ("#f2efe4", "#ffffff", "#bdb8a8"),
     "chain": ("#5c5f66", "#8a8e96", "#2e3035"),
 }
-ICE = [hexc("#3aa8d8"), hexc("#8fe8ff"), hexc("#e8fcff")]
+ICE = ([hexc("#a8141c"), hexc("#ff3a3a"), hexc("#ffc8b8")] if GOLD
+       else [hexc("#3aa8d8"), hexc("#8fe8ff"), hexc("#e8fcff")])
+
+
+SADDLE = ("#c48a1c", "#d09622") if GOLD else ("#5f636b", "#6b6f78")
 
 
 def details(m, mat, tag, face, rect):
@@ -98,8 +112,12 @@ def details(m, mat, tag, face, rect):
     r = m.rng
     if mat in ("fur", "fur_light", "fur_dark") and face != "down":
         # 毛並み：ところどころに短い毛の筋（細かいノイズは入れない）
-        dark = {"fur": "#d49e26", "fur_light": "#f0cf78", "fur_dark": "#94640e"}[mat]
-        lite = {"fur": "#ffe07a", "fur_light": "#fff8de", "fur_dark": "#d29a30"}[mat]
+        if GOLD:
+            dark = {"fur": "#d49e26", "fur_light": "#f0cf78", "fur_dark": "#94640e"}[mat]
+            lite = {"fur": "#ffe07a", "fur_light": "#fff8de", "fur_dark": "#d29a30"}[mat]
+        else:
+            dark = {"fur": "#7e838b", "fur_light": "#b3b6bd", "fur_dark": "#3e424a"}[mat]
+            lite = {"fur": "#a4a8b0", "fur_light": "#dde0e5", "fur_dark": "#575b64"}[mat]
         for _ in range(fw * fh // 9):
             x, y = r.randrange(fw), r.randrange(fh)
             col = hexc(dark if r.random() < 0.6 else lite)
@@ -112,11 +130,11 @@ def details(m, mat, tag, face, rect):
                 for j in range(fh):
                     for k in range(fw):
                         if r.random() < 0.7:
-                            m.put(fx + k, fy + j, hexc(r.choice(("#c48a1c", "#d09622"))))
+                            m.put(fx + k, fy + j, hexc(r.choice(SADDLE)))
             elif face in ("west", "east"):
                 for k in range(fw):
                     for j in range(r.choice((2, 3, 3, 4))):
-                        m.put(fx + k, fy + j, hexc(r.choice(("#c48a1c", "#d09622"))))
+                        m.put(fx + k, fy + j, hexc(r.choice(SADDLE)))
     # 肩と腰のルーン（氷のように光る）
     if tag in ("chest", "hips") and face in ("west", "east"):
         cx, cy = fw // 2, fh // 2
@@ -135,10 +153,10 @@ def details(m, mat, tag, face, rect):
         m.put(fx + 2, fy + ye, ICE[2], glow=True)
         m.put(fx + fw - 3, fy + ye, ICE[2], glow=True)
         for k in (0, 1, 2, fw - 3, fw - 2, fw - 1):         # 眉間のしわ（暗く）
-            m.put(fx + k, fy + ye - 1, hexc("#6a4810"))
+            m.put(fx + k, fy + ye - 1, hexc("#6a4810" if GOLD else "#3a3d44"))
     if tag == "snout" and face == "up":
         for j in range(fh):
-            m.put(fx + fw // 2, fy + j, hexc("#a07424"))
+            m.put(fx + fw // 2, fy + j, hexc("#a07424" if GOLD else "#6a6e77"))
     if tag == "jaw" and face == "north":
         for k in range(fw):
             m.put(fx + k, fy, hexc("#f2efe4") if k % 2 == 0 else hexc("#2a1a1a"))
