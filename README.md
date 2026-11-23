@@ -232,6 +232,24 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 
 - 空にいる間は弓やトライデントで攻撃できる。急降下の着地の後が近接で反撃するチャンス
 
+### ユグドラシル（`jsnboss:yggdrasil`）— 高精細
+
+高さ約6ブロック、HP 3000。一歩も動かない巨大な世界樹。ねじれた幹に古の顔と光るルーン、地面をはう8本の根、腕のように動く2本の大枝、ドーム型の葉の冠、光る苔の実がぶら下がるツタ。とても硬く、遠くまで攻撃が届く。HP が半分（1500）を切ると第2形態「怒れる世界樹」になり、葉が紅葉して光が赤橙に変わる。
+（パーツ約150個の高精細モデル）
+
+- **黄金の実**：木の周りに4つ浮かび、1つにつき毎秒4ずつ木の HP を回復する。実は HP 30 で、叩けば壊せる。第2形態になると2つ生え直す
+- 毒や衰弱などの悪い効果は効かない
+
+| 技 | 第1形態 | 第2形態 |
+|---|---|---|
+| 枝の叩きつけ（前方9ブロック） | 20 | 24 |
+| 根の突き上げ（足元から根が突き出す、土ぼこりの予告0.8秒） | 16 | 20（1人に3本） |
+| 根のなぎ払い（地面を走る輪、ジャンプで避ける、半径13） | 12 | 15 |
+| 毒の花粉（足元に毒の霧が6秒） | 毒II | 毒II＋弱体化 |
+| 種の爆弾（苔の種を放り投げる、着地で弾ける） | 10 × 5 | 12 × 8 |
+| 森の番兵召喚（苔むしたスケルトン「ボグド」、最大4体） | 2体 | 4体 |
+| 大地の脈動（根の輪が外へ5重に広がる） | — | 18 |
+
 ## 最大HPの上限について
 
 バニラの最大HPは1024が上限なので、この MOD は起動時に上限を100000まで引き上げている（`BossSetup.raiseMaxHealthCap()`、`META-INF/accesstransformer.cfg`）。ほかのモブのHPは変わらない。
@@ -243,8 +261,8 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 ```
 
 - クリエイティブの「スポーンエッグ」タブに各ボスのスポーンエッグ
-- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`、`/summon jsnboss:blade_dragon`、`/summon jsnboss:white_fox`、`/summon jsnboss:wind_cat`、`/summon jsnboss:thunder_lion`、`/summon jsnboss:rock_giant`、`/summon jsnboss:ender_sentinel`、`/summon jsnboss:creeper_mother`、`/summon jsnboss:fenrir`、`/summon jsnboss:iron_spider`、`/summon jsnboss:fallen_valkyrie`
-- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f、white_fox と wind_cat は 790f、thunder_lion は 890f、rock_giant は 1090f、ender_sentinel と creeper_mother は 790f、fenrir と iron_spider は 990f、fallen_valkyrie は 1090f）
+- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`、`/summon jsnboss:blade_dragon`、`/summon jsnboss:white_fox`、`/summon jsnboss:wind_cat`、`/summon jsnboss:thunder_lion`、`/summon jsnboss:rock_giant`、`/summon jsnboss:ender_sentinel`、`/summon jsnboss:creeper_mother`、`/summon jsnboss:fenrir`、`/summon jsnboss:iron_spider`、`/summon jsnboss:fallen_valkyrie`、`/summon jsnboss:yggdrasil`
+- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f、white_fox と wind_cat は 790f、thunder_lion は 890f、rock_giant は 1090f、ender_sentinel と creeper_mother は 790f、fenrir と iron_spider は 990f、fallen_valkyrie は 1090f、yggdrasil は 1490f）
 
 配布用の jar は `./gradlew build` で `build/libs/` にできる。GitHub に push すると Actions が自動でビルドする（jar は Actions の実行結果からダウンロードできる）。
 
@@ -253,7 +271,7 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 | 内容 | 場所 |
 |---|---|
 | ボス共通の土台 | `src/main/java/com/chigusa/jsnboss/entity/AbstractBoss.java` |
-| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java`、`entity/DarkMageEntity.java`、`entity/BladeDragonEntity.java`、`entity/WhiteFoxEntity.java`、`entity/WindCatEntity.java`、`entity/ThunderLionEntity.java`、`entity/RockGiantEntity.java`、`entity/EnderSentinelEntity.java`、`entity/CreeperMotherEntity.java`、`entity/FenrirEntity.java`、`entity/IronSpiderEntity.java`、`entity/FallenValkyrieEntity.java` |
+| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java`、`entity/DarkMageEntity.java`、`entity/BladeDragonEntity.java`、`entity/WhiteFoxEntity.java`、`entity/WindCatEntity.java`、`entity/ThunderLionEntity.java`、`entity/RockGiantEntity.java`、`entity/EnderSentinelEntity.java`、`entity/CreeperMotherEntity.java`、`entity/FenrirEntity.java`、`entity/IronSpiderEntity.java`、`entity/FallenValkyrieEntity.java`、`entity/YggdrasilEntity.java` |
 | 火の玉・斬撃・火柱 | `src/main/java/com/chigusa/jsnboss/entity/` |
 | モデル | `src/main/resources/assets/jsnboss/geo/entity/fire_knight.geo.json` |
 | アニメーション | `src/main/resources/assets/jsnboss/animations/entity/fire_knight.animation.json` |
