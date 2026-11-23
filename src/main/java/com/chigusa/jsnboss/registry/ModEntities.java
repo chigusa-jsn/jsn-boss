@@ -29,6 +29,8 @@ import com.chigusa.jsnboss.entity.MineEntity;
 import com.chigusa.jsnboss.entity.DroneShotEntity;
 import com.chigusa.jsnboss.entity.EnderSentinelEntity;
 import com.chigusa.jsnboss.entity.FenrirEntity;
+import com.chigusa.jsnboss.entity.IronSpiderEntity;
+import com.chigusa.jsnboss.entity.MissileEntity;
 import com.chigusa.jsnboss.entity.FissureEntity;
 import com.chigusa.jsnboss.entity.GroundBoltEntity;
 import com.chigusa.jsnboss.entity.RockGiantEntity;
@@ -228,6 +230,16 @@ public final class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<FenrirEntity>> FENRIR =
             ENTITY_TYPES.register("fenrir", () -> EntityType.Builder.<FenrirEntity>of(FenrirEntity::new, MobCategory.MONSTER)
                     .sized(2.4F, 2.8F).clientTrackingRange(10).build("fenrir"));
+
+    // ------------------------------------------------------------ 鋼鉄の機甲蜘蛛
+    /** 幅3.6 × 高さ2.6ブロック */
+    public static final DeferredHolder<EntityType<?>, EntityType<IronSpiderEntity>> IRON_SPIDER =
+            ENTITY_TYPES.register("iron_spider", () -> EntityType.Builder.<IronSpiderEntity>of(IronSpiderEntity::new, MobCategory.MONSTER)
+                    .sized(3.6F, 2.6F).clientTrackingRange(10).build("iron_spider"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<MissileEntity>> MISSILE =
+            ENTITY_TYPES.register("missile", () -> EntityType.Builder.<MissileEntity>of(MissileEntity::new, MobCategory.MISC)
+                    .sized(0.4F, 0.4F).clientTrackingRange(8).updateInterval(1).noSave().build("missile"));
 
     private ModEntities() {}
 }

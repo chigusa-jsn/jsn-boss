@@ -55,5 +55,8 @@
   "entity.jsnboss.chain_blast": "連鎖爆発",
   "item.jsnboss.creeper_mother_spawn_egg": "マザークリーパーのスポーンエッグ",
   "entity.jsnboss.fenrir": "フェンリル",
-  "item.jsnboss.fenrir_spawn_egg": "フェンリルのスポーンエッグ"
+  "item.jsnboss.fenrir_spawn_egg": "フェンリルのスポーンエッグ",
+  "entity.jsnboss.iron_spider": "鋼鉄の機甲蜘蛛",
+  "entity.jsnboss.missile": "ミサイル",
+  "item.jsnboss.iron_spider_spawn_egg": "鋼鉄の機甲蜘蛛のスポーンエッグ"
 }
