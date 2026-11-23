@@ -9,6 +9,8 @@ import com.chigusa.jsnboss.entity.WhiteFoxEntity;
 import com.chigusa.jsnboss.entity.CreeperMotherEntity;
 import com.chigusa.jsnboss.entity.FallenValkyrieEntity;
 import com.chigusa.jsnboss.entity.FenrirEntity;
+import com.chigusa.jsnboss.entity.GoldenFruitEntity;
+import com.chigusa.jsnboss.entity.YggdrasilEntity;
 import com.chigusa.jsnboss.entity.IronSpiderEntity;
 import com.chigusa.jsnboss.entity.EnderSentinelEntity;
 import com.chigusa.jsnboss.entity.RockGiantEntity;
@@ -67,6 +69,8 @@ public final class BossSetup {
         event.put(ModEntities.FENRIR.get(), FenrirEntity.createAttributes().build());
         event.put(ModEntities.IRON_SPIDER.get(), IronSpiderEntity.createAttributes().build());
         event.put(ModEntities.FALLEN_VALKYRIE.get(), FallenValkyrieEntity.createAttributes().build());
+        event.put(ModEntities.YGGDRASIL.get(), YggdrasilEntity.createAttributes().build());
+        event.put(ModEntities.GOLDEN_FRUIT.get(), GoldenFruitEntity.createAttributes().build());
     }
 
     private static void onCreativeTab(BuildCreativeModeTabContentsEvent event) {
@@ -85,6 +89,7 @@ public final class BossSetup {
             event.accept(ModItems.FENRIR_SPAWN_EGG.get());
             event.accept(ModItems.IRON_SPIDER_SPAWN_EGG.get());
             event.accept(ModItems.FALLEN_VALKYRIE_SPAWN_EGG.get());
+            event.accept(ModItems.YGGDRASIL_SPAWN_EGG.get());
         }
     }
 

@@ -31,6 +31,8 @@ import com.chigusa.jsnboss.entity.EnderSentinelEntity;
 import com.chigusa.jsnboss.entity.FallenValkyrieEntity;
 import com.chigusa.jsnboss.entity.FeatherShotEntity;
 import com.chigusa.jsnboss.entity.FenrirEntity;
+import com.chigusa.jsnboss.entity.GoldenFruitEntity;
+import com.chigusa.jsnboss.entity.YggdrasilEntity;
 import com.chigusa.jsnboss.entity.IronSpiderEntity;
 import com.chigusa.jsnboss.entity.MissileEntity;
 import com.chigusa.jsnboss.entity.FissureEntity;
@@ -252,6 +254,16 @@ public final class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<FeatherShotEntity>> FEATHER_SHOT =
             ENTITY_TYPES.register("feather_shot", () -> EntityType.Builder.<FeatherShotEntity>of(FeatherShotEntity::new, MobCategory.MISC)
                     .sized(0.4F, 0.4F).clientTrackingRange(8).updateInterval(1).noSave().build("feather_shot"));
+
+    // ------------------------------------------------------------ ユグドラシル
+    /** 幅3.4 × 高さ6.0ブロック（幹の部分） */
+    public static final DeferredHolder<EntityType<?>, EntityType<YggdrasilEntity>> YGGDRASIL =
+            ENTITY_TYPES.register("yggdrasil", () -> EntityType.Builder.<YggdrasilEntity>of(YggdrasilEntity::new, MobCategory.MONSTER)
+                    .sized(3.4F, 6.0F).clientTrackingRange(12).build("yggdrasil"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<GoldenFruitEntity>> GOLDEN_FRUIT =
+            ENTITY_TYPES.register("golden_fruit", () -> EntityType.Builder.<GoldenFruitEntity>of(GoldenFruitEntity::new, MobCategory.MISC)
+                    .sized(0.8F, 0.8F).clientTrackingRange(10).noSave().noSummon().build("golden_fruit"));
 
     private ModEntities() {}
 }

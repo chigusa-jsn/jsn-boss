@@ -27,6 +27,10 @@ public class RockPillarEntity extends Entity {
     public static final float HEIGHT = 3.0F;
     private static final EntityDataAccessor<Integer> WARMUP =
             SynchedEntityData.defineId(RockPillarEntity.class, EntityDataSerializers.INT);
+    /** 見た目：ROCK＝石の柱（岩の巨人）、ROOT＝木の根（ユグドラシル） */
+    private static final EntityDataAccessor<Integer> VARIANT =
+            SynchedEntityData.defineId(RockPillarEntity.class, EntityDataSerializers.INT);
+    public static final int ROCK = 0, ROOT = 1;
 
     private AbstractBoss owner;
     private float damage = 14.0F;
@@ -47,6 +51,20 @@ public class RockPillarEntity extends Entity {
         owner.level().addFreshEntity(e);
     }
 
+    /** 地面から木の根が突き出す（ユグドラシル） */
+    public static void spawnRoot(AbstractBoss owner, double x, double z, int warmup, float damage) {
+        RockPillarEntity e = new RockPillarEntity(ModEntities.ROCK_PILLAR.get(), owner.level());
+        e.owner = owner;
+        e.damage = damage;
+        e.setPos(x, owner.groundY(x, owner.getY() + 4, z), z);
+        e.setYRot(owner.getRandom().nextFloat() * 360F);
+        e.entityData.set(WARMUP, warmup);
+        e.entityData.set(VARIANT, ROOT);
+        owner.level().addFreshEntity(e);
+    }
+
+    public int variant() { return this.entityData.get(VARIANT); }
+
     public int warmup() { return this.entityData.get(WARMUP); }
 
     /** 地面からどれだけ出ているか（0〜1）。描画用 */
@@ -61,6 +79,7 @@ public class RockPillarEntity extends Entity {
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         builder.define(WARMUP, 16);
+        builder.define(VARIANT, ROCK);
     }
 
     @Override
@@ -68,7 +87,8 @@ public class RockPillarEntity extends Entity {
         super.tick();
         int t = this.tickCount, w = warmup();
         if (level().isClientSide) {
-            BlockParticleOption dirt = new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState());
+            BlockParticleOption dirt = new BlockParticleOption(ParticleTypes.BLOCK,
+                    (variant() == ROOT ? Blocks.ROOTED_DIRT : Blocks.STONE).defaultBlockState());
             if (t < w) {
                 for (int i = 0; i < 1 + t * 4 / Math.max(1, w); i++) {
                     level().addParticle(dirt, getX() + (random.nextDouble() - 0.5) * 1.6, getY() + 0.1,

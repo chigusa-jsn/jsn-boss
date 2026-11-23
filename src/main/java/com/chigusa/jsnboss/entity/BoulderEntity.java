@@ -36,7 +36,7 @@ public class BoulderEntity extends Entity {
             SynchedEntityData.defineId(BoulderEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> HOVER =
             SynchedEntityData.defineId(BoulderEntity.class, EntityDataSerializers.INT);
-    public static final int ROCK = 0, END = 1, TNT = 2;
+    public static final int ROCK = 0, END = 1, TNT = 2, SEED = 3;
 
     private AbstractBoss owner;
     private float damage = 16.0F;
@@ -77,6 +77,17 @@ public class BoulderEntity extends Entity {
         Vec3 vel = new Vec3(d.x / time, (d.y + 0.5 * 0.05 * time * time) / time, d.z / time);
         BoulderEntity e = make(owner, from, vel, THROWN, 1.0F, damage);
         e.entityData.set(VARIANT, TNT);
+        owner.level().addFreshEntity(e);
+    }
+
+    /** ユグドラシルの種の爆弾：放物線で飛び、着地でトゲのツタが弾ける */
+    public static void throwSeed(AbstractBoss owner, Vec3 from, Vec3 target, float damage) {
+        Vec3 d = target.subtract(from);
+        double horiz = Math.sqrt(d.x * d.x + d.z * d.z);
+        double time = Math.max(10, horiz / 0.6);
+        Vec3 vel = new Vec3(d.x / time, (d.y + 0.5 * 0.05 * time * time) / time, d.z / time);
+        BoulderEntity e = make(owner, from, vel, THROWN, 0.8F, damage);
+        e.entityData.set(VARIANT, SEED);
         owner.level().addFreshEntity(e);
     }
 
@@ -159,6 +170,16 @@ public class BoulderEntity extends Entity {
     private void impact() {
         if (variant() == TNT) {
             Blasts.blast(level(), owner, this.position(), 3.0, damage);
+            this.discard();
+            return;
+        }
+        if (variant() == SEED) {
+            Blasts.blast(level(), owner, this.position(), 2.5, damage);
+            if (level() instanceof ServerLevel sl) {
+                sl.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.MOSS_BLOCK.defaultBlockState()),
+                        getX(), getY() + 0.5, getZ(), 40, 1.2, 0.5, 1.2, 0.2);
+                sl.sendParticles(ParticleTypes.SPORE_BLOSSOM_AIR, getX(), getY() + 0.5, getZ(), 30, 1.5, 0.5, 1.5, 0.05);
+            }
             this.discard();
             return;
         }

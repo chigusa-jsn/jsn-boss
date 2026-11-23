@@ -61,5 +61,8 @@
   "item.jsnboss.iron_spider_spawn_egg": "鋼鉄の機甲蜘蛛のスポーンエッグ",
   "entity.jsnboss.fallen_valkyrie": "堕ちた戦乙女",
   "entity.jsnboss.feather_shot": "羽根の刃",
-  "item.jsnboss.fallen_valkyrie_spawn_egg": "堕ちた戦乙女のスポーンエッグ"
+  "item.jsnboss.fallen_valkyrie_spawn_egg": "堕ちた戦乙女のスポーンエッグ",
+  "entity.jsnboss.yggdrasil": "ユグドラシル",
+  "entity.jsnboss.golden_fruit": "黄金の実",
+  "item.jsnboss.yggdrasil_spawn_egg": "ユグドラシルのスポーンエッグ"
 }

@@ -17,6 +17,8 @@ import net.minecraft.world.level.block.state.BlockState;
 public class RockPillarRenderer extends EntityRenderer<RockPillarEntity> {
     private static final BlockState[] LAYERS = {
             Blocks.STONE.defaultBlockState(), Blocks.COBBLESTONE.defaultBlockState(), Blocks.MOSSY_COBBLESTONE.defaultBlockState()};
+    private static final BlockState[] ROOTS = {
+            Blocks.ROOTED_DIRT.defaultBlockState(), Blocks.DARK_OAK_LOG.defaultBlockState(), Blocks.MANGROVE_ROOTS.defaultBlockState()};
     private static final float[] WIDTH = {1.4F, 1.15F, 0.85F};
     private final BlockRenderDispatcher blocks;
 
@@ -39,7 +41,7 @@ public class RockPillarRenderer extends EntityRenderer<RockPillarEntity> {
             pose.mulPose(Axis.YP.rotationDegrees(i * 17.0F));
             pose.scale(w, 1.0F, w);
             pose.translate(-0.5, 0, -0.5);
-            blocks.renderSingleBlock(LAYERS[i], pose, buffers, light, OverlayTexture.NO_OVERLAY);
+            blocks.renderSingleBlock((entity.variant() == RockPillarEntity.ROOT ? ROOTS : LAYERS)[i], pose, buffers, light, OverlayTexture.NO_OVERLAY);
             pose.popPose();
         }
         pose.popPose();

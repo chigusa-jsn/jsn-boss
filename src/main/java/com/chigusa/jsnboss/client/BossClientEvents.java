@@ -75,6 +75,9 @@ public final class BossClientEvents {
 
             event.registerEntityRenderer(ModEntities.FALLEN_VALKYRIE.get(), FallenValkyrieRenderer::new);
             event.registerEntityRenderer(ModEntities.FEATHER_SHOT.get(), NoopRenderer::new);
+
+            event.registerEntityRenderer(ModEntities.YGGDRASIL.get(), YggdrasilRenderer::new);
+            event.registerEntityRenderer(ModEntities.GOLDEN_FRUIT.get(), GoldenFruitRenderer::new);
         }
     }
 

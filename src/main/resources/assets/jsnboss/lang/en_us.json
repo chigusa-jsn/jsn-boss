@@ -61,5 +61,8 @@
   "item.jsnboss.iron_spider_spawn_egg": "Iron Spider Spawn Egg",
   "entity.jsnboss.fallen_valkyrie": "Fallen Valkyrie",
   "entity.jsnboss.feather_shot": "Feather Blade",
-  "item.jsnboss.fallen_valkyrie_spawn_egg": "Fallen Valkyrie Spawn Egg"
+  "item.jsnboss.fallen_valkyrie_spawn_egg": "Fallen Valkyrie Spawn Egg",
+  "entity.jsnboss.yggdrasil": "Yggdrasil",
+  "entity.jsnboss.golden_fruit": "Golden Fruit",
+  "item.jsnboss.yggdrasil_spawn_egg": "Yggdrasil Spawn Egg"
 }
