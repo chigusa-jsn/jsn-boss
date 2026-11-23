@@ -49,5 +49,9 @@
   "entity.jsnboss.ender_sentinel": "虚空の監視者",
   "entity.jsnboss.drone_shot": "ドローンの弾",
   "entity.jsnboss.black_hole": "虚空の崩壊",
-  "item.jsnboss.ender_sentinel_spawn_egg": "虚空の監視者のスポーンエッグ"
+  "item.jsnboss.ender_sentinel_spawn_egg": "虚空の監視者のスポーンエッグ",
+  "entity.jsnboss.creeper_mother": "マザークリーパー",
+  "entity.jsnboss.mine": "地雷",
+  "entity.jsnboss.chain_blast": "連鎖爆発",
+  "item.jsnboss.creeper_mother_spawn_egg": "マザークリーパーのスポーンエッグ"
 }

@@ -49,5 +49,9 @@
   "entity.jsnboss.ender_sentinel": "Ender Sentinel",
   "entity.jsnboss.drone_shot": "Drone Shot",
   "entity.jsnboss.black_hole": "Void Collapse",
-  "item.jsnboss.ender_sentinel_spawn_egg": "Ender Sentinel Spawn Egg"
+  "item.jsnboss.ender_sentinel_spawn_egg": "Ender Sentinel Spawn Egg",
+  "entity.jsnboss.creeper_mother": "Creeper Mother",
+  "entity.jsnboss.mine": "Mine",
+  "entity.jsnboss.chain_blast": "Chain Blast",
+  "item.jsnboss.creeper_mother_spawn_egg": "Creeper Mother Spawn Egg"
 }

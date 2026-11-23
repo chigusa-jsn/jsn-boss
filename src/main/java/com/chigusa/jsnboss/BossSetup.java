@@ -6,6 +6,7 @@ import com.chigusa.jsnboss.entity.ZombieKingEntity;
 import com.chigusa.jsnboss.entity.DarkMageEntity;
 import com.chigusa.jsnboss.entity.BladeDragonEntity;
 import com.chigusa.jsnboss.entity.WhiteFoxEntity;
+import com.chigusa.jsnboss.entity.CreeperMotherEntity;
 import com.chigusa.jsnboss.entity.EnderSentinelEntity;
 import com.chigusa.jsnboss.entity.RockGiantEntity;
 import com.chigusa.jsnboss.entity.ThunderLionEntity;
@@ -59,6 +60,7 @@ public final class BossSetup {
         event.put(ModEntities.THUNDER_LION.get(), ThunderLionEntity.createAttributes().build());
         event.put(ModEntities.ROCK_GIANT.get(), RockGiantEntity.createAttributes().build());
         event.put(ModEntities.ENDER_SENTINEL.get(), EnderSentinelEntity.createAttributes().build());
+        event.put(ModEntities.CREEPER_MOTHER.get(), CreeperMotherEntity.createAttributes().build());
     }
 
     private static void onCreativeTab(BuildCreativeModeTabContentsEvent event) {
@@ -73,6 +75,7 @@ public final class BossSetup {
             event.accept(ModItems.THUNDER_LION_SPAWN_EGG.get());
             event.accept(ModItems.ROCK_GIANT_SPAWN_EGG.get());
             event.accept(ModItems.ENDER_SENTINEL_SPAWN_EGG.get());
+            event.accept(ModItems.CREEPER_MOTHER_SPAWN_EGG.get());
         }
     }
 

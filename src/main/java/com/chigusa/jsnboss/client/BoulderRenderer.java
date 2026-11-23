@@ -19,6 +19,7 @@ public class BoulderRenderer extends EntityRenderer<BoulderEntity> {
     private static final BlockState CORE = Blocks.COBBLESTONE.defaultBlockState();
     private static final BlockState END_ROCK = Blocks.END_STONE.defaultBlockState();
     private static final BlockState END_CORE = Blocks.END_STONE_BRICKS.defaultBlockState();
+    private static final BlockState TNT = Blocks.TNT.defaultBlockState();
     private final BlockRenderDispatcher blocks;
 
     public BoulderRenderer(EntityRendererProvider.Context context) {
@@ -31,6 +32,22 @@ public class BoulderRenderer extends EntityRenderer<BoulderEntity> {
     public void render(BoulderEntity entity, float yaw, float partialTick, PoseStack pose, MultiBufferSource buffers, int light) {
         float s = entity.size();
         boolean end = entity.variant() == BoulderEntity.END;
+        if (entity.variant() == BoulderEntity.TNT) {
+            // TNT：ゆっくり回りながら、白く点滅する
+            float spinT = (entity.tickCount + partialTick) * 8.0F;
+            boolean flash = (entity.tickCount / 3) % 2 == 0;
+            pose.pushPose();
+            pose.translate(0, s / 2, 0);
+            pose.mulPose(Axis.XP.rotationDegrees(spinT));
+            pose.mulPose(Axis.ZP.rotationDegrees(spinT * 0.7F));
+            pose.scale(s, s, s);
+            pose.translate(-0.5, -0.5, -0.5);
+            blocks.renderSingleBlock(TNT, pose, buffers, light,
+                    flash ? OverlayTexture.pack(OverlayTexture.u(1.0F), 10) : OverlayTexture.NO_OVERLAY);
+            pose.popPose();
+            super.render(entity, yaw, partialTick, pose, buffers, light);
+            return;
+        }
         float spin = (entity.tickCount + partialTick) * (entity.mode() == BoulderEntity.FALL ? 6.0F : 14.0F);
         pose.pushPose();
         pose.translate(0, s / 2, 0);

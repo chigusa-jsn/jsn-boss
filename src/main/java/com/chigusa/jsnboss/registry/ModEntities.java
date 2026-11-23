@@ -23,6 +23,9 @@ import com.chigusa.jsnboss.entity.WhiteFoxEntity;
 import com.chigusa.jsnboss.entity.TornadoEntity;
 import com.chigusa.jsnboss.entity.BlackHoleEntity;
 import com.chigusa.jsnboss.entity.BoulderEntity;
+import com.chigusa.jsnboss.entity.ChainBlastEntity;
+import com.chigusa.jsnboss.entity.CreeperMotherEntity;
+import com.chigusa.jsnboss.entity.MineEntity;
 import com.chigusa.jsnboss.entity.DroneShotEntity;
 import com.chigusa.jsnboss.entity.EnderSentinelEntity;
 import com.chigusa.jsnboss.entity.FissureEntity;
@@ -204,6 +207,20 @@ public final class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<BlackHoleEntity>> BLACK_HOLE =
             ENTITY_TYPES.register("black_hole", () -> EntityType.Builder.<BlackHoleEntity>of(BlackHoleEntity::new, MobCategory.MISC)
                     .sized(1.0F, 1.0F).clientTrackingRange(10).noSave().build("black_hole"));
+
+    // ------------------------------------------------------------ マザークリーパー
+    /** 幅2.4 × 高さ4.2ブロック */
+    public static final DeferredHolder<EntityType<?>, EntityType<CreeperMotherEntity>> CREEPER_MOTHER =
+            ENTITY_TYPES.register("creeper_mother", () -> EntityType.Builder.<CreeperMotherEntity>of(CreeperMotherEntity::new, MobCategory.MONSTER)
+                    .sized(2.4F, 4.2F).clientTrackingRange(10).build("creeper_mother"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<MineEntity>> MINE =
+            ENTITY_TYPES.register("mine", () -> EntityType.Builder.<MineEntity>of(MineEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).clientTrackingRange(8).noSave().build("mine"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<ChainBlastEntity>> CHAIN_BLAST =
+            ENTITY_TYPES.register("chain_blast", () -> EntityType.Builder.<ChainBlastEntity>of(ChainBlastEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).clientTrackingRange(8).noSave().build("chain_blast"));
 
     private ModEntities() {}
 }

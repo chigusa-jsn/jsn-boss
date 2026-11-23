@@ -63,6 +63,10 @@ public final class BossClientEvents {
             event.registerEntityRenderer(ModEntities.ENDER_SENTINEL.get(), EnderSentinelRenderer::new);
             event.registerEntityRenderer(ModEntities.DRONE_SHOT.get(), NoopRenderer::new);
             event.registerEntityRenderer(ModEntities.BLACK_HOLE.get(), NoopRenderer::new);
+
+            event.registerEntityRenderer(ModEntities.CREEPER_MOTHER.get(), CreeperMotherRenderer::new);
+            event.registerEntityRenderer(ModEntities.MINE.get(), MineRenderer::new);
+            event.registerEntityRenderer(ModEntities.CHAIN_BLAST.get(), NoopRenderer::new);
         }
     }
 

@@ -36,7 +36,7 @@ public class BoulderEntity extends Entity {
             SynchedEntityData.defineId(BoulderEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> HOVER =
             SynchedEntityData.defineId(BoulderEntity.class, EntityDataSerializers.INT);
-    public static final int ROCK = 0, END = 1;
+    public static final int ROCK = 0, END = 1, TNT = 2;
 
     private AbstractBoss owner;
     private float damage = 16.0F;
@@ -66,6 +66,17 @@ public class BoulderEntity extends Entity {
         Vec3 vel = new Vec3(d.x / time, (d.y + 0.5 * 0.05 * time * time) / time, d.z / time);
         BoulderEntity e = make(owner, from, vel, THROWN, 1.6F, damage);
         e.shatter = shatter;
+        owner.level().addFreshEntity(e);
+    }
+
+    /** 火のついた TNT を target に向けて放物線で投げる（着地でブロックを壊さない爆発） */
+    public static void throwTnt(AbstractBoss owner, Vec3 from, Vec3 target, float damage) {
+        Vec3 d = target.subtract(from);
+        double horiz = Math.sqrt(d.x * d.x + d.z * d.z);
+        double time = Math.max(10, horiz / 0.7);
+        Vec3 vel = new Vec3(d.x / time, (d.y + 0.5 * 0.05 * time * time) / time, d.z / time);
+        BoulderEntity e = make(owner, from, vel, THROWN, 1.0F, damage);
+        e.entityData.set(VARIANT, TNT);
         owner.level().addFreshEntity(e);
     }
 
@@ -128,7 +139,10 @@ public class BoulderEntity extends Entity {
                     level().addParticle(ParticleTypes.SMOKE, getX() + Math.cos(a) * r, g + 0.1, getZ() + Math.sin(a) * r, 0, 0, 0);
                 }
             }
-            if (this.tickCount % 2 == 0) {
+            if (variant() == TNT) {
+                level().addParticle(ParticleTypes.SMOKE, getX(), getY() + size() + 0.2, getZ(), 0, 0.05, 0);
+                if (this.tickCount % 2 == 0) level().addParticle(ParticleTypes.FLAME, getX(), getY() + size() + 0.2, getZ(), 0, 0.02, 0);
+            } else if (this.tickCount % 2 == 0) {
                 level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.COBBLESTONE.defaultBlockState()),
                         getX(), getY() + size() / 2, getZ(), 0, 0, 0);
             }
@@ -143,6 +157,11 @@ public class BoulderEntity extends Entity {
     }
 
     private void impact() {
+        if (variant() == TNT) {
+            Blasts.blast(level(), owner, this.position(), 3.0, damage);
+            this.discard();
+            return;
+        }
         double radius = mode() == SHARD ? 1.2 : 2.5;
         for (LivingEntity e : level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(radius + 1),
                 e -> e.isAlive() && !(e instanceof AbstractBoss) && !e.isSpectator())) {
