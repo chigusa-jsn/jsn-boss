@@ -19,6 +19,7 @@ import net.minecraft.world.item.Items;
 /** 光の剣：金の剣を最大の明るさで描き、切っ先を下にして空から落とす */
 public class LightSwordRenderer extends EntityRenderer<LightSwordEntity> {
     private static final ItemStack SWORD = new ItemStack(Items.GOLDEN_SWORD);
+    private static final ItemStack SPEAR = new ItemStack(Items.TRIDENT);
     private static final float SIZE = 2.6F;
     private final ItemRenderer items;
 
@@ -40,7 +41,7 @@ public class LightSwordRenderer extends EntityRenderer<LightSwordEntity> {
         pose.mulPose(Axis.YP.rotationDegrees(entity.getYRot()));
         pose.mulPose(Axis.ZP.rotationDegrees(-135.0F));                 // 切っ先を真下へ
         pose.scale(SIZE * fade, SIZE * fade, SIZE * fade);
-        items.renderStatic(SWORD, ItemDisplayContext.FIXED, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY,
+        items.renderStatic(entity.isSpear() ? SPEAR : SWORD, ItemDisplayContext.FIXED, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY,
                 pose, buffers, entity.level(), entity.getId());
         pose.popPose();
         super.render(entity, yaw, partialTick, pose, buffers, light);

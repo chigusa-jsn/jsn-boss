@@ -58,5 +58,8 @@
   "item.jsnboss.fenrir_spawn_egg": "フェンリルのスポーンエッグ",
   "entity.jsnboss.iron_spider": "鋼鉄の機甲蜘蛛",
   "entity.jsnboss.missile": "ミサイル",
-  "item.jsnboss.iron_spider_spawn_egg": "鋼鉄の機甲蜘蛛のスポーンエッグ"
+  "item.jsnboss.iron_spider_spawn_egg": "鋼鉄の機甲蜘蛛のスポーンエッグ",
+  "entity.jsnboss.fallen_valkyrie": "堕ちた戦乙女",
+  "entity.jsnboss.feather_shot": "羽根の刃",
+  "item.jsnboss.fallen_valkyrie_spawn_egg": "堕ちた戦乙女のスポーンエッグ"
 }

@@ -28,6 +28,8 @@ import com.chigusa.jsnboss.entity.CreeperMotherEntity;
 import com.chigusa.jsnboss.entity.MineEntity;
 import com.chigusa.jsnboss.entity.DroneShotEntity;
 import com.chigusa.jsnboss.entity.EnderSentinelEntity;
+import com.chigusa.jsnboss.entity.FallenValkyrieEntity;
+import com.chigusa.jsnboss.entity.FeatherShotEntity;
 import com.chigusa.jsnboss.entity.FenrirEntity;
 import com.chigusa.jsnboss.entity.IronSpiderEntity;
 import com.chigusa.jsnboss.entity.MissileEntity;
@@ -240,6 +242,16 @@ public final class ModEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<MissileEntity>> MISSILE =
             ENTITY_TYPES.register("missile", () -> EntityType.Builder.<MissileEntity>of(MissileEntity::new, MobCategory.MISC)
                     .sized(0.4F, 0.4F).clientTrackingRange(8).updateInterval(1).noSave().build("missile"));
+
+    // ------------------------------------------------------------ 堕ちた戦乙女
+    /** 幅1.4 × 高さ3.8ブロック */
+    public static final DeferredHolder<EntityType<?>, EntityType<FallenValkyrieEntity>> FALLEN_VALKYRIE =
+            ENTITY_TYPES.register("fallen_valkyrie", () -> EntityType.Builder.<FallenValkyrieEntity>of(FallenValkyrieEntity::new, MobCategory.MONSTER)
+                    .sized(1.4F, 3.8F).clientTrackingRange(12).build("fallen_valkyrie"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<FeatherShotEntity>> FEATHER_SHOT =
+            ENTITY_TYPES.register("feather_shot", () -> EntityType.Builder.<FeatherShotEntity>of(FeatherShotEntity::new, MobCategory.MISC)
+                    .sized(0.4F, 0.4F).clientTrackingRange(8).updateInterval(1).noSave().build("feather_shot"));
 
     private ModEntities() {}
 }

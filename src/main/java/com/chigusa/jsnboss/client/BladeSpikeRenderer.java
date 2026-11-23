@@ -35,7 +35,8 @@ public class BladeSpikeRenderer extends EntityRenderer<BladeSpikeEntity> {
         pose.mulPose(Axis.YP.rotationDegrees(entity.getYRot()));
         pose.mulPose(Axis.ZP.rotationDegrees(45.0F));               // 右上向きの剣を、切っ先が真上を向くように
         pose.scale(SIZE, SIZE, SIZE);
-        items.renderStatic(entity.getSwordStack(), ItemDisplayContext.FIXED, light, OverlayTexture.NO_OVERLAY,
+        items.renderStatic(entity.getSwordStack(), ItemDisplayContext.FIXED,
+                entity.isSpear() ? net.minecraft.client.renderer.LightTexture.FULL_BRIGHT : light, OverlayTexture.NO_OVERLAY,
                 pose, buffers, entity.level(), entity.getId());
         pose.popPose();
         super.render(entity, yaw, partialTick, pose, buffers, light);

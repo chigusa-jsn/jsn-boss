@@ -25,6 +25,10 @@ import java.util.UUID;
 public class LightSwordEntity extends Entity {
     private static final EntityDataAccessor<Integer> WARMUP =
             SynchedEntityData.defineId(LightSwordEntity.class, EntityDataSerializers.INT);
+    /** true なら金の剣ではなく光る槍（堕ちた戦乙女の「槍の雨」） */
+    private static final EntityDataAccessor<Boolean> SPEAR =
+            SynchedEntityData.defineId(LightSwordEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final Vector3f CYAN = new Vector3f(0.6F, 0.95F, 1.0F);
     public static final int FALL = 5;      // 落ちてくる時間
     public static final int STUCK = 14;    // 刺さったまま光っている時間
     public static final double DROP = 12;  // 何ブロック上から落ちるか
@@ -50,11 +54,25 @@ public class LightSwordEntity extends Entity {
         owner.level().addFreshEntity(e);
     }
 
+    public static void spawnSpear(AbstractBoss owner, double x, double y, double z, int warmup, float damage) {
+        LightSwordEntity e = new LightSwordEntity(ModEntities.LIGHT_SWORD.get(), owner.level());
+        e.owner = owner;
+        e.damage = damage;
+        e.setPos(x, y, z);
+        e.setYRot(owner.getRandom().nextFloat() * 360);
+        e.entityData.set(WARMUP, warmup);
+        e.entityData.set(SPEAR, true);
+        owner.level().addFreshEntity(e);
+    }
+
+    public boolean isSpear() { return this.entityData.get(SPEAR); }
+
     public int getWarmup() { return this.entityData.get(WARMUP); }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         builder.define(WARMUP, 16);
+        builder.define(SPEAR, false);
     }
 
     @Override
@@ -86,7 +104,7 @@ public class LightSwordEntity extends Entity {
             int n = 1 + t * 3 / Math.max(1, w);
             for (int i = 0; i < n; i++) {
                 double a = random.nextDouble() * Math.PI * 2;
-                level().addParticle(new DustParticleOptions(GOLD, 1.0F), getX() + Math.cos(a) * RADIUS, getY() + 0.05,
+                level().addParticle(new DustParticleOptions(isSpear() ? CYAN : GOLD, 1.0F), getX() + Math.cos(a) * RADIUS, getY() + 0.05,
                         getZ() + Math.sin(a) * RADIUS, 0, 0, 0);
             }
         } else if (t < w + 3) {

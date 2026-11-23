@@ -72,6 +72,9 @@ public final class BossClientEvents {
 
             event.registerEntityRenderer(ModEntities.IRON_SPIDER.get(), IronSpiderRenderer::new);
             event.registerEntityRenderer(ModEntities.MISSILE.get(), NoopRenderer::new);
+
+            event.registerEntityRenderer(ModEntities.FALLEN_VALKYRIE.get(), FallenValkyrieRenderer::new);
+            event.registerEntityRenderer(ModEntities.FEATHER_SHOT.get(), NoopRenderer::new);
         }
     }
 

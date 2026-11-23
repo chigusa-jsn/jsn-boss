@@ -37,7 +37,9 @@ public class BladeSpikeEntity extends Entity {
 
     private static final ItemStack[] SWORDS = {
             new ItemStack(Items.IRON_SWORD), new ItemStack(Items.DIAMOND_SWORD), new ItemStack(Items.NETHERITE_SWORD),
-            new ItemStack(Items.GOLDEN_SWORD)};
+            new ItemStack(Items.GOLDEN_SWORD), new ItemStack(Items.TRIDENT)};
+    /** 戦乙女の「地より出ずる槍」で使う光る槍（SWORDS の最後） */
+    public static final int SPEAR = 4;
     public static final int OUT = 14;      // 剣が地上に出ている時間
     private static final double RADIUS = 0.9;
 
@@ -57,10 +59,24 @@ public class BladeSpikeEntity extends Entity {
         e.setPos(x, y, z);
         e.setYRot(owner.getRandom().nextFloat() * 360);
         e.entityData.set(WARMUP, warmup);
-        e.entityData.set(KIND, owner.getRandom().nextInt(SWORDS.length));
+        e.entityData.set(KIND, owner.getRandom().nextInt(SPEAR));
         e.entityData.set(RED, owner.isPhase2());
         owner.level().addFreshEntity(e);
     }
+
+    /** 光る槍が地面から突き出す（堕ちた戦乙女） */
+    public static void spawnSpear(AbstractBoss owner, double x, double y, double z, int warmup, float damage) {
+        BladeSpikeEntity e = new BladeSpikeEntity(ModEntities.BLADE_SPIKE.get(), owner.level());
+        e.owner = owner;
+        e.damage = damage;
+        e.setPos(x, y, z);
+        e.setYRot(owner.getRandom().nextFloat() * 360);
+        e.entityData.set(WARMUP, warmup);
+        e.entityData.set(KIND, SPEAR);
+        owner.level().addFreshEntity(e);
+    }
+
+    public boolean isSpear() { return this.entityData.get(KIND) == SPEAR; }
 
     public int getWarmup() { return this.entityData.get(WARMUP); }
     public boolean isRed() { return this.entityData.get(RED); }
@@ -112,8 +128,9 @@ public class BladeSpikeEntity extends Entity {
             if (t > w - 10) {
                 level().addParticle(block, getX() + (random.nextDouble() - 0.5), getY() + 0.1, getZ() + (random.nextDouble() - 0.5), 0, 0.15, 0);
             }
-            if (t % 3 == 0) level().addParticle(ParticleTypes.CRIT, getX(), getY() + 0.1, getZ(), 0, 0.1, 0);
+            if (t % 3 == 0) level().addParticle(isSpear() ? ParticleTypes.END_ROD : ParticleTypes.CRIT, getX(), getY() + 0.1, getZ(), 0, 0.1, 0);
         } else if (t < w + 3) {
+            if (isSpear()) level().addParticle(ParticleTypes.END_ROD, getX(), getY() + 1.5, getZ(), 0, 0.2, 0);
             for (int i = 0; i < 8; i++) {
                 level().addParticle(block, getX() + (random.nextDouble() - 0.5), getY() + 0.2, getZ() + (random.nextDouble() - 0.5),
                         (random.nextDouble() - 0.5) * 0.3, 0.3, (random.nextDouble() - 0.5) * 0.3);

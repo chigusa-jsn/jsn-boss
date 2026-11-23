@@ -58,5 +58,8 @@
   "item.jsnboss.fenrir_spawn_egg": "Fenrir Spawn Egg",
   "entity.jsnboss.iron_spider": "Iron Spider",
   "entity.jsnboss.missile": "Missile",
-  "item.jsnboss.iron_spider_spawn_egg": "Iron Spider Spawn Egg"
+  "item.jsnboss.iron_spider_spawn_egg": "Iron Spider Spawn Egg",
+  "entity.jsnboss.fallen_valkyrie": "Fallen Valkyrie",
+  "entity.jsnboss.feather_shot": "Feather Blade",
+  "item.jsnboss.fallen_valkyrie_spawn_egg": "Fallen Valkyrie Spawn Egg"
 }

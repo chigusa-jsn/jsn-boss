@@ -7,6 +7,7 @@ import com.chigusa.jsnboss.entity.DarkMageEntity;
 import com.chigusa.jsnboss.entity.BladeDragonEntity;
 import com.chigusa.jsnboss.entity.WhiteFoxEntity;
 import com.chigusa.jsnboss.entity.CreeperMotherEntity;
+import com.chigusa.jsnboss.entity.FallenValkyrieEntity;
 import com.chigusa.jsnboss.entity.FenrirEntity;
 import com.chigusa.jsnboss.entity.IronSpiderEntity;
 import com.chigusa.jsnboss.entity.EnderSentinelEntity;
@@ -65,6 +66,7 @@ public final class BossSetup {
         event.put(ModEntities.CREEPER_MOTHER.get(), CreeperMotherEntity.createAttributes().build());
         event.put(ModEntities.FENRIR.get(), FenrirEntity.createAttributes().build());
         event.put(ModEntities.IRON_SPIDER.get(), IronSpiderEntity.createAttributes().build());
+        event.put(ModEntities.FALLEN_VALKYRIE.get(), FallenValkyrieEntity.createAttributes().build());
     }
 
     private static void onCreativeTab(BuildCreativeModeTabContentsEvent event) {
@@ -82,6 +84,7 @@ public final class BossSetup {
             event.accept(ModItems.CREEPER_MOTHER_SPAWN_EGG.get());
             event.accept(ModItems.FENRIR_SPAWN_EGG.get());
             event.accept(ModItems.IRON_SPIDER_SPAWN_EGG.get());
+            event.accept(ModItems.FALLEN_VALKYRIE_SPAWN_EGG.get());
         }
     }
 

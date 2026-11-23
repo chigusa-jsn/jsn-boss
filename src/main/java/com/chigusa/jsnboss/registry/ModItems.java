@@ -34,6 +34,10 @@ public final class ModItems {
             ITEMS.register("white_fox_spawn_egg",
                     () -> new DeferredSpawnEggItem(ModEntities.WHITE_FOX, 0xFBFAF6, 0xE0402A, new Item.Properties()));
 
+    public static final DeferredItem<DeferredSpawnEggItem> FALLEN_VALKYRIE_SPAWN_EGG =
+            ITEMS.register("fallen_valkyrie_spawn_egg",
+                    () -> new DeferredSpawnEggItem(ModEntities.FALLEN_VALKYRIE, 0x3A3F4A, 0x9FF4FF, new Item.Properties()));
+
     public static final DeferredItem<DeferredSpawnEggItem> IRON_SPIDER_SPAWN_EGG =
             ITEMS.register("iron_spider_spawn_egg",
                     () -> new DeferredSpawnEggItem(ModEntities.IRON_SPIDER, 0x7A8089, 0xFF9A2A, new Item.Properties()));
