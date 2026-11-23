@@ -164,6 +164,22 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 - 伸びる腕は、腕を後ろに引いたら横へ避ける
 - 遠く（20ブロック以上）に離れると、近くまでテレポートしてくる
 
+### マザークリーパー（`jsnboss:creeper_mother`）
+
+身長約4ブロック、HP 1600。苔とツタに覆われた大きなクリーパーで、背中にTNTが3つ埋まり、わき腹に緑に光る火薬袋がふくらんでいる。爆発で戦うが、**爆発で地形は壊れない**（呼び出した子クリーパーの爆発も同じ）。爆発ではボス自身は傷つかない。HP が半分（800）を切ると第2形態「臨界」になり、体じゅうに白く光るひびが走る。
+
+| 技 | 第1形態 | 第2形態 |
+|---|---|---|
+| 自爆（1.5秒ふくらんで大爆発、半径6。本人は死なない） | 20 | 26（2回連続） |
+| 子クリーパー召喚（最大6体まで） | 3体 | 足の速いクリーパー4体 |
+| 地雷まき（点滅する小さなTNT。踏むか3.5秒で爆発） | 10 × 5個 | 12 × 8個 |
+| TNT投げ（火のついたTNTを放り投げる、着地で爆発） | 12 × 3 | 14 × 5 |
+| 体当たり | 14 | 18 |
+| 連鎖爆発（爆発が3方向に一列に走ってくる、次の場所に煙の予告） | — | 16 |
+
+- 爆発は中心から離れるほどダメージが減る（端で半分）
+- 子クリーパーの爆発はバニラのまま（防具で減る）だが、ブロックは壊さない
+
 ## 最大HPの上限について
 
 バニラの最大HPは1024が上限なので、この MOD は起動時に上限を100000まで引き上げている（`BossSetup.raiseMaxHealthCap()`、`META-INF/accesstransformer.cfg`）。ほかのモブのHPは変わらない。
@@ -175,8 +191,8 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 ```
 
 - クリエイティブの「スポーンエッグ」タブに各ボスのスポーンエッグ
-- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`、`/summon jsnboss:blade_dragon`、`/summon jsnboss:white_fox`、`/summon jsnboss:wind_cat`、`/summon jsnboss:thunder_lion`、`/summon jsnboss:rock_giant`、`/summon jsnboss:ender_sentinel`
-- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f、white_fox と wind_cat は 790f、thunder_lion は 890f、rock_giant は 1090f、ender_sentinel は 790f）
+- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`、`/summon jsnboss:blade_dragon`、`/summon jsnboss:white_fox`、`/summon jsnboss:wind_cat`、`/summon jsnboss:thunder_lion`、`/summon jsnboss:rock_giant`、`/summon jsnboss:ender_sentinel`、`/summon jsnboss:creeper_mother`
+- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f、white_fox と wind_cat は 790f、thunder_lion は 890f、rock_giant は 1090f、ender_sentinel と creeper_mother は 790f）
 
 配布用の jar は `./gradlew build` で `build/libs/` にできる。GitHub に push すると Actions が自動でビルドする（jar は Actions の実行結果からダウンロードできる）。
 
@@ -185,7 +201,7 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 | 内容 | 場所 |
 |---|---|
 | ボス共通の土台 | `src/main/java/com/chigusa/jsnboss/entity/AbstractBoss.java` |
-| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java`、`entity/DarkMageEntity.java`、`entity/BladeDragonEntity.java`、`entity/WhiteFoxEntity.java`、`entity/WindCatEntity.java`、`entity/ThunderLionEntity.java`、`entity/RockGiantEntity.java`、`entity/EnderSentinelEntity.java` |
+| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java`、`entity/DarkMageEntity.java`、`entity/BladeDragonEntity.java`、`entity/WhiteFoxEntity.java`、`entity/WindCatEntity.java`、`entity/ThunderLionEntity.java`、`entity/RockGiantEntity.java`、`entity/EnderSentinelEntity.java`、`entity/CreeperMotherEntity.java` |
 | 火の玉・斬撃・火柱 | `src/main/java/com/chigusa/jsnboss/entity/` |
 | モデル | `src/main/resources/assets/jsnboss/geo/entity/fire_knight.geo.json` |
 | アニメーション | `src/main/resources/assets/jsnboss/animations/entity/fire_knight.animation.json` |
