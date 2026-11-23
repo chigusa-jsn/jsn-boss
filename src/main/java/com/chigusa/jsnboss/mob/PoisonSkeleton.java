@@ -1,6 +1,6 @@
 package com.chigusa.jsnboss.mob;
 
-import com.chigusa.jsnboss.registry.ModEntities;
+import com.chigusa.jsnboss.registry.ModMobs;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -15,7 +15,7 @@ public class PoisonSkeleton extends Skeleton {
 
     @Override
     public void performRangedAttack(LivingEntity target, float power) {
-        PoisonCloudArrow arrow = new PoisonCloudArrow(ModEntities.POISON_CLOUD_ARROW.get(), level());
+        PoisonCloudArrow arrow = new PoisonCloudArrow(ModMobs.POISON_CLOUD_ARROW.get(), level());
         arrow.setOwner(this);
         arrow.setPos(this.getX(), this.getEyeY() - 0.1, this.getZ());
         double dx = target.getX() - this.getX();
