@@ -78,6 +78,8 @@ public final class BossClientEvents {
 
             event.registerEntityRenderer(ModEntities.YGGDRASIL.get(), YggdrasilRenderer::new);
             event.registerEntityRenderer(ModEntities.GOLDEN_FRUIT.get(), GoldenFruitRenderer::new);
+
+            VariantRenderers.register(event);
         }
     }
 

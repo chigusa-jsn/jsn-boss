@@ -265,5 +265,10 @@ public final class ModEntities {
             ENTITY_TYPES.register("golden_fruit", () -> EntityType.Builder.<GoldenFruitEntity>of(GoldenFruitEntity::new, MobCategory.MISC)
                     .sized(0.8F, 0.8F).clientTrackingRange(10).noSave().noSummon().build("golden_fruit"));
 
+    // ------------------------------------------------------------ 亜種の弾
+    public static final DeferredHolder<EntityType<?>, EntityType<com.chigusa.jsnboss.mob.MobBoltEntity>> MOB_BOLT =
+            ENTITY_TYPES.register("mob_bolt", () -> EntityType.Builder.<com.chigusa.jsnboss.mob.MobBoltEntity>of(com.chigusa.jsnboss.mob.MobBoltEntity::new, MobCategory.MISC)
+                    .sized(0.4F, 0.4F).clientTrackingRange(8).updateInterval(1).noSave().build("mob_bolt"));
+
     private ModEntities() {}
 }
