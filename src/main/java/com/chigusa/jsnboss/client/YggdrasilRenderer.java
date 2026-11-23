@@ -9,7 +9,8 @@ public class YggdrasilRenderer extends GeoEntityRenderer<YggdrasilEntity> {
     public YggdrasilRenderer(EntityRendererProvider.Context context) {
         super(context, new YggdrasilModel());
         addRenderLayer(new AutoGlowingGeoLayer<>(this));
-        this.shadowRadius = 3.0F;
+        this.shadowRadius = 5.0F;
+        withScale(1.7F);   // 動かない木なので大きく
     }
 
     @Override

@@ -259,7 +259,7 @@ public final class ModEntities {
     /** 幅3.4 × 高さ6.0ブロック（幹の部分） */
     public static final DeferredHolder<EntityType<?>, EntityType<YggdrasilEntity>> YGGDRASIL =
             ENTITY_TYPES.register("yggdrasil", () -> EntityType.Builder.<YggdrasilEntity>of(YggdrasilEntity::new, MobCategory.MONSTER)
-                    .sized(3.4F, 6.0F).clientTrackingRange(12).build("yggdrasil"));
+                    .sized(5.4F, 10.0F).clientTrackingRange(16).build("yggdrasil"));
 
     public static final DeferredHolder<EntityType<?>, EntityType<GoldenFruitEntity>> GOLDEN_FRUIT =
             ENTITY_TYPES.register("golden_fruit", () -> EntityType.Builder.<GoldenFruitEntity>of(GoldenFruitEntity::new, MobCategory.MISC)

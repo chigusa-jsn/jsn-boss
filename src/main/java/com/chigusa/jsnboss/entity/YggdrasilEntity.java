@@ -177,12 +177,12 @@ public class YggdrasilEntity extends AbstractBoss {
         double dist = Math.sqrt(this.distanceToSqr(target.getX(), this.getY(), target.getZ())) - this.getBbWidth() / 2.0;
         List<Attack> pool = new ArrayList<>();
         if (isPhase3()) {
-            int fruits = level().getEntitiesOfClass(GoldenFruitEntity.class, this.getBoundingBox().inflate(10)).size();
+            int fruits = level().getEntitiesOfClass(GoldenFruitEntity.class, this.getBoundingBox().inflate(14)).size();
             if (fruits < 2) add(pool, Attack.BLOOM, 2);
             add(pool, Attack.PETAL_STORM, 3);
             add(pool, Attack.LIGHT_PILLARS, 3);
             add(pool, Attack.ROOT_SPIKES, 2);
-            if (dist < 8) {
+            if (dist < 10) {
                 add(pool, Attack.SLAM, 3);
                 add(pool, Attack.PURIFY, 3);
             }
@@ -190,7 +190,7 @@ public class YggdrasilEntity extends AbstractBoss {
         }
         if (countGuards() < MAX_GUARDS - 1) add(pool, Attack.SUMMON, 1);
         if (isPhase2()) add(pool, Attack.PULSE, 2);
-        if (dist < 7) {
+        if (dist < 9) {
             add(pool, Attack.SLAM, 4);
             add(pool, Attack.ROOT_SWEEP, 3);
             add(pool, Attack.POLLEN, 2);
@@ -241,14 +241,14 @@ public class YggdrasilEntity extends AbstractBoss {
             case SLAM -> {                          // 枝の叩きつけ  0.9 秒に前方を叩く
                 if (t < 12) face(target, 6);
                 if (t == 18) {
-                    for (LivingEntity e : inArc(9.0, 60)) {
+                    for (LivingEntity e : inArc(13.0, 60)) {
                         if (damage(e, dmg(20, 24), 1.5)) launch(e, 0.6);
                     }
                     shake(12);
                     playSound(SoundEvents.GENERIC_EXPLODE.value(), 1.5F, 0.6F);
                     playSound(SoundEvents.WOOD_BREAK, 3.0F, 0.4F);
                     if (level() instanceof ServerLevel sl) {
-                        Vec3 c = this.position().add(forward().scale(6));
+                        Vec3 c = this.position().add(forward().scale(9));
                         sl.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, c.x, getY() + 0.3, c.z, 12, 2, 0.1, 2, 0.02);
                         sl.sendParticles(new net.minecraft.core.particles.BlockParticleOption(ParticleTypes.BLOCK,
                                 net.minecraft.world.level.block.Blocks.DIRT.defaultBlockState()), c.x, getY() + 0.3, c.z, 50, 2.5, 0.2, 2.5, 0.2);
@@ -272,7 +272,7 @@ public class YggdrasilEntity extends AbstractBoss {
             }
             case ROOT_SWEEP -> {                    // 根のなぎ払い  地面を走る輪（ジャンプで避ける）
                 if (t == 12) {
-                    ShockwaveEntity.spawn(this, getX(), getY(), getZ(), 13.0F, 0.5F, dmg(12, 15));
+                    ShockwaveEntity.spawn(this, getX(), getY(), getZ(), 17.0F, 0.5F, dmg(12, 15));
                     playSound(SoundEvents.ROOTED_DIRT_BREAK, 3.0F, 0.4F);
                     shake(8);
                 }
@@ -292,7 +292,7 @@ public class YggdrasilEntity extends AbstractBoss {
                     }
                     playSound(SoundEvents.SPORE_BLOSSOM_BREAK, 3.0F, 0.5F);
                     if (level() instanceof ServerLevel sl) {
-                        sl.sendParticles(ParticleTypes.SPORE_BLOSSOM_AIR, getX(), getY() + 5, getZ(), 80, 4, 1.5, 4, 0.05);
+                        sl.sendParticles(ParticleTypes.SPORE_BLOSSOM_AIR, getX(), getY() + 8.5, getZ(), 80, 4, 1.5, 4, 0.05);
                     }
                 }
             }
@@ -300,7 +300,7 @@ public class YggdrasilEntity extends AbstractBoss {
                 if (t == 16) {
                     int n = isPhase2() ? 8 : 5;
                     List<LivingEntity> vs = victims(target, 32);
-                    Vec3 from = this.position().add(0, 5.5, 0);
+                    Vec3 from = this.position().add(0, 9.0, 0);
                     for (int i = 0; i < n && !vs.isEmpty(); i++) {
                         LivingEntity v = vs.get(i % vs.size());
                         double a = random.nextDouble() * Math.PI * 2, r = i < vs.size() ? 0 : 1.5 + random.nextDouble() * 4;
@@ -315,7 +315,7 @@ public class YggdrasilEntity extends AbstractBoss {
                     for (int i = 0; i < n; i++) {
                         Bogged b = EntityType.BOGGED.create(sl);
                         if (b == null) continue;
-                        double a = Math.PI * 2 * i / Math.max(1, n) + random.nextDouble(), r = 4.5;
+                        double a = Math.PI * 2 * i / Math.max(1, n) + random.nextDouble(), r = 5.5;
                         double x = getX() + Math.cos(a) * r, z = getZ() + Math.sin(a) * r;
                         b.moveTo(x, groundY(x, getY() + 3, z), z, random.nextFloat() * 360F, 0);
                         b.finalizeSpawn(sl, sl.getCurrentDifficultyAt(b.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
@@ -346,7 +346,7 @@ public class YggdrasilEntity extends AbstractBoss {
             case REBIRTH -> {                       // 第3形態へ（復活）  2.5 秒に花が咲き、満タンで起き上がる
                 if (t == 1) playSound(SoundEvents.WARDEN_DEATH, 2.0F, 0.6F);
                 if (t < 48 && t % 4 == 0 && level() instanceof ServerLevel sl) {
-                    sl.sendParticles(new DustParticleOptions(GOLD, 2.0F), getX(), getY() + 4, getZ(), 10, 3, 2, 3, 0);
+                    sl.sendParticles(new DustParticleOptions(GOLD, 2.0F), getX(), getY() + 6.8, getZ(), 10, 3, 2, 3, 0);
                 }
                 if (t == 50) {
                     setPhase(3);
@@ -362,11 +362,11 @@ public class YggdrasilEntity extends AbstractBoss {
                     playSound(SoundEvents.BEACON_ACTIVATE, 4.0F, 0.6F);
                     playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 4.0F, 0.5F);
                     if (level() instanceof ServerLevel sl) {
-                        sl.sendParticles(ParticleTypes.FLASH, getX(), getY() + 4, getZ(), 1, 0, 0, 0, 0);
-                        sl.sendParticles(ParticleTypes.CHERRY_LEAVES, getX(), getY() + 5, getZ(), 300, 6, 3, 6, 0.05);
-                        sl.sendParticles(ParticleTypes.END_ROD, getX(), getY() + 4, getZ(), 120, 3, 3, 3, 0.2);
+                        sl.sendParticles(ParticleTypes.FLASH, getX(), getY() + 6.8, getZ(), 1, 0, 0, 0, 0);
+                        sl.sendParticles(ParticleTypes.CHERRY_LEAVES, getX(), getY() + 8.5, getZ(), 300, 6, 3, 6, 0.05);
+                        sl.sendParticles(ParticleTypes.END_ROD, getX(), getY() + 6.8, getZ(), 120, 3, 3, 3, 0.2);
                     }
-                    for (LivingEntity e : inRadius(this.position(), 9.0, 5.0)) {
+                    for (LivingEntity e : inRadius(this.position(), 12.0, 8.0)) {
                         e.knockback(3.0, getX() - e.getX(), getZ() - e.getZ());
                         launch(e, 0.7);
                     }
@@ -378,7 +378,7 @@ public class YggdrasilEntity extends AbstractBoss {
                     for (int i = 0; i < 16; i++) {
                         double a = Math.PI * 2 * i / 16 + wave * 0.2;
                         Vec3 dir = new Vec3(Math.cos(a), -0.05, Math.sin(a));
-                        FeatherShotEntity.shoot(this, this.position().add(dir.scale(3.5)).add(0, 1.2 + wave * 0.6, 0), dir.scale(0.7), 9.0F);
+                        FeatherShotEntity.shoot(this, this.position().add(dir.scale(4.5)).add(0, 2.5 + wave * 1.0, 0), dir.scale(0.7), 9.0F);
                     }
                     playSound(SoundEvents.CHERRY_LEAVES_BREAK, 3.0F, 0.6F);
                 }
@@ -413,11 +413,11 @@ public class YggdrasilEntity extends AbstractBoss {
             }
             case BLOOM -> {                         // 開花  黄金の実が3つ生え直す
                 if (t == 20) {
-                    int now = level().getEntitiesOfClass(GoldenFruitEntity.class, this.getBoundingBox().inflate(10)).size();
+                    int now = level().getEntitiesOfClass(GoldenFruitEntity.class, this.getBoundingBox().inflate(14)).size();
                     fruitsToSpawn = Math.max(0, 3 - now);
                     playSound(SoundEvents.AZALEA_LEAVES_PLACE, 4.0F, 0.6F);
                     if (level() instanceof ServerLevel sl) {
-                        sl.sendParticles(ParticleTypes.CHERRY_LEAVES, getX(), getY() + 5, getZ(), 120, 5, 2, 5, 0.05);
+                        sl.sendParticles(ParticleTypes.CHERRY_LEAVES, getX(), getY() + 8.5, getZ(), 120, 5, 2, 5, 0.05);
                     }
                 }
             }
@@ -428,10 +428,10 @@ public class YggdrasilEntity extends AbstractBoss {
                     fruitsToSpawn = 2;
                     playSound(SoundEvents.WARDEN_ROAR, 3.0F, 0.6F);
                     if (level() instanceof ServerLevel sl) {
-                        sl.sendParticles(new DustParticleOptions(EMBER, 2.0F), getX(), getY() + 5, getZ(), 150, 4, 2, 4, 0);
-                        sl.sendParticles(ParticleTypes.FLAME, getX(), getY() + 3, getZ(), 60, 2, 2, 2, 0.05);
+                        sl.sendParticles(new DustParticleOptions(EMBER, 2.0F), getX(), getY() + 8.5, getZ(), 150, 4, 2, 4, 0);
+                        sl.sendParticles(ParticleTypes.FLAME, getX(), getY() + 5.1, getZ(), 60, 2, 2, 2, 0.05);
                     }
-                    for (LivingEntity e : inRadius(this.position(), 8.0, 5.0)) {
+                    for (LivingEntity e : inRadius(this.position(), 11.0, 8.0)) {
                         e.knockback(2.5, getX() - e.getX(), getZ() - e.getZ());
                         launch(e, 0.6);
                     }
@@ -472,7 +472,7 @@ public class YggdrasilEntity extends AbstractBoss {
         this.attack = Attack.NONE;
         if (!level().isClientSide) {
             playSound(SoundEvents.WARDEN_DEATH, 2.0F, 0.5F);
-            for (GoldenFruitEntity f : level().getEntitiesOfClass(GoldenFruitEntity.class, this.getBoundingBox().inflate(10))) f.discard();
+            for (GoldenFruitEntity f : level().getEntitiesOfClass(GoldenFruitEntity.class, this.getBoundingBox().inflate(14))) f.discard();
         }
     }
 
@@ -480,7 +480,7 @@ public class YggdrasilEntity extends AbstractBoss {
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         // 黄金の実は保存されないので、残っている数を覚えておいて読み込み時に生やし直す
-        tag.putInt("Fruits", level().getEntitiesOfClass(GoldenFruitEntity.class, this.getBoundingBox().inflate(10)).size() + fruitsToSpawn);
+        tag.putInt("Fruits", level().getEntitiesOfClass(GoldenFruitEntity.class, this.getBoundingBox().inflate(14)).size() + fruitsToSpawn);
         tag.putBoolean("Reborn", reborn);
     }
 
@@ -497,23 +497,23 @@ public class YggdrasilEntity extends AbstractBoss {
         if (isPhase3()) {                                           // 舞い散る花びらと光
             if (random.nextInt(2) == 0) {
                 double a = random.nextDouble() * Math.PI * 2, r = random.nextDouble() * 6;
-                level().addParticle(ParticleTypes.CHERRY_LEAVES, getX() + Math.cos(a) * r, getY() + 5 + random.nextDouble() * 2,
+                level().addParticle(ParticleTypes.CHERRY_LEAVES, getX() + Math.cos(a) * r, getY() + 8.5 + random.nextDouble() * 2,
                         getZ() + Math.sin(a) * r, 0, -0.02, 0);
             }
             if (random.nextInt(4) == 0) {
                 level().addParticle(new DustParticleOptions(random.nextBoolean() ? GOLD : PINK, 1.2F), getX() + (random.nextDouble() - 0.5) * 8,
-                        getY() + 2 + random.nextDouble() * 4, getZ() + (random.nextDouble() - 0.5) * 8, 0, 0.02, 0);
+                        getY() + 3.4 + random.nextDouble() * 4, getZ() + (random.nextDouble() - 0.5) * 8, 0, 0.02, 0);
             }
             return;
         }
         if (random.nextInt(2) == 0) {                               // 舞い落ちる葉と胞子
             double a = random.nextDouble() * Math.PI * 2, r = random.nextDouble() * 5;
             level().addParticle(new DustParticleOptions(isPhase2() ? EMBER : GREEN, 1.2F), getX() + Math.cos(a) * r,
-                    getY() + 4 + random.nextDouble() * 2, getZ() + Math.sin(a) * r, 0, -0.04, 0);
+                    getY() + 6.8 + random.nextDouble() * 2, getZ() + Math.sin(a) * r, 0, -0.04, 0);
         }
         if (random.nextInt(6) == 0) {
             level().addParticle(isPhase2() ? ParticleTypes.SMALL_FLAME : ParticleTypes.SPORE_BLOSSOM_AIR,
-                    getX() + (random.nextDouble() - 0.5) * 8, getY() + 3 + random.nextDouble() * 3, getZ() + (random.nextDouble() - 0.5) * 8, 0, 0, 0);
+                    getX() + (random.nextDouble() - 0.5) * 8, getY() + 5.1 + random.nextDouble() * 3, getZ() + (random.nextDouble() - 0.5) * 8, 0, 0, 0);
         }
     }
 
