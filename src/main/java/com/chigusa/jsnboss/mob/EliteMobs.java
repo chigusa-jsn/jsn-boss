@@ -204,6 +204,32 @@ public final class EliteMobs {
         if (affixOf(event.getEntity()) != null) event.setDroppedExperience(event.getDroppedExperience() * 3);
     }
 
+    /** 試す用のコマンド：/jsnboss elite <モブ> <特性>（例：/jsnboss elite minecraft:zombie fire） */
+    @SubscribeEvent
+    public static void onCommands(net.neoforged.neoforge.event.RegisterCommandsEvent event) {
+        event.getDispatcher().register(net.minecraft.commands.Commands.literal("jsnboss")
+                .requires(src -> src.hasPermission(2))
+                .then(net.minecraft.commands.Commands.literal("elite")
+                        .then(net.minecraft.commands.Commands.argument("entity",
+                                        net.minecraft.commands.arguments.ResourceArgument.resource(event.getBuildContext(), net.minecraft.core.registries.Registries.ENTITY_TYPE))
+                                .then(net.minecraft.commands.Commands.argument("affix", com.mojang.brigadier.arguments.StringArgumentType.word())
+                                        .suggests((ctx, b) -> net.minecraft.commands.SharedSuggestionProvider.suggest(
+                                                java.util.Arrays.stream(Affix.values()).map(x -> x.name().toLowerCase()), b))
+                                        .executes(ctx -> {
+                                            var type = net.minecraft.commands.arguments.ResourceArgument.getSummonableEntityType(ctx, "entity").value();
+                                            Affix affix;
+                                            try {
+                                                affix = Affix.valueOf(com.mojang.brigadier.arguments.StringArgumentType.getString(ctx, "affix").toUpperCase());
+                                            } catch (IllegalArgumentException ex) {
+                                                ctx.getSource().sendFailure(Component.literal("affix: fire, ice, thunder, giant, vampiric, regen, split, summon"));
+                                                return 0;
+                                            }
+                                            var pos = ctx.getSource().getPosition();
+                                            Mob m = spawnElite(ctx.getSource().getLevel(), type, pos.x, pos.y, pos.z, affix);
+                                            return m == null ? 0 : 1;
+                                        })))));
+    }
+
     /** /summon などで試すとき用：EntityType からエリートを作る */
     public static Mob spawnElite(ServerLevel sl, EntityType<?> type, double x, double y, double z, Affix affix) {
         Entity e = type.create(sl);
