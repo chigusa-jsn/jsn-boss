@@ -43,8 +43,9 @@ public class GoldenFruitEntity extends Mob {
 
     private void place() {
         if (owner == null) return;
-        this.setPos(owner.getX() + Math.cos(angle) * 7.0, owner.getY() + 6.0 + Math.sin(angle * 3 + tickCount * 0.05) * 0.4,
-                owner.getZ() + Math.sin(angle) * 7.0);
+        float k = owner.sk();
+        this.setPos(owner.getX() + Math.cos(angle) * 7.0 * k, owner.getY() + 6.0 * k + Math.sin(angle * 3 + tickCount * 0.05) * 0.4,
+                owner.getZ() + Math.sin(angle) * 7.0 * k);
         this.setDeltaMovement(Vec3.ZERO);
     }
 
