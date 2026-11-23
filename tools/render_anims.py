@@ -34,7 +34,8 @@ JP = {"idle": "待機", "walk": "歩き", "attack_sweep": "横なぎ", "attack_d
       "jump_slam": "ジャンプ踏みつけ", "steam": "蒸気噴射", "overheat": "オーバーヒート",
       "cape": "マントのなびき", "hover": "飛行", "thrust": "槍の連突き", "takeoff": "飛翔", "dive": "急降下突き",
       "ground_spears": "地より出ずる槍", "spear_rain": "槍の雨", "feathers": "羽根の刃", "prison": "槍の牢獄",
-      "root_spikes": "根の突き上げ", "root_sweep": "根のなぎ払い", "pollen": "毒の花粉", "seeds": "種の爆弾", "pulse": "大地の脈動"}
+      "root_spikes": "根の突き上げ", "root_sweep": "根のなぎ払い", "pollen": "毒の花粉", "seeds": "種の爆弾", "pulse": "大地の脈動",
+      "rebirth": "第3形態へ（復活）", "petal_storm": "光の花びらの嵐", "invoke": "天の光柱"}
 
 def sample(chan, t):
     ks = sorted((float(k), v) for k, v in chan.items())

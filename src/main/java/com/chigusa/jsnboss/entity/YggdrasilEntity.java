@@ -39,6 +39,8 @@ import java.util.Map;
  * ユグドラシル（高精細モデル）。一歩も動かない巨大な世界樹。とても硬く、遠くまで攻撃が届く。
  * 周りに浮かぶ黄金の実（GoldenFruitEntity）が毎秒 HP を回復するので、まず実を壊すのが攻略のコツ。
  * 第2形態（HP1500以下）「怒れる世界樹」：葉が紅葉し、光が赤橙に。実が2つ生え直し、大地の脈動を使う。
+ * 第3形態「神樹」：第2形態で倒されると一度だけ復活する（最大HP1500で満タン）。白金と桃色の花が咲き乱れ、
+ * 光の花びらの嵐・天の光柱・浄化の波・開花（実が生え直す）を使う。/kill では復活しない。
  */
 public class YggdrasilEntity extends AbstractBoss {
     public static final String GUARD_TAG = "jsnboss_ygg_guard";
@@ -60,7 +62,12 @@ public class YggdrasilEntity extends AbstractBoss {
         SEEDS(32, 100, "seeds"),
         SUMMON(36, 400, "summon"),
         PULSE(44, 240, "pulse"),
-        PHASE_CHANGE(60, 0, "phase_change");
+        PHASE_CHANGE(60, 0, "phase_change"),
+        REBIRTH(100, 0, "rebirth"),
+        PETAL_STORM(44, 120, "petal_storm"),
+        LIGHT_PILLARS(40, 140, "invoke"),
+        PURIFY(44, 180, "pulse"),
+        BLOOM(36, 600, "summon");
 
         public final int length, cooldown;
         public final String anim;
@@ -79,6 +86,10 @@ public class YggdrasilEntity extends AbstractBoss {
     private final Map<Attack, Integer> cooldowns = new EnumMap<>(Attack.class);
     /** 生やす黄金の実の数（出現時 4、第2形態で +2）。読み込み直したときにも使う */
     private int fruitsToSpawn = 4;
+    /** 第3形態に生まれ変わったか（一度だけ） */
+    private boolean reborn;
+    private static final Vector3f GOLD = new Vector3f(1.0F, 0.9F, 0.55F);
+    private static final Vector3f PINK = new Vector3f(1.0F, 0.78F, 0.9F);
 
     public YggdrasilEntity(EntityType<? extends Monster> type, Level level) {
         super(type, level, BossEvent.BossBarColor.GREEN, BossEvent.BossBarColor.RED);
@@ -104,7 +115,14 @@ public class YggdrasilEntity extends AbstractBoss {
 
     @Override
     protected boolean isInvulnerableNow() {
-        return attack == Attack.PHASE_CHANGE;
+        return attack == Attack.PHASE_CHANGE || attack == Attack.REBIRTH;
+    }
+
+    public boolean isPhase3() { return getPhase() >= 3; }
+
+    @Override
+    protected void onPhaseChanged(int phase) {
+        if (phase >= 3) this.bossEvent.setColor(BossEvent.BossBarColor.YELLOW);
     }
 
     /** 自分の番兵や黄金の実には攻撃を当てない */
@@ -158,6 +176,18 @@ public class YggdrasilEntity extends AbstractBoss {
     private Attack chooseAttack(LivingEntity target) {
         double dist = Math.sqrt(this.distanceToSqr(target.getX(), this.getY(), target.getZ())) - this.getBbWidth() / 2.0;
         List<Attack> pool = new ArrayList<>();
+        if (isPhase3()) {
+            int fruits = level().getEntitiesOfClass(GoldenFruitEntity.class, this.getBoundingBox().inflate(10)).size();
+            if (fruits < 2) add(pool, Attack.BLOOM, 2);
+            add(pool, Attack.PETAL_STORM, 3);
+            add(pool, Attack.LIGHT_PILLARS, 3);
+            add(pool, Attack.ROOT_SPIKES, 2);
+            if (dist < 8) {
+                add(pool, Attack.SLAM, 3);
+                add(pool, Attack.PURIFY, 3);
+            }
+            return pool.isEmpty() ? null : pool.get(this.random.nextInt(pool.size()));
+        }
         if (countGuards() < MAX_GUARDS - 1) add(pool, Attack.SUMMON, 1);
         if (isPhase2()) add(pool, Attack.PULSE, 2);
         if (dist < 7) {
@@ -190,7 +220,7 @@ public class YggdrasilEntity extends AbstractBoss {
         this.attack = Attack.NONE;
         this.lastAttack = done;
         this.cooldowns.put(done, done.cooldown);
-        this.globalCooldown = done == Attack.PHASE_CHANGE ? 10 : (isPhase2() ? 24 : 40);
+        this.globalCooldown = done == Attack.PHASE_CHANGE || done == Attack.REBIRTH ? 10 : (isPhase3() ? 20 : isPhase2() ? 24 : 40);
     }
 
     private List<Player> players(double r) {
@@ -313,6 +343,84 @@ public class YggdrasilEntity extends AbstractBoss {
                     playSound(SoundEvents.WARDEN_SONIC_BOOM, 2.0F, 0.5F);
                 }
             }
+            case REBIRTH -> {                       // 第3形態へ（復活）  2.5 秒に花が咲き、満タンで起き上がる
+                if (t == 1) playSound(SoundEvents.WARDEN_DEATH, 2.0F, 0.6F);
+                if (t < 48 && t % 4 == 0 && level() instanceof ServerLevel sl) {
+                    sl.sendParticles(new DustParticleOptions(GOLD, 2.0F), getX(), getY() + 4, getZ(), 10, 3, 2, 3, 0);
+                }
+                if (t == 50) {
+                    setPhase(3);
+                    var hp = this.getAttribute(Attributes.MAX_HEALTH);
+                    if (hp != null && !hp.hasModifier(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("jsnboss", "ygg_rebirth"))) {
+                        hp.addPermanentModifier(new net.minecraft.world.entity.ai.attributes.AttributeModifier(
+                                net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("jsnboss", "ygg_rebirth"), -0.5,
+                                net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+                    }
+                    this.setHealth(this.getMaxHealth());
+                    fruitsToSpawn = 3;
+                    shake(25);
+                    playSound(SoundEvents.BEACON_ACTIVATE, 4.0F, 0.6F);
+                    playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 4.0F, 0.5F);
+                    if (level() instanceof ServerLevel sl) {
+                        sl.sendParticles(ParticleTypes.FLASH, getX(), getY() + 4, getZ(), 1, 0, 0, 0, 0);
+                        sl.sendParticles(ParticleTypes.CHERRY_LEAVES, getX(), getY() + 5, getZ(), 300, 6, 3, 6, 0.05);
+                        sl.sendParticles(ParticleTypes.END_ROD, getX(), getY() + 4, getZ(), 120, 3, 3, 3, 0.2);
+                    }
+                    for (LivingEntity e : inRadius(this.position(), 9.0, 5.0)) {
+                        e.knockback(3.0, getX() - e.getX(), getZ() - e.getZ());
+                        launch(e, 0.7);
+                    }
+                }
+            }
+            case PETAL_STORM -> {                   // 光の花びらの嵐  冠から花びらの刃をらせん状に3回撒く
+                if (t == 12 || t == 22 || t == 32) {
+                    int wave = (t - 12) / 10;
+                    for (int i = 0; i < 16; i++) {
+                        double a = Math.PI * 2 * i / 16 + wave * 0.2;
+                        Vec3 dir = new Vec3(Math.cos(a), -0.05, Math.sin(a));
+                        FeatherShotEntity.shoot(this, this.position().add(dir.scale(3.5)).add(0, 1.2 + wave * 0.6, 0), dir.scale(0.7), 9.0F);
+                    }
+                    playSound(SoundEvents.CHERRY_LEAVES_BREAK, 3.0F, 0.6F);
+                }
+            }
+            case LIGHT_PILLARS -> {                 // 天の光柱  全員の足元と周りに金の光の柱
+                if (t == 18) {
+                    for (LivingEntity v : victims(target, 32)) {
+                        LightPillarEntity.spawn(this, v.getX(), groundY(v.getX(), v.getY() + 3, v.getZ()), v.getZ(), 18.0F);
+                        for (int i = 0; i < 3; i++) {
+                            double a = Math.PI * 2 * i / 3 + random.nextDouble(), r = 3.0;
+                            double x = v.getX() + Math.cos(a) * r, z = v.getZ() + Math.sin(a) * r;
+                            LightPillarEntity.spawn(this, x, groundY(x, v.getY() + 3, z), z, 18.0F);
+                        }
+                    }
+                    for (int i = 0; i < 6; i++) {
+                        double a = random.nextDouble() * Math.PI * 2, r = 5 + random.nextDouble() * 10;
+                        double x = getX() + Math.cos(a) * r, z = getZ() + Math.sin(a) * r;
+                        LightPillarEntity.spawn(this, x, groundY(x, getY() + 3, z), z, 18.0F);
+                    }
+                    playSound(SoundEvents.BEACON_POWER_SELECT, 3.0F, 1.4F);
+                }
+            }
+            case PURIFY -> {                        // 浄化の波  光の輪が2重に広がる（ジャンプで避ける）
+                if (t == 20 || t == 30) {
+                    ShockwaveEntity.spawn(this, getX(), getY(), getZ(), 16.0F, 0.55F, 16.0F);
+                    shake(10);
+                    playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 4.0F, 0.6F);
+                    if (level() instanceof ServerLevel sl) {
+                        sl.sendParticles(ParticleTypes.END_ROD, getX(), getY() + 0.5, getZ(), 60, 4, 0.2, 4, 0.2);
+                    }
+                }
+            }
+            case BLOOM -> {                         // 開花  黄金の実が3つ生え直す
+                if (t == 20) {
+                    int now = level().getEntitiesOfClass(GoldenFruitEntity.class, this.getBoundingBox().inflate(10)).size();
+                    fruitsToSpawn = Math.max(0, 3 - now);
+                    playSound(SoundEvents.AZALEA_LEAVES_PLACE, 4.0F, 0.6F);
+                    if (level() instanceof ServerLevel sl) {
+                        sl.sendParticles(ParticleTypes.CHERRY_LEAVES, getX(), getY() + 5, getZ(), 120, 5, 2, 5, 0.05);
+                    }
+                }
+            }
             case PHASE_CHANGE -> {                  // 第2形態へ  1.5 秒に葉が紅葉し、実が2つ生え直す
                 if (t == 30) {
                     setPhase(2);
@@ -340,6 +448,14 @@ public class YggdrasilEntity extends AbstractBoss {
 
     @Override
     public void die(DamageSource source) {
+        // 第2形態で倒されたら、一度だけ「神樹」として復活する（/kill では復活しない）
+        if (!level().isClientSide && isPhase2() && !isPhase3() && !reborn
+                && !source.is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+            reborn = true;
+            this.setHealth(1.0F);
+            this.startAttack(Attack.REBIRTH);
+            return;
+        }
         super.die(source);
         this.attack = Attack.NONE;
         if (!level().isClientSide) {
@@ -353,17 +469,31 @@ public class YggdrasilEntity extends AbstractBoss {
         super.addAdditionalSaveData(tag);
         // 黄金の実は保存されないので、残っている数を覚えておいて読み込み時に生やし直す
         tag.putInt("Fruits", level().getEntitiesOfClass(GoldenFruitEntity.class, this.getBoundingBox().inflate(10)).size() + fruitsToSpawn);
+        tag.putBoolean("Reborn", reborn);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         if (tag.contains("Fruits")) fruitsToSpawn = tag.getInt("Fruits");
+        reborn = tag.getBoolean("Reborn");
     }
 
     // ============================================================ client
     @Override
     protected void clientTick() {
+        if (isPhase3()) {                                           // 舞い散る花びらと光
+            if (random.nextInt(2) == 0) {
+                double a = random.nextDouble() * Math.PI * 2, r = random.nextDouble() * 6;
+                level().addParticle(ParticleTypes.CHERRY_LEAVES, getX() + Math.cos(a) * r, getY() + 5 + random.nextDouble() * 2,
+                        getZ() + Math.sin(a) * r, 0, -0.02, 0);
+            }
+            if (random.nextInt(4) == 0) {
+                level().addParticle(new DustParticleOptions(random.nextBoolean() ? GOLD : PINK, 1.2F), getX() + (random.nextDouble() - 0.5) * 8,
+                        getY() + 2 + random.nextDouble() * 4, getZ() + (random.nextDouble() - 0.5) * 8, 0, 0.02, 0);
+            }
+            return;
+        }
         if (random.nextInt(2) == 0) {                               // 舞い落ちる葉と胞子
             double a = random.nextDouble() * Math.PI * 2, r = random.nextDouble() * 5;
             level().addParticle(new DustParticleOptions(isPhase2() ? EMBER : GREEN, 1.2F), getX() + Math.cos(a) * r,

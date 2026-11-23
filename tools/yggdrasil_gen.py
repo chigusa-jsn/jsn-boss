@@ -119,6 +119,22 @@ for i in range(14):
         VINES.append(B([x - 1.2, top - ln - 2.2, z - 1.2], [2.4, 2.4, 2.4], "glow", "lantern"))
 m.bone("vines", [0, 70, 0], parent="canopy", cubes=VINES)
 
+# 第3形態「神樹」でだけ見える、冠や枝に咲く光る花（それまではモデルの側で隠す）
+BLOSSOMS = []
+for i in range(46):
+    a = R.uniform(0, 2 * math.pi)
+    rr = 32 * math.sqrt(R.random())
+    y = 66 + (1 - rr / 32) * 22 + R.uniform(-2, 5)
+    x, z = math.cos(a) * rr, math.sin(a) * rr
+    sz = R.uniform(3.2, 5.0)
+    BLOSSOMS.append(B([x - sz / 2, y, z - sz / 2], [sz, sz * 0.7, sz], "blossom", "blossom",
+                      rot=[R.uniform(-25, 25), R.uniform(0, 90), R.uniform(-25, 25)]))
+for i in range(10):                                   # 大枝の腕にも
+    side = -1 if i < 5 else 1
+    x = side * (14 + (i % 5) * 4)
+    BLOSSOMS.append(B([x - 1.3, 57, -1.3 + (i % 2) * 2], [2.6, 2, 2.6], "blossom", "blossom", rot=[0, i * 20, 15]))
+m.bone("blossoms", [0, 70, 0], parent="canopy", cubes=BLOSSOMS)
+
 # ================================================================ texture
 PAL = {
     "bark": ("#4a3524", "#6a4c34", "#22170e"),
@@ -128,6 +144,7 @@ PAL = {
     "vine": ("#2f5a22", "#45802e", "#183012"),
     "hollow": ("#0c0806", "#1a120c", "#000000"),
     "glow": ("#7affd0", "#e0fff4", "#2fbf8a"),
+    "blossom": ("#fff4fa", "#ffffff", "#f0b8d8"),
 }
 GLOW = [hexc("#2fbf8a"), hexc("#7affd0"), hexc("#e0fff4")]
 
@@ -192,6 +209,15 @@ def details(m, mat, tag, face, rect):
                 for k in range(fw):
                     if (j // 3) % 3 == 2 and k % 2 == 0:
                         m.clear(fx + k, fy + j)
+    if mat == "blossom":
+        # 花：白い花びらにうすい桃色のふち、まん中に金のしべ（光る）
+        for j in range(fh):
+            for k in range(fw):
+                edge = k in (0, fw - 1) or j in (0, fh - 1)
+                c = hexc("#ffc8e4") if edge else hexc("#fff8fc")
+                if abs(k - (fw - 1) / 2) < 1 and abs(j - (fh - 1) / 2) < 1:
+                    c = hexc("#ffd24a")
+                m.put(fx + k, fy + j, c, glow=True)
     if mat == "hollow" and face == "north":
         for k in range(fw):                               # 口のうろの奥がかすかに光る
             m.put(fx + k, fy + fh // 2, GLOW[0], glow=True)
@@ -200,6 +226,6 @@ def details(m, mat, tag, face, rect):
             m.put(fx + k, fy + fh - 1, hexc("#6a4c34"))
 
 
-m.paint(PAL, details, glow_mats={"glow"}, outline_skip={"bark", "bark_dark", "moss", "leaves", "vine", "glow", "hollow"},
+m.paint(PAL, details, glow_mats={"glow", "blossom"}, outline_skip={"bark", "bark_dark", "moss", "leaves", "vine", "glow", "hollow", "blossom"},
         soft={"mats": {"bark", "bark_dark"}, "y": (0, 70), "dark": 0.72})
 m.save()
