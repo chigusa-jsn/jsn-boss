@@ -46,7 +46,7 @@ public abstract class AbstractBoss extends Monster implements GeoEntity {
         this.phase1Color = phase1Color;
         this.phase2Color = phase2Color;
         this.bossEvent = (ServerBossEvent) new ServerBossEvent(this.getDisplayName(), phase1Color,
-                BossEvent.BossBarOverlay.NOTCHED_10).setDarkenScreen(true);
+                BossEvent.BossBarOverlay.NOTCHED_6).setDarkenScreen(true);
         this.xpReward = 200;
         this.setPersistenceRequired();
     }
@@ -102,16 +102,41 @@ public abstract class AbstractBoss extends Monster implements GeoEntity {
         super.tick();
         if (level().isClientSide) {
             if (isAlive()) clientTick();
-        } else if (getShake() > 0) {
-            this.entityData.set(SHAKE, getShake() - 1);
+        } else {
+            if (getShake() > 0) this.entityData.set(SHAKE, getShake() - 1);
+            updateBossBar();
         }
     }
 
     @Override
     protected void customServerAiStep() {
         super.customServerAiStep();
-        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
         bossAiStep();
+    }
+
+    // ============================================================ boss bar
+    // キングダムハーツ方式：形態ごとにバーが1本。なくなったら次の形態で満タンから。
+    // 残りの本数は overlay に入れてクライアントへ送る（0本=PROGRESS, 1=NOTCHED_6, 2=NOTCHED_10, 3=NOTCHED_12）
+    private static final BossEvent.BossBarOverlay[] BARS_LEFT = {
+            BossEvent.BossBarOverlay.PROGRESS, BossEvent.BossBarOverlay.NOTCHED_6,
+            BossEvent.BossBarOverlay.NOTCHED_10, BossEvent.BossBarOverlay.NOTCHED_12};
+
+    /** 今のバーの残り（0〜1） */
+    protected float bossBarProgress() {
+        float half = getMaxHealth() * 0.5F;
+        float v = getPhase() >= 2 ? getHealth() / half : (getHealth() - half) / half;
+        return Mth.clamp(v, 0.0F, 1.0F);
+    }
+
+    /** 今のバーのあとに控えている本数 */
+    protected int bossBarsLeft() {
+        return getPhase() >= 2 ? 0 : 1;
+    }
+
+    protected void updateBossBar() {
+        this.bossEvent.setProgress(isAlive() ? bossBarProgress() : 0.0F);
+        int left = Mth.clamp(bossBarsLeft(), 0, BARS_LEFT.length - 1);
+        if (this.bossEvent.getOverlay() != BARS_LEFT[left]) this.bossEvent.setOverlay(BARS_LEFT[left]);
     }
 
     // ============================================================ helpers

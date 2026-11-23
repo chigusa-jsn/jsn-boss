@@ -446,6 +446,18 @@ public class YggdrasilEntity extends AbstractBoss {
         return level().getEntitiesOfClass(Bogged.class, this.getBoundingBox().inflate(32), b -> b.isAlive() && b.getTags().contains(GUARD_TAG)).size();
     }
 
+    // ============================================================ boss bar
+    @Override
+    protected float bossBarProgress() {
+        if (isPhase3()) return net.minecraft.util.Mth.clamp(getHealth() / getMaxHealth(), 0.0F, 1.0F);
+        return super.bossBarProgress();
+    }
+
+    @Override
+    protected int bossBarsLeft() {
+        return isPhase3() ? 0 : isPhase2() ? 1 : 2;
+    }
+
     @Override
     public void die(DamageSource source) {
         // 第2形態で倒されたら、一度だけ「神樹」として復活する（/kill では復活しない）

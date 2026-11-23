@@ -400,6 +400,18 @@ public class ZombieKingEntity extends AbstractBoss {
         }
     }
 
+    // ============================================================ boss bar
+    @Override
+    protected float bossBarProgress() {
+        if (revived) return net.minecraft.util.Mth.clamp(getHealth() / REVIVE_HEALTH, 0.0F, 1.0F);
+        return super.bossBarProgress();
+    }
+
+    @Override
+    protected int bossBarsLeft() {
+        return !isPhase2() ? 2 : revived ? 0 : 1;
+    }
+
     // ============================================================ revive / death
     /** 第2形態で倒されたら、一度だけ死なずに復活の動きに入る（/kill では復活しない） */
     @Override
