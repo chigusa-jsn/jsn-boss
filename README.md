@@ -214,6 +214,24 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 - 主砲は赤いレーザーが当たっている間に横へ動けば避けられる（撃つ直前の0.2秒は狙いが止まる）
 - 爆発で地形は壊れない
 
+### 堕ちた戦乙女（`jsnboss:fallen_valkyrie`）— 高精細
+
+身長約3.6ブロック、HP 2200。黒鋼に金の縁取りの全身鎧、翼のついた兜、羽根の刃でできた大きな翼、ボロボロのマント、身長より長い光る長槍。地上と空中を行き来して戦う。HP が半分（1100）を切ると第2形態「完全なる堕天」になり、光が赤紫に変わって翼が欠け、鎧にひびが走る。
+（パーツ約120個・キューブごとの傾き・2倍の細かさのテクスチャで作った最初のボス）
+
+| 技 | 第1形態 | 第2形態 |
+|---|---|---|
+| 槍の連突き（3回、少しずつ踏み込む） | 12 × 3 | 14 × 3 |
+| なぎ払い（一回転、半径6） | 16 | 20 |
+| 地より出ずる槍（地面から光る槍が一直線に突き出す、ひびの予告あり） | 14（1列） | 16（3列＋自分の周り） |
+| 羽根の刃（翼から光る羽根を扇状に飛ばす） | 8 × 5 | 9 × 7 |
+| 飛翔（空へ舞い上がる。最大12秒、空中では近接攻撃が届かない） | — | — |
+| 槍の雨（空中から、地面の光の輪めがけて光る槍が降る） | 10 × 6 | 12 × 10 |
+| 急降下突き（空から一直線に突っ込み、着地で半径4の衝撃。そのまま地上に戻る） | 20 | 24（着地の周りに槍） |
+| 槍の牢獄（相手の周りを外側の輪→内側の輪→真ん中の順に槍が突き出す） | — | 18 |
+
+- 空にいる間は弓やトライデントで攻撃できる。急降下の着地の後が近接で反撃するチャンス
+
 ## 最大HPの上限について
 
 バニラの最大HPは1024が上限なので、この MOD は起動時に上限を100000まで引き上げている（`BossSetup.raiseMaxHealthCap()`、`META-INF/accesstransformer.cfg`）。ほかのモブのHPは変わらない。
@@ -225,8 +243,8 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 ```
 
 - クリエイティブの「スポーンエッグ」タブに各ボスのスポーンエッグ
-- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`、`/summon jsnboss:blade_dragon`、`/summon jsnboss:white_fox`、`/summon jsnboss:wind_cat`、`/summon jsnboss:thunder_lion`、`/summon jsnboss:rock_giant`、`/summon jsnboss:ender_sentinel`、`/summon jsnboss:creeper_mother`、`/summon jsnboss:fenrir`、`/summon jsnboss:iron_spider`
-- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f、white_fox と wind_cat は 790f、thunder_lion は 890f、rock_giant は 1090f、ender_sentinel と creeper_mother は 790f、fenrir と iron_spider は 990f）
+- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`、`/summon jsnboss:blade_dragon`、`/summon jsnboss:white_fox`、`/summon jsnboss:wind_cat`、`/summon jsnboss:thunder_lion`、`/summon jsnboss:rock_giant`、`/summon jsnboss:ender_sentinel`、`/summon jsnboss:creeper_mother`、`/summon jsnboss:fenrir`、`/summon jsnboss:iron_spider`、`/summon jsnboss:fallen_valkyrie`
+- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f、white_fox と wind_cat は 790f、thunder_lion は 890f、rock_giant は 1090f、ender_sentinel と creeper_mother は 790f、fenrir と iron_spider は 990f、fallen_valkyrie は 1090f）
 
 配布用の jar は `./gradlew build` で `build/libs/` にできる。GitHub に push すると Actions が自動でビルドする（jar は Actions の実行結果からダウンロードできる）。
 
@@ -235,10 +253,10 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 | 内容 | 場所 |
 |---|---|
 | ボス共通の土台 | `src/main/java/com/chigusa/jsnboss/entity/AbstractBoss.java` |
-| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java`、`entity/DarkMageEntity.java`、`entity/BladeDragonEntity.java`、`entity/WhiteFoxEntity.java`、`entity/WindCatEntity.java`、`entity/ThunderLionEntity.java`、`entity/RockGiantEntity.java`、`entity/EnderSentinelEntity.java`、`entity/CreeperMotherEntity.java`、`entity/FenrirEntity.java`、`entity/IronSpiderEntity.java` |
+| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java`、`entity/DarkMageEntity.java`、`entity/BladeDragonEntity.java`、`entity/WhiteFoxEntity.java`、`entity/WindCatEntity.java`、`entity/ThunderLionEntity.java`、`entity/RockGiantEntity.java`、`entity/EnderSentinelEntity.java`、`entity/CreeperMotherEntity.java`、`entity/FenrirEntity.java`、`entity/IronSpiderEntity.java`、`entity/FallenValkyrieEntity.java` |
 | 火の玉・斬撃・火柱 | `src/main/java/com/chigusa/jsnboss/entity/` |
 | モデル | `src/main/resources/assets/jsnboss/geo/entity/fire_knight.geo.json` |
 | アニメーション | `src/main/resources/assets/jsnboss/animations/entity/fire_knight.animation.json` |
 | テクスチャ（第1/第2形態、発光マスク） | `src/main/resources/assets/jsnboss/textures/entity/` |
 
-`tools/` にはモデル・テクスチャ・アニメーションを作り直すための Python スクリプトが入っている（ゲームには関係しない）。モデルとアニメーションは Blockbench（GeckoLib プラグイン）で開いて直接いじってもOK。
+`tools/` にはモデル・テクスチャ・アニメーションを作り直すための Python スクリプトが入っている（ゲームには関係しない）。`geo_tools.py` はキューブごとの傾き（`{"rot": [...]}`）と細かいテクスチャ（`density=2`）にも対応している。モデルとアニメーションは Blockbench（GeckoLib プラグイン）で開いて直接いじってもOK。
