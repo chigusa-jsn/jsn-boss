@@ -250,6 +250,16 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 | 森の番兵召喚（苔むしたスケルトン「ボグド」、最大4体） | 2体 | 4体 |
 | 大地の脈動（根の輪が外へ5重に広がる） | — | 18 |
 
+**第3形態「神樹」**：第2形態で HP を0にすると、一度だけ倒れずに復活する（5秒間は無敵）。樹皮が白銀に、冠が白金と桃色の花でいっぱいになり、目とルーンが金色に光る。最大HP 1500 の満タンで起き上がり、黄金の実が3つ生える（実質 HP 4500）。`/kill` では復活しない。
+
+| 技（第3形態） | ダメージ |
+|---|---|
+| 光の花びらの嵐（冠から花びらの刃を全方向に3回撒く） | 9 × 16枚 × 3 |
+| 天の光柱（全員の足元と周りに、金の光の柱が空から落ちる。1秒前に予告） | 18 |
+| 浄化の波（光の輪が2重に広がる、ジャンプで避ける） | 16 |
+| 開花（黄金の実が3つまで生え直す） | — |
+| 枝の叩きつけ・根の突き上げ（第2形態と同じ） | 24・20 |
+
 ## 敵モブの亜種
 
 バニラのモブのモデルそのままで、色と技がちがう。自然に湧くとき、一定の確率でバニラのモブと入れ替わる（スポーンエッグもある）。
@@ -296,7 +306,7 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 
 - クリエイティブの「スポーンエッグ」タブに各ボスのスポーンエッグ
 - コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`、`/summon jsnboss:blade_dragon`、`/summon jsnboss:white_fox`、`/summon jsnboss:wind_cat`、`/summon jsnboss:thunder_lion`、`/summon jsnboss:rock_giant`、`/summon jsnboss:ender_sentinel`、`/summon jsnboss:creeper_mother`、`/summon jsnboss:fenrir`、`/summon jsnboss:iron_spider`、`/summon jsnboss:fallen_valkyrie`、`/summon jsnboss:yggdrasil`
-- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f、white_fox と wind_cat は 790f、thunder_lion は 890f、rock_giant は 1090f、ender_sentinel と creeper_mother は 790f、fenrir と iron_spider は 990f、fallen_valkyrie は 1090f、yggdrasil は 1490f）
+- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f、white_fox と wind_cat は 790f、thunder_lion は 890f、rock_giant は 1090f、ender_sentinel と creeper_mother は 790f、fenrir と iron_spider は 990f、fallen_valkyrie は 1090f、yggdrasil は 1490f。ユグドラシルの第3形態は第2形態で `/damage @e[type=jsnboss:yggdrasil,limit=1] 2000` のように倒すと見られる）
 
 配布用の jar は `./gradlew build` で `build/libs/` にできる。GitHub に push すると Actions が自動でビルドする（jar は Actions の実行結果からダウンロードできる）。
 
