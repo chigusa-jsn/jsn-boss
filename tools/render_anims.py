@@ -29,7 +29,9 @@ JP = {"idle": "待機", "walk": "歩き", "attack_sweep": "横なぎ", "attack_d
       "ambient": "輪とドローン", "slash": "テレポート斬り", "void_laser": "虚空レーザー", "drones": "ドローン射撃", "rift": "空間の裂け目",
       "reach": "伸びる腕", "reach_sweep": "伸びる腕（第2）", "gravity": "重力異常", "collapse": "虚空の崩壊",
       "swell": "自爆", "mines": "地雷まき", "throw_tnt": "TNT投げ", "chain": "連鎖爆発", "spawn_kids": "子クリーパー召喚", "tackle": "体当たり",
-      "bite": "噛みつき", "claws": "爪の連撃", "chain_whip": "鎖の鞭", "eclipse": "月喰い", "frost_breath": "氷の息", "wolf_howl": "遠吠え"}
+      "bite": "噛みつき", "claws": "爪の連撃", "chain_whip": "鎖の鞭", "eclipse": "月喰い", "frost_breath": "氷の息", "wolf_howl": "遠吠え",
+      "saws": "ノコギリの回転", "saw_sweep": "回転ノコギリ", "missiles": "ミサイル連射", "flamethrower": "火炎放射", "main_cannon": "主砲",
+      "jump_slam": "ジャンプ踏みつけ", "steam": "蒸気噴射", "overheat": "オーバーヒート"}
 
 def sample(chan, t):
     ks = sorted((float(k), v) for k, v in chan.items())
