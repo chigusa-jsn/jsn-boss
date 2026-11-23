@@ -197,6 +197,23 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 - 第2形態では10秒ごとに周りのプレイヤーの視界が暗くなる
 - 呼ばれた狼はフェンリルの攻撃に巻き込まれない
 
+### 鋼鉄の機甲蜘蛛（`jsnboss:iron_spider`）
+
+幅約4ブロック、HP 2000。6本脚の蜘蛛型の機械で、鋼鉄の装甲にオレンジの配線が光り、ドーム型の頭に赤いひとつ目、両肩にミサイル砲台、前に回転ノコギリを持つ。とても硬く、ノックバックしない。HP が半分（1000）を切ると第2形態「暴走」になり、光が赤くなって動きが速くなる。
+
+| 技 | 第1形態 | 第2形態 |
+|---|---|---|
+| 回転ノコギリ（前方を挟むようになぎ払う） | 14＋裂傷 | 18＋裂傷 |
+| ミサイル連射（打ち上がってから追ってくる、着弾で爆発） | 8 × 6発 | 10 × 10発 |
+| 火炎放射（前方8ブロック） | 0.25秒ごとに4＋炎上 | 0.25秒ごとに5＋炎上 |
+| 主砲（2秒間赤いレーザーで狙ってから太いビーム、長さ32） | 24 | 28 |
+| ジャンプ踏みつけ（半径5） | 18 | 22 |
+| 蒸気噴射（半径6、吹き飛ばして目くらまし） | 6 | 8 |
+
+- **オーバーヒート**：主砲とミサイルの後は蒸気を吹いて止まる（第1形態3秒、第2形態1.8秒）。その間は受けるダメージが2倍
+- 主砲は赤いレーザーが当たっている間に横へ動けば避けられる（撃つ直前の0.2秒は狙いが止まる）
+- 爆発で地形は壊れない
+
 ## 最大HPの上限について
 
 バニラの最大HPは1024が上限なので、この MOD は起動時に上限を100000まで引き上げている（`BossSetup.raiseMaxHealthCap()`、`META-INF/accesstransformer.cfg`）。ほかのモブのHPは変わらない。
@@ -208,8 +225,8 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 ```
 
 - クリエイティブの「スポーンエッグ」タブに各ボスのスポーンエッグ
-- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`、`/summon jsnboss:blade_dragon`、`/summon jsnboss:white_fox`、`/summon jsnboss:wind_cat`、`/summon jsnboss:thunder_lion`、`/summon jsnboss:rock_giant`、`/summon jsnboss:ender_sentinel`、`/summon jsnboss:creeper_mother`、`/summon jsnboss:fenrir`
-- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f、white_fox と wind_cat は 790f、thunder_lion は 890f、rock_giant は 1090f、ender_sentinel と creeper_mother は 790f、fenrir は 990f）
+- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`、`/summon jsnboss:blade_dragon`、`/summon jsnboss:white_fox`、`/summon jsnboss:wind_cat`、`/summon jsnboss:thunder_lion`、`/summon jsnboss:rock_giant`、`/summon jsnboss:ender_sentinel`、`/summon jsnboss:creeper_mother`、`/summon jsnboss:fenrir`、`/summon jsnboss:iron_spider`
+- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f、white_fox と wind_cat は 790f、thunder_lion は 890f、rock_giant は 1090f、ender_sentinel と creeper_mother は 790f、fenrir と iron_spider は 990f）
 
 配布用の jar は `./gradlew build` で `build/libs/` にできる。GitHub に push すると Actions が自動でビルドする（jar は Actions の実行結果からダウンロードできる）。
 
@@ -218,7 +235,7 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 | 内容 | 場所 |
 |---|---|
 | ボス共通の土台 | `src/main/java/com/chigusa/jsnboss/entity/AbstractBoss.java` |
-| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java`、`entity/DarkMageEntity.java`、`entity/BladeDragonEntity.java`、`entity/WhiteFoxEntity.java`、`entity/WindCatEntity.java`、`entity/ThunderLionEntity.java`、`entity/RockGiantEntity.java`、`entity/EnderSentinelEntity.java`、`entity/CreeperMotherEntity.java`、`entity/FenrirEntity.java` |
+| ボスの AI・技 | `entity/FireKnightEntity.java`、`entity/IceWitchEntity.java`、`entity/ZombieKingEntity.java`、`entity/DarkMageEntity.java`、`entity/BladeDragonEntity.java`、`entity/WhiteFoxEntity.java`、`entity/WindCatEntity.java`、`entity/ThunderLionEntity.java`、`entity/RockGiantEntity.java`、`entity/EnderSentinelEntity.java`、`entity/CreeperMotherEntity.java`、`entity/FenrirEntity.java`、`entity/IronSpiderEntity.java` |
 | 火の玉・斬撃・火柱 | `src/main/java/com/chigusa/jsnboss/entity/` |
 | モデル | `src/main/resources/assets/jsnboss/geo/entity/fire_knight.geo.json` |
 | アニメーション | `src/main/resources/assets/jsnboss/animations/entity/fire_knight.animation.json` |
