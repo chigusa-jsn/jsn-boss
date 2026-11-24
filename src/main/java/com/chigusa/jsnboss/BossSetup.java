@@ -46,7 +46,7 @@ public final class BossSetup {
         com.chigusa.jsnboss.registry.ModBlocks.BLOCKS.register(modBus);
         com.chigusa.jsnboss.vfx.ModParticles.PARTICLE_TYPES.register(modBus);
         modBus.addListener(BossSetup::onAttributes);
-        modBus.addListener(BossSetup::onCreativeTab);
+        com.chigusa.jsnboss.registry.ModTabs.TABS.register(modBus);
     }
 
     /** accesstransformer.cfg で書き換え可能にした上限値を引き上げる（ほかのMODがもっと高くしていたら触らない） */
@@ -79,44 +79,24 @@ public final class BossSetup {
         event.put(ModEntities.SPIRIT_FAIRY.get(), com.chigusa.jsnboss.entity.SpiritFairyEntity.createAttributes().build());
 
         // 亜種（バニラと同じ能力値に、少しだけ上乗せ）
-        event.put(ModMobs.SOUL_BLAZE.get(), net.minecraft.world.entity.monster.Blaze.createAttributes().add(Attributes.MAX_HEALTH, 26.0).build());
-        event.put(ModMobs.FROST_BLAZE.get(), net.minecraft.world.entity.monster.Blaze.createAttributes().add(Attributes.MAX_HEALTH, 26.0).build());
-        event.put(ModMobs.TOMB_ZOMBIE.get(), net.minecraft.world.entity.monster.Zombie.createAttributes().add(Attributes.MAX_HEALTH, 28.0).build());
-        event.put(ModMobs.THUNDER_ZOMBIE.get(), net.minecraft.world.entity.monster.Zombie.createAttributes().add(Attributes.MAX_HEALTH, 26.0).build());
-        event.put(ModMobs.FIRE_SKELETON.get(), net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes().add(Attributes.MAX_HEALTH, 24.0).build());
-        event.put(ModMobs.POISON_SKELETON.get(), net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes().add(Attributes.MAX_HEALTH, 24.0).build());
-        event.put(ModMobs.FROST_CREEPER.get(), net.minecraft.world.entity.monster.Creeper.createAttributes().build());
-        event.put(ModMobs.MAGMA_SPIDER.get(), net.minecraft.world.entity.monster.Spider.createAttributes().add(Attributes.MAX_HEALTH, 22.0).build());
+        event.put(ModMobs.SOUL_BLAZE.get(), net.minecraft.world.entity.monster.Blaze.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.FROST_BLAZE.get(), net.minecraft.world.entity.monster.Blaze.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.TOMB_ZOMBIE.get(), net.minecraft.world.entity.monster.Zombie.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.THUNDER_ZOMBIE.get(), net.minecraft.world.entity.monster.Zombie.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.FIRE_SKELETON.get(), net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.POISON_SKELETON.get(), net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.FROST_CREEPER.get(), net.minecraft.world.entity.monster.Creeper.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.MAGMA_SPIDER.get(), net.minecraft.world.entity.monster.Spider.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.MOSS_ZOMBIE.get(), net.minecraft.world.entity.monster.Zombie.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.GOLD_ZOMBIE.get(), net.minecraft.world.entity.monster.Zombie.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.ORE_ZOMBIE.get(), net.minecraft.world.entity.monster.Zombie.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.PRISMARINE_DROWNED.get(), net.minecraft.world.entity.monster.Zombie.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.HONEY_SPIDER.get(), net.minecraft.world.entity.monster.Spider.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.SKY_SKELETON.get(), net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.SCULK_SKELETON.get(), net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
+        event.put(ModMobs.GLOW_SLIME.get(), net.minecraft.world.entity.monster.Monster.createMonsterAttributes().build());
     }
 
-    private static void onCreativeTab(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
-            event.accept(ModItems.FIRE_KNIGHT_SPAWN_EGG.get());
-            event.accept(ModItems.ICE_WITCH_SPAWN_EGG.get());
-            event.accept(ModItems.ZOMBIE_KING_SPAWN_EGG.get());
-            event.accept(ModItems.DARK_MAGE_SPAWN_EGG.get());
-            event.accept(ModItems.BLADE_DRAGON_SPAWN_EGG.get());
-            event.accept(ModItems.WHITE_FOX_SPAWN_EGG.get());
-            event.accept(ModItems.WIND_CAT_SPAWN_EGG.get());
-            event.accept(ModItems.THUNDER_LION_SPAWN_EGG.get());
-            event.accept(ModItems.ROCK_GIANT_SPAWN_EGG.get());
-            event.accept(ModItems.ENDER_SENTINEL_SPAWN_EGG.get());
-            event.accept(ModItems.CREEPER_MOTHER_SPAWN_EGG.get());
-            event.accept(ModItems.FENRIR_SPAWN_EGG.get());
-            event.accept(ModItems.IRON_SPIDER_SPAWN_EGG.get());
-            event.accept(ModItems.FALLEN_VALKYRIE_SPAWN_EGG.get());
-            event.accept(ModItems.YGGDRASIL_SPAWN_EGG.get());
-            event.accept(ModItems.YGGDRASIL_SPIRIT_SPAWN_EGG.get());
-            event.accept(ModMobs.SOUL_BLAZE_EGG.get());
-            event.accept(ModMobs.FROST_BLAZE_EGG.get());
-            event.accept(ModMobs.TOMB_ZOMBIE_EGG.get());
-            event.accept(ModMobs.THUNDER_ZOMBIE_EGG.get());
-            event.accept(ModMobs.FIRE_SKELETON_EGG.get());
-            event.accept(ModMobs.POISON_SKELETON_EGG.get());
-            event.accept(ModMobs.FROST_CREEPER_EGG.get());
-            event.accept(ModMobs.MAGMA_SPIDER_EGG.get());
-        }
-    }
 
     private BossSetup() {}
 }

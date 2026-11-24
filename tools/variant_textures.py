@@ -28,8 +28,12 @@ SPIDER = [("head", (-4, 5, -14), (8, 8, 8), (32, 4)), ("neck", (-3, 6, -6), (6, 
           ("abdomen", (-5, 5, 0), (10, 8, 12), (0, 12))] + \
          [("leg", (-17 if i % 2 == 0 else 1, 7, -5 + (i // 2) * 3), (16, 2, 2), (18, 0)) for i in range(8)]
 
+SLIME = [("outer", (-4, 0, -4), (8, 8, 8), (0, 0)), ("inner", (-3, 1, -3), (6, 6, 6), (0, 16)),
+         ("eye_r", (-3.3, 4, -3.5), (2, 2, 2), (32, 0)), ("eye_l", (1.3, 4, -3.5), (2, 2, 2), (32, 4)),
+         ("mouth", (0, 2, -3.5), (1, 1, 1), (32, 8))]
+
 MODELS = {"blaze": (BLAZE, 64, 32), "zombie": (ZOMBIE, 64, 64), "skeleton": (SKELETON, 64, 32),
-          "creeper": (CREEPER, 64, 32), "spider": (SPIDER, 64, 32)}
+          "creeper": (CREEPER, 64, 32), "spider": (SPIDER, 64, 32), "slime": (SLIME, 64, 32)}
 
 
 class Tex:
@@ -269,10 +273,223 @@ VARIANTS = {"soul_blaze": soul_blaze, "frost_blaze": frost_blaze, "tomb_zombie":
             "magma_spider": magma_spider}
 
 
+# ---------------------------------------------------------------- 友達の案の亜種
+def skull_face(t, fx, fy, eye, dark="#101010"):
+    for x, y in ((1, 3), (2, 3), (1, 4), (2, 4), (5, 3), (6, 3), (5, 4), (6, 4)):
+        t.put(fx + x, fy + y, hexc(dark))
+    t.put(fx + 1, fy + 4, hexc(eye)); t.put(fx + 6, fy + 4, hexc(eye))
+    for x in range(2, 6):
+        t.put(fx + x, fy + 6, hexc(dark))
+
+
+def moss_zombie():
+    """森の：苔とツタに覆われたゾンビ"""
+    boxes, w, h = MODELS["zombie"]
+    t = Tex(w, h, 11)
+
+    def moss(t, name, face, rect):
+        fx, fy, fw, fh = rect
+        t.speckle(rect, ["#3e7a2a", "#5a9a3a", "#2a5a1e"], 0.35)          # 苔
+        if face not in ("up", "down"):
+            for _ in range(max(1, fw // 3)):                              # 垂れるツタと葉
+                x = t.r.randrange(fw)
+                for j in range(t.r.randrange(fh // 2, fh)):
+                    t.put(fx + x, fy + j, hexc("#2e6a22" if j % 3 else "#6ac84a"))
+        if face == "up":
+            t.speckle(rect, ["#6ac84a", "#8ae05a"], 0.6)
+        if name == "head" and face == "north":
+            t.put(fx + 6, fy + 1, hexc("#ff8ab8")); t.put(fx + 5, fy + 1, hexc("#ffd860"))   # 小さな花
+    paint_humanoid(t, boxes, "#5a7a4a", "#3a5230", "#4a6a2e", "#3a4a26", "#c8ff6a", moss)
+    return t, "zombie"
+
+
+def honey_spider():
+    """べたべたの：ハチミツとスライムまみれのクモ"""
+    boxes, w, h = MODELS["spider"]
+    t = Tex(w, h, 12)
+    for name, face, rect in each_face(boxes):
+        fx, fy, fw, fh = rect
+        t.fill(rect, "#4a3218", 8)
+        t.speckle(rect, ["#5a3e1e", "#3a2610"], 0.3)
+        for _ in range(max(1, fw * fh // 10)):                         # ハチミツのしずく
+            x, y = t.r.randrange(fw), t.r.randrange(fh)
+            for j in range(t.r.randrange(1, 4)):
+                if y + j < fh:
+                    t.put(fx + x, fy + y + j, hexc(t.r.choice(("#ffb020", "#ffc840", "#e89010"))))
+        t.speckle(rect, ["#7ad85a", "#9af07a"], 0.06)                   # スライムの粒
+        if face == "up":
+            t.speckle(rect, ["#ffc840", "#ffe080"], 0.35)
+        if name == "head" and face == "north":
+            for x, y in ((1, 3), (2, 3), (5, 3), (6, 3), (3, 2), (4, 2)):
+                t.put(fx + x, fy + y, hexc("#ffd040"))
+    return t, "spider"
+
+
+def prismarine_drowned():
+    """海の：プリズマリンをまとったドラウンド"""
+    boxes, w, h = MODELS["zombie"]
+    t = Tex(w, h, 13)
+
+    def tiles(t, name, face, rect):
+        fx, fy, fw, fh = rect
+        if name in ("body", "leg_r", "leg_l") or (name.startswith("arm") and face not in ("up", "down")):
+            for j in range(fh):
+                for k in range(fw):
+                    if (j % 4 == 0) or (k % 4 == 0 and (j // 4 + k // 4) % 2 == 0):
+                        t.put(fx + k, fy + j, hexc("#2a6a6a"))
+                    elif t.r.random() < 0.12:
+                        t.put(fx + k, fy + j, hexc("#8af0d8"))
+        if name == "head" and face == "north":
+            t.put(fx + 2, fy + 4, hexc("#a8fff0")); t.put(fx + 5, fy + 4, hexc("#a8fff0"))
+        if name == "head" and face == "up":
+            t.speckle(rect, ["#a8f0e0", "#5ac8b0"], 0.4)
+    paint_humanoid(t, boxes, "#5a9a8a", "#3a6a5e", "#4aa08e", "#3a8070", "#a8fff0", tiles)
+    return t, "zombie"
+
+
+def sky_skeleton():
+    """空の：雲と空の色の骨。羽根が刺さっている"""
+    boxes, w, h = MODELS["skeleton"]
+    t = Tex(w, h, 14)
+    for name, face, rect in each_face(boxes):
+        fx, fy, fw, fh = rect
+        for j in range(fh):
+            for k in range(fw):
+                v = j / max(1, fh - 1)
+                c = hexc("#e8f4ff") * (1 - v) + hexc("#8ab8e8") * v
+                t.put(fx + k, fy + j, c + t.r.uniform(-6, 6))
+        t.speckle(rect, ["#ffffff"], 0.18)
+        if face not in ("up", "down") and fh > 4:
+            x = t.r.randrange(fw)
+            for j in range(3):
+                t.put(fx + x, fy + j, hexc("#fffbe8"))                   # 羽根
+        if name == "head" and face == "north":
+            skull_face(t, fx, fy, "#5ac8ff", "#2a3a5a")
+    return t, "skeleton"
+
+
+def gold_zombie():
+    """黄金の：全身が金ピカのゾンビ"""
+    boxes, w, h = MODELS["zombie"]
+    t = Tex(w, h, 15)
+
+    def shine(t, name, face, rect):
+        fx, fy, fw, fh = rect
+        for j in range(fh):
+            for k in range(fw):
+                c = hexc("#e8b830") if (j + k) % 5 else hexc("#ffe878")
+                if (j * 3 + k) % 11 == 0:
+                    c = hexc("#a87818")
+                t.put(fx + k, fy + j, c + t.r.uniform(-8, 8))
+        t.speckle(rect, ["#fffbd0"], 0.06)
+        if name == "head" and face == "north":
+            for x in (1, 2, 5, 6):
+                t.put(fx + x, fy + 4, hexc("#3a2808"))
+            t.put(fx + 2, fy + 4, hexc("#ff3a2a")); t.put(fx + 5, fy + 4, hexc("#ff3a2a"))
+            for x in range(2, 6):
+                t.put(fx + x, fy + 6, hexc("#8a6010"))
+        if name == "head" and face in ("north", "south", "east", "west"):
+            for k in range(fw):                                       # 王冠のような飾り
+                if k % 2 == 0:
+                    t.put(fx + k, fy, hexc("#fff4a0"))
+            t.put(fx + fw // 2, fy + 1, hexc("#3ac8ff"))
+    paint_humanoid(t, boxes, "#e8b830", "#a87818", "#e8b830", "#c89820", "#ff3a2a", shine)
+    return t, "zombie"
+
+
+def sculk_skeleton():
+    """残響の：スカルクに侵された黒い骨と青緑の脈"""
+    boxes, w, h = MODELS["skeleton"]
+    t = Tex(w, h, 16)
+    for name, face, rect in each_face(boxes):
+        fx, fy, fw, fh = rect
+        t.fill(rect, "#1a2a30", 6)
+        t.speckle(rect, ["#0a1418", "#24363e"], 0.3)
+        for _ in range(max(1, fw * fh // 12)):
+            x, y = t.r.randrange(fw), t.r.randrange(fh)
+            for _ in range(4):
+                if 0 <= x < fw and 0 <= y < fh:
+                    t.put(fx + x, fy + y, hexc(t.r.choice(("#2ac8c8", "#5af0e8", "#1a8a8a"))))
+                x += t.r.choice((-1, 0, 1)); y += t.r.choice((-1, 0, 1))
+        if name == "head" and face == "north":
+            skull_face(t, fx, fy, "#5af0e8", "#020808")
+            t.put(fx + 2, fy + 4, hexc("#5af0e8")); t.put(fx + 5, fy + 4, hexc("#5af0e8"))
+    return t, "skeleton"
+
+
+ORE = {"stone": ("#7a7a7a", ["#2a2a2a", "#3a3a3a"]),            # 石（石炭の粒）
+       "iron": ("#8a8a8a", ["#d8b090", "#c89a78"]),
+       "gold": ("#8a8478", ["#ffd83a", "#fff07a"]),
+       "diamond": ("#6a7078", ["#5af0e8", "#a8fff8"])}
+
+
+def ore_zombie(tier):
+    base, spots = ORE[tier]
+    boxes, w, h = MODELS["zombie"]
+    t = Tex(w, h, 17 + list(ORE).index(tier))
+
+    def ore(t, name, face, rect):
+        fx, fy, fw, fh = rect
+        t.fill(rect, base, 10)
+        t.speckle(rect, ["#5a5a5a", "#9a9a9a"], 0.25)
+        for _ in range(max(1, fw * fh // 9)):                         # 鉱石の粒（2×2 くらい）
+            x, y = t.r.randrange(fw), t.r.randrange(fh)
+            for dx, dy in ((0, 0), (1, 0), (0, 1)):
+                if x + dx < fw and y + dy < fh:
+                    t.put(fx + x + dx, fy + y + dy, hexc(t.r.choice(spots)))
+        if name == "head" and face == "north":
+            for x in (1, 2, 5, 6):
+                t.put(fx + x, fy + 4, hexc("#101010"))
+            t.put(fx + 2, fy + 4, hexc(spots[-1])); t.put(fx + 5, fy + 4, hexc(spots[-1]))
+            for x in range(2, 6):
+                t.put(fx + x, fy + 6, hexc("#3a3a3a"))
+    paint_humanoid(t, boxes, base, "#4a4a4a", base, base, spots[-1], ore)
+    return t, "zombie"
+
+
+def glow_slime():
+    """ひかりし：光る黄緑のスライム（外側は半透明）"""
+    boxes, w, h = MODELS["slime"]
+    t = Tex(w, h, 21)
+    for name, face, rect in each_face(boxes):
+        fx, fy, fw, fh = rect
+        if name == "outer":
+            for j in range(fh):
+                for k in range(fw):
+                    c = hexc("#d8ff7a") if (j + k) % 3 else hexc("#f4ffb0")
+                    t.put(fx + k, fy + j, c)
+                    t.img[fy + j, fx + k, 3] = 150
+            t.speckle(rect, ["#ffffff"], 0.08)
+            for j in range(fh):
+                for k in range(fw):
+                    if t.img[fy + j, fx + k, 3] == 255:
+                        t.img[fy + j, fx + k, 3] = 190
+        elif name == "inner":
+            t.fill(rect, "#a8e83a", 10)
+            t.speckle(rect, ["#ffff9a", "#7ac82a"], 0.3)
+        elif name.startswith("eye"):
+            t.fill(rect, "#2a4a0a", 2)
+            if face == "north":
+                t.put(fx, fy, hexc("#ffffff"))
+        else:
+            t.fill(rect, "#3a5a12", 2)
+    return t, "slime"
+
+
+VARIANTS.update({"moss_zombie": moss_zombie, "honey_spider": honey_spider, "prismarine_drowned": prismarine_drowned,
+                 "sky_skeleton": sky_skeleton, "gold_zombie": gold_zombie, "sculk_skeleton": sculk_skeleton,
+                 "ore_zombie_stone": lambda: ore_zombie("stone"), "ore_zombie_iron": lambda: ore_zombie("iron"),
+                 "ore_zombie_gold": lambda: ore_zombie("gold"), "ore_zombie_diamond": lambda: ore_zombie("diamond"),
+                 "glow_slime": glow_slime})
+
+
 def preview(out):
     import render_preview as R
     ims = []
+    only = sys.argv[2:] or list(VARIANTS)
     for name, fn in VARIANTS.items():
+        if name not in only:
+            continue
         t, model = fn()
         boxes, w, h = MODELS[model]
         R.tex = t.img.astype(float)
@@ -281,10 +498,12 @@ def preview(out):
                   "flat": [("root", list(f), "x") for _, o, s, uv in boxes for f in faces(o, s, uv[0], uv[1])]}
         R.bones = {"root": R.data["bones"][0]}
         ims.append(R.to_image(*R.render(-30, 12, 5, bounds=(-22, 22, -36, 6))[:3]))
-    W = sum(i.width for i in ims[:4]); H = ims[0].height * 2
+    cols = 5
+    rows = (len(ims) + cols - 1) // cols
+    W = ims[0].width * cols; H = ims[0].height * rows
     sheet = Image.new("RGB", (W, H), (20, 18, 24))
     for i, im in enumerate(ims):
-        sheet.paste(im, ((i % 4) * ims[0].width, (i // 4) * ims[0].height))
+        sheet.paste(im, ((i % cols) * ims[0].width, (i // cols) * ims[0].height))
     sheet.save(out)
 
 

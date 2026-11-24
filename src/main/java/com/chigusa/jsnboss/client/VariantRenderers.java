@@ -52,6 +52,35 @@ public final class VariantRenderers {
         event.registerEntityRenderer(ModMobs.MAGMA_SPIDER.get(), ctx -> new SpiderRenderer<Spider>(ctx) {
             @Override public ResourceLocation getTextureLocation(Spider e) { return tex("magma_spider"); }
         });
+        // ---- 友達の案の亜種
+        event.registerEntityRenderer(ModMobs.MOSS_ZOMBIE.get(), ctx -> new ZombieRenderer(ctx) {
+            @Override public ResourceLocation getTextureLocation(Zombie e) { return tex("moss_zombie"); }
+        });
+        event.registerEntityRenderer(ModMobs.GOLD_ZOMBIE.get(), ctx -> new ZombieRenderer(ctx) {
+            @Override public ResourceLocation getTextureLocation(Zombie e) { return tex("gold_zombie"); }
+        });
+        event.registerEntityRenderer(ModMobs.ORE_ZOMBIE.get(), ctx -> new ZombieRenderer(ctx) {
+            @Override public ResourceLocation getTextureLocation(Zombie e) {
+                int t = e instanceof com.chigusa.jsnboss.mob.OreZombie oz ? oz.tier() : 0;
+                return tex("ore_zombie_" + com.chigusa.jsnboss.mob.OreZombie.TIERS[t]);
+            }
+        });
+        event.registerEntityRenderer(ModMobs.PRISMARINE_DROWNED.get(), ctx -> new net.minecraft.client.renderer.entity.DrownedRenderer(ctx) {
+            @Override public ResourceLocation getTextureLocation(Zombie e) { return tex("prismarine_drowned"); }
+        });
+        event.registerEntityRenderer(ModMobs.HONEY_SPIDER.get(), ctx -> new SpiderRenderer<Spider>(ctx) {
+            @Override public ResourceLocation getTextureLocation(Spider e) { return tex("honey_spider"); }
+        });
+        event.registerEntityRenderer(ModMobs.SKY_SKELETON.get(), ctx -> new SkeletonRenderer(ctx) {
+            @Override public ResourceLocation getTextureLocation(AbstractSkeleton e) { return tex("sky_skeleton"); }
+        });
+        event.registerEntityRenderer(ModMobs.SCULK_SKELETON.get(), ctx -> new SkeletonRenderer(ctx) {
+            @Override public ResourceLocation getTextureLocation(AbstractSkeleton e) { return tex("sculk_skeleton"); }
+        });
+        event.registerEntityRenderer(ModMobs.GLOW_SLIME.get(), ctx -> new net.minecraft.client.renderer.entity.SlimeRenderer(ctx) {
+            @Override public ResourceLocation getTextureLocation(net.minecraft.world.entity.monster.Slime e) { return tex("glow_slime"); }
+            @Override protected int getBlockLightLevel(net.minecraft.world.entity.monster.Slime e, net.minecraft.core.BlockPos pos) { return 15; }
+        });
         event.registerEntityRenderer(ModMobs.POISON_CLOUD_ARROW.get(), TippableArrowRenderer::new);
         event.registerEntityRenderer(ModEntities.MOB_BOLT.get(), NoopRenderer::new);
     }

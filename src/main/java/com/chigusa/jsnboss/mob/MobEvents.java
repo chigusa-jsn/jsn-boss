@@ -4,6 +4,7 @@ import com.chigusa.jsnboss.BossConstants;
 import com.chigusa.jsnboss.entity.IceWitchEntity;
 import com.chigusa.jsnboss.registry.ModMobs;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -48,23 +49,39 @@ public final class MobEvents {
     /** どのバニラのモブを、どのくらいの確率で亜種にするか */
     private static EntityType<? extends Mob> pickVariant(Mob mob, ServerLevel sl, RandomSource r) {
         EntityType<?> t = mob.getType();
-        float f = r.nextFloat();
+        BlockPos pos = mob.blockPosition();
+        var biome = sl.getBiome(pos);
+        int y = pos.getY();
         if (t == EntityType.BLAZE) {
+            float f = r.nextFloat();
             if (f < 0.10F) return ModMobs.SOUL_BLAZE.get();
             if (f < 0.20F) return ModMobs.FROST_BLAZE.get();
         } else if (t == EntityType.HUSK) {
-            if (f < 0.20F) return ModMobs.TOMB_ZOMBIE.get();
+            if (r.nextFloat() < 0.20F) return ModMobs.TOMB_ZOMBIE.get();
         } else if (t == EntityType.ZOMBIE) {
-            if (f < (sl.isThundering() ? 0.30F : 0.04F)) return ModMobs.THUNDER_ZOMBIE.get();
+            if (r.nextFloat() < (sl.isThundering() ? 0.30F : 0.04F)) return ModMobs.THUNDER_ZOMBIE.get();
+            if (y < 40 && r.nextFloat() < 0.12F) return ModMobs.ORE_ZOMBIE.get();                 // 地下：鉱石のゾンビ
+            boolean forest = biome.is(BiomeTags.IS_FOREST) || biome.is(BiomeTags.IS_JUNGLE) || biome.is(BiomeTags.IS_TAIGA);
+            if (r.nextFloat() < (forest ? 0.15F : 0.04F)) return ModMobs.MOSS_ZOMBIE.get();        // 森：苔ゾンビ
+            if (r.nextFloat() < (biome.is(BiomeTags.IS_BADLANDS) ? 0.15F : 0.03F)) return ModMobs.GOLD_ZOMBIE.get();
         } else if (t == EntityType.SKELETON) {
+            float f = r.nextFloat();
             if (f < 0.05F) return ModMobs.FIRE_SKELETON.get();
             if (f < 0.10F) return ModMobs.POISON_SKELETON.get();
+            boolean deepDark = biome.is(net.minecraft.world.level.biome.Biomes.DEEP_DARK);
+            if (y < 0 && r.nextFloat() < (deepDark ? 0.40F : 0.15F)) return ModMobs.SCULK_SKELETON.get();
+            if (r.nextFloat() < (y > 100 ? 0.25F : 0.04F)) return ModMobs.SKY_SKELETON.get();
         } else if (t == EntityType.CREEPER) {
-            BlockPos pos = mob.blockPosition();
-            boolean cold = sl.getBiome(pos).value().coldEnoughToSnow(pos);
-            if (f < (cold ? 0.35F : 0.03F)) return ModMobs.FROST_CREEPER.get();
+            boolean cold = biome.value().coldEnoughToSnow(pos);
+            if (r.nextFloat() < (cold ? 0.35F : 0.03F)) return ModMobs.FROST_CREEPER.get();
         } else if (t == EntityType.SPIDER) {
+            float f = r.nextFloat();
             if (f < 0.06F) return ModMobs.MAGMA_SPIDER.get();
+            if (f < 0.12F) return ModMobs.HONEY_SPIDER.get();
+        } else if (t == EntityType.DROWNED) {
+            if (r.nextFloat() < 0.15F) return ModMobs.PRISMARINE_DROWNED.get();
+        } else if (t == EntityType.SLIME) {
+            if (r.nextFloat() < 0.15F) return ModMobs.GLOW_SLIME.get();
         }
         return null;
     }
