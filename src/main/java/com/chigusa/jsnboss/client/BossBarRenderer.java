@@ -103,6 +103,17 @@ public final class BossBarRenderer {
         Component name = bar.getName();
         g.drawString(font, name, wx + WIN_W / 2 - font.width(name) / 2, y0, 0xFFFFFF);
 
+        // 今のバーの残り HP（バーの右下に小さく）
+        float barMax = barMax(boss, left, bar);
+        if (barMax > 0) {
+            String text = (int) Math.ceil(Mth.clamp(bar.getProgress(), 0, 1) * barMax) + " / " + Math.round(barMax);
+            g.pose().pushPose();
+            g.pose().translate(wx + WIN_W, y0 + 25.5F, 0);
+            g.pose().scale(0.75F, 0.75F, 1.0F);
+            g.drawString(font, text, -font.width(text), 0, 0xFFF4F0E0);
+            g.pose().popPose();
+        }
+
         event.setIncrement(FRAME_H + 4);
         event.setCanceled(true);
 
@@ -147,6 +158,37 @@ public final class BossBarRenderer {
         while (it.hasNext()) {
             if (now - it.next().lastSeen > 10_000) it.remove();
         }
+    }
+
+    /** 今のバー1本ぶんの HP。近くにいるそのボスの最大 HP から出す（ゾンビの王の復活後は 500、神樹は最大 HP） */
+    private static final Map<UUID, float[]> MAX_CACHE = new HashMap<>();
+
+    private static float barMax(String boss, int left, LerpingBossEvent bar) {
+        if (boss.equals("zombie_king") && left == 0) return 500.0F;
+        long now = Util.getMillis();
+        float[] c = MAX_CACHE.get(bar.getId());
+        if (c == null || now - (long) c[1] > 1000 || c[2] != left) {
+            float max = -1;
+            var mc = Minecraft.getInstance();
+            if (mc.level != null && mc.player != null) {
+                double best = Double.MAX_VALUE;
+                for (var e : mc.level.getEntitiesOfClass(com.chigusa.jsnboss.entity.AbstractBoss.class,
+                        mc.player.getBoundingBox().inflate(160))) {
+                    String key = net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).getPath();
+                    if (!key.equals(boss)) continue;
+                    double d = e.distanceToSqr(mc.player);
+                    if (d < best) {
+                        best = d;
+                        max = e.getMaxHealth();
+                    }
+                }
+            }
+            if (max > 0 && !(boss.equals("yggdrasil") && left == 0)) max *= 0.5F;
+            c = new float[]{max, now, left};
+            MAX_CACHE.put(bar.getId(), c);
+            if (MAX_CACHE.size() > 16) MAX_CACHE.clear();
+        }
+        return c[0];
     }
 
     private static int barsLeft(BossEvent.BossBarOverlay overlay) {
