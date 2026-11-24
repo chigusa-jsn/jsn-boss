@@ -76,6 +76,14 @@ public final class VariantEffects {
         }
     }
 
+    /** 光るテーマはいつも発光（壁越しでも輪郭が見える） */
+    @SubscribeEvent
+    public static void onJoin(net.neoforged.neoforge.event.entity.EntityJoinLevelEvent event) {
+        if (!event.getLevel().isClientSide() && event.getEntity() instanceof Themed th && th.theme() == Theme.GLOW) {
+            event.getEntity().setGlowingTag(true);
+        }
+    }
+
     /** べたべたにくっつかれている間はジャンプできない */
     @SubscribeEvent
     public static void onJump(LivingEvent.LivingJumpEvent event) {
