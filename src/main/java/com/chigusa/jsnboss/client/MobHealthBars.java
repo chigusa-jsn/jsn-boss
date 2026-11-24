@@ -63,16 +63,22 @@ public final class MobHealthBars {
         MultiBufferSource buf = event.getMultiBufferSource();
         int light = event.getPackedLight();
 
+        // 重ならないように並べて描く（同じ奥行きで重ねるとチラつくため）
         VertexConsumer vc = buf.getBuffer(RenderType.textBackground());
         float x0 = -W / 2, x1 = W / 2;
-        quad(vc, m, x0 - 1, -1, x1 + 1, H + 1, 0xC0101010, light, 0.02F);   // 枠
-        quad(vc, m, x0, 0, x1, H, 0xFF3A2A2A, light, 0.015F);               // 空
-        if (trail > ratio) quad(vc, m, x0 + W * ratio, 0, x0 + W * trail, H, 0xFFF0EAD0, light, 0.01F);
+        int frame = 0xE0101010;
+        quad(vc, m, x0 - 1, -1, x1 + 1, 0, frame, light);        // 枠：上
+        quad(vc, m, x0 - 1, H, x1 + 1, H + 1, frame, light);     // 枠：下
+        quad(vc, m, x0 - 1, 0, x0, H, frame, light);             // 枠：左
+        quad(vc, m, x1, 0, x1 + 1, H, frame, light);             // 枠：右
+        float xf = x0 + W * ratio, xt = x0 + W * Math.max(trail, ratio);
         if (ratio > 0) {
             int col = ratio > 0.5F ? 0xFF4ADE5A : ratio > 0.25F ? 0xFFF0C83A : 0xFFE8483A;
-            quad(vc, m, x0, 0, x0 + W * ratio, H, col, light, 0.005F);
-            quad(vc, m, x0, 0, x0 + W * ratio, 1, lighten(col), light, 0.004F);   // つや
+            quad(vc, m, x0, 0, xf, 1, lighten(col), light);       // つや（上の1行）
+            quad(vc, m, x0, 1, xf, H, col, light);
         }
+        if (xt > xf) quad(vc, m, xf, 0, xt, H, 0xFFF0EAD0, light);   // 遅れて減る帯
+        if (x1 > xt) quad(vc, m, xt, 0, x1, H, 0xFF3A2A2A, light);   // 空
 
         // 数字（小さめ）
         Font font = mc.font;
@@ -81,7 +87,7 @@ public final class MobHealthBars {
         ps.translate(0, -7.5, 0);
         ps.scale(0.75F, 0.75F, 0.75F);
         Matrix4f tm = ps.last().pose();
-        font.drawInBatch(text, -font.width(text) / 2.0F, 0, 0xFFFFFFFF, false, tm, buf, Font.DisplayMode.NORMAL, 0x60000000, light);
+        font.drawInBatch(text, -font.width(text) / 2.0F, 0, 0xFFFFFFFF, true, tm, buf, Font.DisplayMode.NORMAL, 0, light);
         ps.popPose();
         ps.popPose();
 
@@ -117,7 +123,7 @@ public final class MobHealthBars {
         return 0xFF000000 | (r << 16) | (g << 8) | b;
     }
 
-    private static void quad(VertexConsumer vc, Matrix4f m, float x0, float y0, float x1, float y1, int argb, int light, float z) {
+    private static void quad(VertexConsumer vc, Matrix4f m, float x0, float y0, float x1, float y1, int argb, int light) {
         vc.addVertex(m, x0, y0, 0).setColor(argb).setLight(light);
         vc.addVertex(m, x0, y1, 0).setColor(argb).setLight(light);
         vc.addVertex(m, x1, y1, 0).setColor(argb).setLight(light);
