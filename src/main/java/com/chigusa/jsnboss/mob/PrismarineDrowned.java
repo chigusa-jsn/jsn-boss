@@ -5,6 +5,9 @@ import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.level.Level;
 
 /** 海のドラウンド：プリズマリンをまとったドラウンド。攻撃で採掘速度低下（効果は VariantEffects） */
-public class PrismarineDrowned extends Drowned {
+public class PrismarineDrowned extends Drowned implements Themed {
+    @Override
+    public Theme theme() { return Theme.SEA; }
+
     public PrismarineDrowned(EntityType<? extends Drowned> type, Level level) { super(type, level); }
 }

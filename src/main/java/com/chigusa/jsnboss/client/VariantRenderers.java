@@ -27,7 +27,53 @@ public final class VariantRenderers {
         return BossConstants.id("textures/entity/variant/" + name + ".png");
     }
 
+    /** テーマ亜種のテクスチャ：variant/<名前>.png（鉱石は variant/<名前>_<段階>.png） */
+    private static ResourceLocation themed(net.minecraft.world.entity.Mob e) {
+        String id = net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).getPath();
+        if (e instanceof com.chigusa.jsnboss.mob.Themed t && t.theme() == com.chigusa.jsnboss.mob.Theme.ORE) {
+            id += "_" + com.chigusa.jsnboss.mob.OreTiers.NAMES[t.oreTier()];
+        }
+        return tex(id);
+    }
+
+    private static boolean glows(net.minecraft.world.entity.Entity e) {
+        return e instanceof com.chigusa.jsnboss.mob.Themed t && t.theme() == com.chigusa.jsnboss.mob.Theme.GLOW;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void registerThemed(EntityRenderersEvent.RegisterRenderers event) {
+        for (var en : com.chigusa.jsnboss.registry.ModThemed.TYPES.entrySet()) {
+            var type = en.getValue().get();
+            switch (com.chigusa.jsnboss.registry.ModThemed.BASE_OF.get(en.getKey())) {
+                case "zombie" -> event.registerEntityRenderer((net.minecraft.world.entity.EntityType<Zombie>) type, ctx -> new ZombieRenderer(ctx) {
+                    @Override public ResourceLocation getTextureLocation(Zombie e) { return themed(e); }
+                    @Override protected int getBlockLightLevel(Zombie e, net.minecraft.core.BlockPos p) { return glows(e) ? 15 : super.getBlockLightLevel(e, p); }
+                });
+                case "skeleton" -> event.registerEntityRenderer((net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.Skeleton>) type, ctx -> new SkeletonRenderer(ctx) {
+                    @Override public ResourceLocation getTextureLocation(AbstractSkeleton e) { return themed(e); }
+                    @Override protected int getBlockLightLevel(AbstractSkeleton e, net.minecraft.core.BlockPos p) { return glows(e) ? 15 : super.getBlockLightLevel(e, p); }
+                });
+                case "spider" -> event.registerEntityRenderer((net.minecraft.world.entity.EntityType<Spider>) type, ctx -> new SpiderRenderer<Spider>(ctx) {
+                    @Override public ResourceLocation getTextureLocation(Spider e) { return themed(e); }
+                    @Override protected int getBlockLightLevel(Spider e, net.minecraft.core.BlockPos p) { return glows(e) ? 15 : super.getBlockLightLevel(e, p); }
+                });
+                case "slime" -> event.registerEntityRenderer((net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.Slime>) type, ctx -> new net.minecraft.client.renderer.entity.SlimeRenderer(ctx) {
+                    @Override public ResourceLocation getTextureLocation(net.minecraft.world.entity.monster.Slime e) { return themed(e); }
+                    @Override protected int getBlockLightLevel(net.minecraft.world.entity.monster.Slime e, net.minecraft.core.BlockPos p) { return glows(e) ? 15 : super.getBlockLightLevel(e, p); }
+                });
+                case "blaze" -> event.registerEntityRenderer((net.minecraft.world.entity.EntityType<Blaze>) type, ctx -> new BlazeRenderer(ctx) {
+                    @Override public ResourceLocation getTextureLocation(Blaze e) { return themed(e); }
+                });
+                default -> event.registerEntityRenderer((net.minecraft.world.entity.EntityType<Creeper>) type, ctx -> new CreeperRenderer(ctx) {
+                    @Override public ResourceLocation getTextureLocation(Creeper e) { return themed(e); }
+                    @Override protected int getBlockLightLevel(Creeper e, net.minecraft.core.BlockPos p) { return glows(e) ? 15 : super.getBlockLightLevel(e, p); }
+                });
+            }
+        }
+    }
+
     public static void register(EntityRenderersEvent.RegisterRenderers event) {
+        registerThemed(event);
         event.registerEntityRenderer(ModMobs.SOUL_BLAZE.get(), ctx -> new BlazeRenderer(ctx) {
             @Override public ResourceLocation getTextureLocation(Blaze e) { return tex("soul_blaze"); }
         });

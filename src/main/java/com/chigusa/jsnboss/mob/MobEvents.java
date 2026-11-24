@@ -5,6 +5,8 @@ import com.chigusa.jsnboss.entity.IceWitchEntity;
 import com.chigusa.jsnboss.registry.ModMobs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.biome.Biomes;
+import com.chigusa.jsnboss.registry.ModThemed;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -51,7 +53,7 @@ public final class MobEvents {
         EntityType<?> t = mob.getType();
         BlockPos pos = mob.blockPosition();
         var biome = sl.getBiome(pos);
-        int y = pos.getY();
+        // ---- 属性の亜種（前からあるもの）
         if (t == EntityType.BLAZE) {
             float f = r.nextFloat();
             if (f < 0.10F) return ModMobs.SOUL_BLAZE.get();
@@ -60,36 +62,73 @@ public final class MobEvents {
             if (r.nextFloat() < 0.20F) return ModMobs.TOMB_ZOMBIE.get();
         } else if (t == EntityType.ZOMBIE) {
             if (r.nextFloat() < (sl.isThundering() ? 0.30F : 0.04F)) return ModMobs.THUNDER_ZOMBIE.get();
-            if (y < 40 && r.nextFloat() < 0.12F) return ModMobs.ORE_ZOMBIE.get();                 // 地下：鉱石のゾンビ
-            boolean forest = biome.is(BiomeTags.IS_FOREST) || biome.is(BiomeTags.IS_JUNGLE) || biome.is(BiomeTags.IS_TAIGA);
-            if (r.nextFloat() < (forest ? 0.15F : 0.04F)) return ModMobs.MOSS_ZOMBIE.get();        // 森：苔ゾンビ
-            if (r.nextFloat() < (biome.is(BiomeTags.IS_BADLANDS) ? 0.15F : 0.03F)) return ModMobs.GOLD_ZOMBIE.get();
         } else if (t == EntityType.SKELETON) {
             float f = r.nextFloat();
             if (f < 0.05F) return ModMobs.FIRE_SKELETON.get();
             if (f < 0.10F) return ModMobs.POISON_SKELETON.get();
-            boolean deepDark = biome.is(net.minecraft.world.level.biome.Biomes.DEEP_DARK);
-            if (y < 0 && r.nextFloat() < (deepDark ? 0.40F : 0.15F)) return ModMobs.SCULK_SKELETON.get();
-            if (r.nextFloat() < (y > 100 ? 0.25F : 0.04F)) return ModMobs.SKY_SKELETON.get();
         } else if (t == EntityType.CREEPER) {
-            boolean cold = biome.value().coldEnoughToSnow(pos);
-            if (r.nextFloat() < (cold ? 0.35F : 0.03F)) return ModMobs.FROST_CREEPER.get();
+            if (r.nextFloat() < (biome.value().coldEnoughToSnow(pos) ? 0.35F : 0.03F)) return ModMobs.FROST_CREEPER.get();
         } else if (t == EntityType.SPIDER) {
-            float f = r.nextFloat();
-            if (f < 0.06F) return ModMobs.MAGMA_SPIDER.get();
-            if (f < 0.12F) return ModMobs.HONEY_SPIDER.get();
+            if (r.nextFloat() < 0.06F) return ModMobs.MAGMA_SPIDER.get();
         } else if (t == EntityType.DROWNED) {
             if (r.nextFloat() < 0.15F) return ModMobs.PRISMARINE_DROWNED.get();
-        } else if (t == EntityType.SLIME) {
-            if (r.nextFloat() < 0.15F) return ModMobs.GLOW_SLIME.get();
+            return null;
+        }
+        // ---- テーマ亜種：その場所に合うテーマから選ぶ（全体で 2 割くらい）
+        String base = t == EntityType.ZOMBIE ? "zombie" : t == EntityType.SKELETON ? "skeleton" : t == EntityType.SPIDER ? "spider"
+                : t == EntityType.SLIME ? "slime" : t == EntityType.BLAZE ? "blaze" : t == EntityType.CREEPER ? "creeper" : null;
+        if (base == null) return null;
+        java.util.List<Theme> themes = themesAt(sl, pos);
+        if (themes.isEmpty()) return null;
+        Theme th = themes.get(r.nextInt(themes.size()));
+        if (r.nextFloat() < 0.20F) {
+            if (th == Theme.SEA && base.equals("zombie")) return ModMobs.PRISMARINE_DROWNED.get();
+            return ModThemed.get(th, base);
+        }
+        // ふだんは出ないブレイズとスライムも、テーマの場所ではときどき出る
+        if (!base.equals("blaze") && !base.equals("slime") && r.nextFloat() < 0.015F) {
+            return ModThemed.get(th, r.nextBoolean() ? "blaze" : "slime");
         }
         return null;
+    }
+
+    /**
+     * その場所に出るテーマ。
+     * 森の＝森・ジャングル・タイガ・沼 / べたべた＝花の森・草原・ヒマワリ平原・桜の林 / 海の＝海・砂浜・川 /
+     * 空の＝高さ100より上・山 / 黄金の＝荒野・ネザー / 残響の＝高さ0より下 / 鉱石の＝高さ40より下・ネザー /
+     * 光る＝繁茂した洞窟・沼・マングローブ・キノコ島
+     */
+    public static java.util.List<Theme> themesAt(ServerLevel sl, BlockPos pos) {
+        java.util.List<Theme> out = new java.util.ArrayList<>();
+        var b = sl.getBiome(pos);
+        if (sl.dimension() == net.minecraft.world.level.Level.NETHER) {
+            out.add(Theme.GOLD);
+            out.add(Theme.ORE);
+            return out;
+        }
+        if (sl.dimension() != net.minecraft.world.level.Level.OVERWORLD) return out;
+        int y = pos.getY();
+        if (b.is(BiomeTags.IS_FOREST) || b.is(BiomeTags.IS_JUNGLE) || b.is(BiomeTags.IS_TAIGA)
+                || b.is(Biomes.SWAMP) || b.is(Biomes.MANGROVE_SWAMP)) out.add(Theme.MOSS);
+        if (b.is(Biomes.FLOWER_FOREST) || b.is(Biomes.MEADOW) || b.is(Biomes.PLAINS) || b.is(Biomes.SUNFLOWER_PLAINS)
+                || b.is(Biomes.CHERRY_GROVE)) out.add(Theme.HONEY);
+        if (b.is(BiomeTags.IS_OCEAN) || b.is(BiomeTags.IS_BEACH) || b.is(BiomeTags.IS_RIVER)) out.add(Theme.SEA);
+        if (y > 100 || b.is(BiomeTags.IS_MOUNTAIN)) out.add(Theme.SKY);
+        if (b.is(BiomeTags.IS_BADLANDS)) out.add(Theme.GOLD);
+        if (y < 0) out.add(Theme.SCULK);
+        if (y < 40) out.add(Theme.ORE);
+        if (b.is(Biomes.LUSH_CAVES) || b.is(Biomes.SWAMP) || b.is(Biomes.MANGROVE_SWAMP) || b.is(Biomes.MUSHROOM_FIELDS)) out.add(Theme.GLOW);
+        return out;
     }
 
     /** 氷のクリーパー：ブロックを壊さないかわりに、巻き込んだ相手を凍らせる */
     @SubscribeEvent
     public static void onExplosion(ExplosionEvent.Detonate event) {
         Entity src = event.getExplosion().getDirectSourceEntity();
+        if (src instanceof Themed && src instanceof net.minecraft.world.entity.monster.Creeper) {
+            event.getAffectedBlocks().clear();                  // テーマ亜種のクリーパーもブロックを壊さない
+            return;
+        }
         if (!(src instanceof FrostCreeper)) return;
         event.getAffectedBlocks().clear();
         for (Entity e : event.getAffectedEntities()) {

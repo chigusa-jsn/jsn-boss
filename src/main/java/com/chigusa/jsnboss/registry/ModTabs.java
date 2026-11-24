@@ -41,6 +41,7 @@ public final class ModTabs {
             .withTabsBefore(BOSSES.getId())
             .displayItems((params, out) -> {
                 for (var egg : ModMobs.EGGS) out.accept(egg.get());
+                for (var egg : ModThemed.EGGS.values()) out.accept(egg.get());
             })
             .build());
 

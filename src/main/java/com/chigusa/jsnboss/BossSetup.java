@@ -40,6 +40,7 @@ public final class BossSetup {
     public static void init(IEventBus modBus) {
         raiseMaxHealthCap();
         ModMobs.init();
+        com.chigusa.jsnboss.registry.ModThemed.init();
         ModEntities.ENTITY_TYPES.register(modBus);
         ModItems.ITEMS.register(modBus);
         ModEffects.MOB_EFFECTS.register(modBus);
@@ -95,6 +96,20 @@ public final class BossSetup {
         event.put(ModMobs.SKY_SKELETON.get(), net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
         event.put(ModMobs.SCULK_SKELETON.get(), net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes().add(Attributes.MAX_HEALTH, 50.0).build());
         event.put(ModMobs.GLOW_SLIME.get(), net.minecraft.world.entity.monster.Monster.createMonsterAttributes().build());
+        // テーマ亜種（HP 50）
+        for (var e : com.chigusa.jsnboss.registry.ModThemed.TYPES.entrySet()) {
+            String base = com.chigusa.jsnboss.registry.ModThemed.BASE_OF.get(e.getKey());
+            var attrs = switch (base) {
+                case "zombie" -> net.minecraft.world.entity.monster.Zombie.createAttributes();
+                case "skeleton" -> net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes();
+                case "spider" -> net.minecraft.world.entity.monster.Spider.createAttributes();
+                case "slime" -> net.minecraft.world.entity.monster.Monster.createMonsterAttributes();
+                case "blaze" -> net.minecraft.world.entity.monster.Blaze.createAttributes();
+                default -> net.minecraft.world.entity.monster.Creeper.createAttributes();
+            };
+            if (!base.equals("slime")) attrs.add(Attributes.MAX_HEALTH, 50.0);
+            event.put(e.getValue().get(), attrs.build());
+        }
     }
 
 

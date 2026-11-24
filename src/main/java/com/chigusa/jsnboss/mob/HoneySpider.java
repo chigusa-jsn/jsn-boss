@@ -5,6 +5,9 @@ import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.level.Level;
 
 /** べたべたグモ：ハチミツとスライムまみれ。攻撃でくっつく（鈍足＋ジャンプできない）（効果は VariantEffects、ドロップは VariantDrops） */
-public class HoneySpider extends Spider {
+public class HoneySpider extends Spider implements Themed {
+    @Override
+    public Theme theme() { return Theme.HONEY; }
+
     public HoneySpider(EntityType<? extends Spider> type, Level level) { super(type, level); }
 }

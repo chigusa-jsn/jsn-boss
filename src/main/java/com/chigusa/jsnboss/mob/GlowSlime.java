@@ -7,7 +7,10 @@ import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.level.Level;
 
 /** 光るスライム：黄緑に光る。攻撃で発光。大きさ4で HP 50（分裂した小さいのは少なめ） */
-public class GlowSlime extends Slime {
+public class GlowSlime extends Slime implements Themed {
+    @Override
+    public Theme theme() { return Theme.GLOW; }
+
     public GlowSlime(EntityType<? extends Slime> type, Level level) { super(type, level); }
 
     @Override
