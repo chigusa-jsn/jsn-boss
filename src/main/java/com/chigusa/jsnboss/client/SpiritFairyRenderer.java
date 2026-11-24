@@ -18,6 +18,21 @@ public class SpiritFairyRenderer extends GeoEntityRenderer<SpiritFairyEntity> {
             public ResourceLocation getTextureResource(SpiritFairyEntity e) {
                 return BossConstants.id("textures/entity/spirit_fairy_" + e.element().id + ".png");
             }
+
+            /** 頭の小物は、その妖精の属性のものだけ見せる */
+            @Override
+            public void setCustomAnimations(SpiritFairyEntity e, long instanceId,
+                                            software.bernie.geckolib.animation.AnimationState<SpiritFairyEntity> state) {
+                super.setCustomAnimations(e, instanceId, state);
+                for (com.chigusa.jsnboss.vfx.Element el : com.chigusa.jsnboss.vfx.Element.values()) {
+                    var bone = getAnimationProcessor().getBone("acc_" + el.id);
+                    if (bone != null) {
+                        boolean hide = el != e.element();
+                        bone.setHidden(hide);
+                        bone.setChildrenHidden(hide);
+                    }
+                }
+            }
         });
         addRenderLayer(new AutoGlowingGeoLayer<>(this));
         withScale(1.2F);
