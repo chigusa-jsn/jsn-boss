@@ -14,6 +14,13 @@ public class YggdrasilSpiritModel extends DefaultedEntityGeoModel<YggdrasilSpiri
         super(BossConstants.id("yggdrasil_spirit"), false);
     }
 
+    /** 第5形態は、剣と光の翼が今の属性の色になる */
+    @Override
+    public net.minecraft.resources.ResourceLocation getTextureResource(YggdrasilSpiritEntity e) {
+        if (e.isPhase2()) return BossConstants.id("textures/entity/yggdrasil_spirit_" + e.element().id + ".png");
+        return super.getTextureResource(e);
+    }
+
     @Override
     public void setCustomAnimations(YggdrasilSpiritEntity animatable, long instanceId, AnimationState<YggdrasilSpiritEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);

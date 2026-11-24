@@ -269,8 +269,13 @@ def root_pattern(m, rect, seed, strength=1.0, glow_from=None):
                         m.put(fx + int(bx), fy + int(by), GOLD)
 
 
+TINT_RECTS = []   # 属性の色に変える場所（光の翼・結晶の剣）
+
+
 def details(m, mat, tag, face, rect):
     fx, fy, fw, fh = rect
+    if mat in ("lightwing", "blade") or tag in ("wing_root", "blade_core", "pommel", "guard_gem"):
+        TINT_RECTS.append(rect)
     r = m.rng
     side = face in ("north", "south", "east", "west")
     if mat == "dress" and side:
@@ -416,3 +421,37 @@ def details(m, mat, tag, face, rect):
 m.paint(PAL, details, glow_mats={"crystal", "halo"},
         outline_skip={"crystal", "halo", "dress", "green", "hair", "skin", "leaf", "flower"})
 m.save()
+
+# 第5形態：剣と翼を属性の色にしたテクスチャ（緑のままが木）
+from geo_tools import ASSETS
+from PIL import Image
+TINT = {"fire": "#ff6a30", "ice": "#7ad8ff", "wind": "#c8fff0", "thunder": "#ffe040",
+        "earth": "#e0a050", "dark": "#b060ff", "light": "#fff4b0", "wood": None}
+base = np.array(Image.open(f"{ASSETS}/textures/entity/yggdrasil_spirit.png").convert("RGBA")).astype(float)
+glw = np.array(Image.open(f"{ASSETS}/textures/entity/yggdrasil_spirit_glowmask.png").convert("RGBA")).astype(float)
+mask = np.zeros(base.shape[:2], bool)
+for fx, fy, fw, fh in TINT_RECTS:
+    mask[fy:fy + fh, fx:fx + fw] = True
+
+
+def recolor(arr, c):
+    rgb = arr[..., :3] / 255
+    lum = rgb.max(axis=2, keepdims=True)
+    white = np.clip((rgb.min(axis=2, keepdims=True) - 0.55) / 0.45, 0, 1) ** 1.5   # 白い所は白いまま
+    col = lum * c
+    out = col * (1 - white) + rgb * white
+    res = arr.copy()
+    res[..., :3] = np.where(mask[..., None], np.clip(out * 255, 0, 255), arr[..., :3])
+    return res
+
+
+for name, h in TINT.items():
+    if h is None:
+        Image.fromarray(base.astype(np.uint8)).save(f"{ASSETS}/textures/entity/yggdrasil_spirit_{name}.png")
+        Image.fromarray(glw.astype(np.uint8)).save(f"{ASSETS}/textures/entity/yggdrasil_spirit_{name}_glowmask.png")
+        continue
+    c = hexc(h)[:3].astype(float) / 255
+    Image.fromarray(recolor(base, c).astype(np.uint8)).save(f"{ASSETS}/textures/entity/yggdrasil_spirit_{name}.png")
+    Image.fromarray(recolor(glw, c).astype(np.uint8)).save(f"{ASSETS}/textures/entity/yggdrasil_spirit_{name}_glowmask.png")
+print("element textures", len(TINT), "rects", len(TINT_RECTS))
+
