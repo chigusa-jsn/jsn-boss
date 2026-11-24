@@ -1,0 +1,58 @@
+{
+  "variants": {
+    "kind=fire,warn=false": {
+      "model": "jsnboss:block/field/fire"
+    },
+    "kind=fire,warn=true": {
+      "model": "jsnboss:block/field/fire_warn"
+    },
+    "kind=ice,warn=false": {
+      "model": "jsnboss:block/field/ice"
+    },
+    "kind=ice,warn=true": {
+      "model": "jsnboss:block/field/ice_warn"
+    },
+    "kind=wind,warn=false": {
+      "model": "jsnboss:block/field/wind"
+    },
+    "kind=wind,warn=true": {
+      "model": "jsnboss:block/field/wind_warn"
+    },
+    "kind=thunder,warn=false": {
+      "model": "jsnboss:block/field/thunder"
+    },
+    "kind=thunder,warn=true": {
+      "model": "jsnboss:block/field/thunder_warn"
+    },
+    "kind=earth,warn=false": {
+      "model": "jsnboss:block/field/earth"
+    },
+    "kind=earth,warn=true": {
+      "model": "jsnboss:block/field/earth_warn"
+    },
+    "kind=dark,warn=false": {
+      "model": "jsnboss:block/field/dark"
+    },
+    "kind=dark,warn=true": {
+      "model": "jsnboss:block/field/dark_warn"
+    },
+    "kind=light,warn=false": {
+      "model": "jsnboss:block/field/light"
+    },
+    "kind=light,warn=true": {
+      "model": "jsnboss:block/field/light_warn"
+    },
+    "kind=wood,warn=false": {
+      "model": "jsnboss:block/field/wood"
+    },
+    "kind=wood,warn=true": {
+      "model": "jsnboss:block/field/wood_warn"
+    },
+    "kind=sanctuary,warn=false": {
+      "model": "jsnboss:block/field/sanctuary"
+    },
+    "kind=sanctuary,warn=true": {
+      "model": "jsnboss:block/field/sanctuary_warn"
+    }
+  }
+}

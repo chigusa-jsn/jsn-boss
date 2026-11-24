@@ -1,0 +1,8 @@
+{
+  "textures": [
+    "jsnboss:circle/sword", "jsnboss:circle/fire", "jsnboss:circle/ice", "jsnboss:circle/thunder",
+    "jsnboss:circle/star", "jsnboss:circle/rune", "jsnboss:circle/alchemy", "jsnboss:circle/holy",
+    "jsnboss:circle/nature", "jsnboss:circle/gem", "jsnboss:circle/water", "jsnboss:circle/earth",
+    "jsnboss:circle/wind", "jsnboss:circle/dark"
+  ]
+}

@@ -265,6 +265,16 @@ public final class ModEntities {
             ENTITY_TYPES.register("golden_fruit", () -> EntityType.Builder.<GoldenFruitEntity>of(GoldenFruitEntity::new, MobCategory.MISC)
                     .sized(0.8F, 0.8F).clientTrackingRange(10).noSave().noSummon().build("golden_fruit"));
 
+    // ------------------------------------------------------------ ユグドラシルの精霊
+    /** 幅1.4 × 高さ3.6ブロック（浮いている） */
+    public static final DeferredHolder<EntityType<?>, EntityType<com.chigusa.jsnboss.entity.YggdrasilSpiritEntity>> YGGDRASIL_SPIRIT =
+            ENTITY_TYPES.register("yggdrasil_spirit", () -> EntityType.Builder.<com.chigusa.jsnboss.entity.YggdrasilSpiritEntity>of(com.chigusa.jsnboss.entity.YggdrasilSpiritEntity::new, MobCategory.MONSTER)
+                    .sized(1.4F, 3.6F).fireImmune().clientTrackingRange(16).build("yggdrasil_spirit"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<com.chigusa.jsnboss.entity.SpiritFairyEntity>> SPIRIT_FAIRY =
+            ENTITY_TYPES.register("spirit_fairy", () -> EntityType.Builder.<com.chigusa.jsnboss.entity.SpiritFairyEntity>of(com.chigusa.jsnboss.entity.SpiritFairyEntity::new, MobCategory.MONSTER)
+                    .sized(0.7F, 1.0F).clientTrackingRange(10).build("spirit_fairy"));
+
     // ------------------------------------------------------------ 亜種の弾
     public static final DeferredHolder<EntityType<?>, EntityType<com.chigusa.jsnboss.mob.MobBoltEntity>> MOB_BOLT =
             ENTITY_TYPES.register("mob_bolt", () -> EntityType.Builder.<com.chigusa.jsnboss.mob.MobBoltEntity>of(com.chigusa.jsnboss.mob.MobBoltEntity::new, MobCategory.MISC)

@@ -43,6 +43,8 @@ public final class BossSetup {
         ModEntities.ENTITY_TYPES.register(modBus);
         ModItems.ITEMS.register(modBus);
         ModEffects.MOB_EFFECTS.register(modBus);
+        com.chigusa.jsnboss.registry.ModBlocks.BLOCKS.register(modBus);
+        com.chigusa.jsnboss.vfx.ModParticles.PARTICLE_TYPES.register(modBus);
         modBus.addListener(BossSetup::onAttributes);
         modBus.addListener(BossSetup::onCreativeTab);
     }
@@ -73,6 +75,8 @@ public final class BossSetup {
         event.put(ModEntities.FALLEN_VALKYRIE.get(), FallenValkyrieEntity.createAttributes().build());
         event.put(ModEntities.YGGDRASIL.get(), YggdrasilEntity.createAttributes().build());
         event.put(ModEntities.GOLDEN_FRUIT.get(), GoldenFruitEntity.createAttributes().build());
+        event.put(ModEntities.YGGDRASIL_SPIRIT.get(), com.chigusa.jsnboss.entity.YggdrasilSpiritEntity.createAttributes().build());
+        event.put(ModEntities.SPIRIT_FAIRY.get(), com.chigusa.jsnboss.entity.SpiritFairyEntity.createAttributes().build());
 
         // 亜種（バニラと同じ能力値に、少しだけ上乗せ）
         event.put(ModMobs.SOUL_BLAZE.get(), net.minecraft.world.entity.monster.Blaze.createAttributes().add(Attributes.MAX_HEALTH, 26.0).build());
@@ -102,6 +106,7 @@ public final class BossSetup {
             event.accept(ModItems.IRON_SPIDER_SPAWN_EGG.get());
             event.accept(ModItems.FALLEN_VALKYRIE_SPAWN_EGG.get());
             event.accept(ModItems.YGGDRASIL_SPAWN_EGG.get());
+            event.accept(ModItems.YGGDRASIL_SPIRIT_SPAWN_EGG.get());
             event.accept(ModMobs.SOUL_BLAZE_EGG.get());
             event.accept(ModMobs.FROST_BLAZE_EGG.get());
             event.accept(ModMobs.TOMB_ZOMBIE_EGG.get());

@@ -531,6 +531,10 @@ public class YggdrasilEntity extends AbstractBoss {
         this.attack = Attack.NONE;
         if (!level().isClientSide) {
             playSound(SoundEvents.WARDEN_DEATH, 2.0F, 0.5F);
+            // 神樹が倒れると、幹の中からユグドラシルの精霊が現れる（第4・第5形態）
+            if (isPhase3() && !source.is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+                YggdrasilSpiritEntity.emergeFrom(this);
+            }
             for (GoldenFruitEntity f : level().getEntitiesOfClass(GoldenFruitEntity.class, this.getBoundingBox().inflate(14 * sk()))) f.discard();
         }
     }

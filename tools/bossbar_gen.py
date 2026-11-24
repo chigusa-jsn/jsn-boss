@@ -198,12 +198,14 @@ def strips(p, pip_fn=None):
     return img
 
 
-def build(boss, stage, p, emblem_fn, orn_back=None, orn_front=None, plate_fn=None, ring_fn=None, pip_fn=None):
+def build(boss, stage, p, emblem_fn, orn_back=None, orn_front=None, plate_fn=None, ring_fn=None, pip_fn=None, orn_mid=None):
     c = Canvas()
     if orn_back:
         orn_back(c, p, stage)
     base_plate(c, p, plate_fn)
     finish_window(c)
+    if orn_mid:
+        orn_mid(c, p, stage)
     base_emblem(c, p, ring_fn)
     emblem_fn(c, p, stage)
     if orn_front:
@@ -1298,6 +1300,92 @@ def pip_seed(bd, p):
     bd.polygon([(24, 12), (36, 1), (38, 8), (28, 14)], fill=p["edge"])
     bd.polygon([(26, 11), (35, 4), (36, 8), (28, 12)], fill=(140, 220, 90, 255))
 
+
+# ============================================================ ユグドラシルの精霊
+def sp_pal(stage):
+    if stage == 0:
+        return pal("#3a4a42", "#e4f0ea", "#10180f", (140, 255, 190, 200), "#0e2418", "#2a5a40",
+                   "#e8fff0", "#5ae098", "#7af0b0", "#2aa868", "#f0fff6", empty="#101814")
+    return pal("#4a4430", "#f4f0e0", "#18140a", (255, 250, 200, 230), "#1a2a20", "#3a6a50",
+               "#fffbe0", "#a8ffd0", "#c8ffe0", "#4ad890", "#ffffff", empty="#12161a")
+
+
+def sp_emblem(c, p, stage):
+    cx, cy, _ = EMB
+    # 光輪
+    for k in range(12):
+        a = k * math.pi / 6
+        c.circle(cx + math.cos(a) * 9.6, cy + math.sin(a) * 9.6, 0.7, fill=p["accent"])
+    if stage == 0:   # 杖：枝の柄と緑の結晶
+        c.line([(cx - 3, cy + 10), (cx + 2.5, cy - 4)], p["edge"], 1.4)
+        c.line([(cx - 3, cy + 10), (cx + 2.5, cy - 4)], (150, 110, 70, 255), 0.8)
+        gem = [(cx + 3.6, cy - 9.5), (cx + 6.0, cy - 5.6), (cx + 3.6, cy - 1.8), (cx + 1.2, cy - 5.6)]
+        glow_poly(c, gem, p["glow"], blur=1.0)
+        c.poly(gem, p["accent2"], outline=p["edge"], width=0.3)
+        c.poly([(cx + 3.6, cy - 8.5), (cx + 4.6, cy - 5.6), (cx + 3.6, cy - 3.5)], (255, 255, 255, 220))
+    else:            # 結晶の剣
+        blade = [(cx, cy - 11), (cx + 1.8, cy - 8.5), (cx + 1.8, cy + 3.5), (cx - 1.8, cy + 3.5), (cx - 1.8, cy - 8.5)]
+        glow_poly(c, blade, p["glow"], blur=1.0)
+        c.grad_poly(blade, (255, 255, 255, 255), p["accent2"])
+        c.poly(blade, None, outline=p["edge"], width=0.3)
+        c.rrect((cx - 4.6, cy + 3.4, cx + 4.6, cy + 4.8), 0.5, fill=(220, 190, 90, 255), outline=p["edge"], width=0.3)
+        c.rrect((cx - 0.7, cy + 4.8, cx + 0.7, cy + 9), 0.3, fill=(120, 90, 50, 255))
+        c.circle(cx, cy + 9.6, 1.0, fill=p["accent2"], outline=p["edge"], width=0.2)
+
+
+def sp_back(c, p, stage):
+    if stage == 0:
+        # 小さな葉と白い花
+        for (x, y, a) in [(42, 7.6, -2.4), (55, 7.8, -0.6), (212, 8, -2.6), (226, 7.4, -0.4)]:
+            c.poly(leaf_pts(x, y, a, 4.2, 1.5), p["accent2"], outline=p["edge"], width=0.25)
+        for (x, y) in [(48, 6.2), (219, 6.4), (233, 9)]:
+            for k in range(5):
+                a = k * math.pi * 2 / 5
+                c.circle(x + math.cos(a) * 1.0, y + math.sin(a) * 1.0, 0.85, fill=(255, 250, 252, 255))
+            c.circle(x, y, 0.5, fill=(255, 210, 80, 255))
+        return
+
+def sp_mid(c, p, stage):
+    if stage == 0:
+        return
+    # 放射状の光の翼（紋章の後ろから右へ、板の上にかぶさる）
+    cx, cy, _ = EMB
+    for k in range(9):
+        for side in (1,):
+            ang = -1.15 + k * 0.29
+            L = 22 + (4 - abs(k - 4)) * 4
+            tip = (cx + math.cos(ang) * L, cy + math.sin(ang) * L)
+            nx, ny = -math.sin(ang) * 1.3, math.cos(ang) * 1.3
+            pts = [(cx + nx, cy + ny), (tip[0] + nx * 0.4, tip[1] + ny * 0.4), (tip[0] + math.cos(ang) * 2, tip[1] + math.sin(ang) * 2),
+                   (tip[0] - nx * 0.4, tip[1] - ny * 0.4), (cx - nx, cy - ny)]
+            glow_poly(c, pts, p["glow"], blur=0.6, strength=0.5)
+            c.grad_poly(pts, mix(p["accent2"], (0, 0, 0, 0), 0.5), (255, 255, 255, 200))
+    c.clear(WIN)
+    # 右端にも光の羽
+    for k in range(5):
+        ang = -0.9 + k * 0.45
+        L = 9
+        tip = (232 + math.cos(ang) * L, 16.5 + math.sin(ang) * L)
+        nx, ny = -math.sin(ang) * 1.0, math.cos(ang) * 1.0
+        pts = [(232 + nx, 16.5 + ny), (tip[0], tip[1]), (232 - nx, 16.5 - ny)]
+        c.grad_poly(pts, (255, 255, 255, 230), mix(p["accent2"], (0, 0, 0, 0), 0.3))
+
+
+def sp_front(c, p, stage):
+    rivets(c, p, [40, 228], [10.3, 22.8])
+    if stage:
+        rnd = random.Random(14)
+        for _ in range(14):
+            x, y = rnd.uniform(60, 225), rnd.choice([rnd.uniform(26, 30), rnd.uniform(2, 6)])
+            if 80 < x < 190 and y < 8:
+                continue
+            c.poly(star_pts(x, y, 0.9, 0.3, 4), (255, 255, 255, 230))
+
+
+def pip_halo(bd, p):
+    pip_orb(bd, p)
+    bd.ellipse([8, 8, 40, 40], outline=(255, 255, 255, 230), width=3)
+
 BOSSES = {
     "fire_knight": (2, fk_pal, dict(emblem_fn=fk_emblem, orn_back=fk_back, orn_front=fk_front, pip_fn=pip_ember)),
     "ice_witch": (2, iw_pal, dict(emblem_fn=iw_emblem, orn_back=iw_back, orn_front=iw_front, pip_fn=pip_ice)),
@@ -1313,6 +1401,7 @@ BOSSES = {
     "fenrir": (2, fe_pal, dict(emblem_fn=fe_emblem, orn_front=fe_front, pip_fn=pip_fang)),
     "iron_spider": (2, is_pal, dict(emblem_fn=is_emblem, orn_back=is_back, orn_front=is_front, plate_fn=is_plate, ring_fn=is_ring, pip_fn=pip_gear)),
     "fallen_valkyrie": (2, fv_pal, dict(emblem_fn=fv_emblem, orn_back=fv_back, orn_front=fv_front, pip_fn=pip_feather)),
+    "yggdrasil_spirit": (2, sp_pal, dict(emblem_fn=sp_emblem, orn_back=sp_back, orn_mid=sp_mid, orn_front=sp_front, pip_fn=pip_halo)),
     "yggdrasil": (3, yg_pal, dict(emblem_fn=yg_emblem, orn_back=yg_back, orn_front=yg_front, plate_fn=yg_plate, ring_fn=yg_ring, pip_fn=pip_seed)),
 }
 

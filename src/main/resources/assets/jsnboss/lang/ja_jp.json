@@ -90,5 +90,12 @@
   "elite.jsnboss.vampiric": "吸血の%s",
   "elite.jsnboss.regen": "再生の%s",
   "elite.jsnboss.split": "分裂の%s",
-  "elite.jsnboss.summon": "群れを呼ぶ%s"
+  "elite.jsnboss.summon": "群れを呼ぶ%s",
+  "entity.jsnboss.yggdrasil_spirit": "ユグドラシルの精霊",
+  "entity.jsnboss.spirit_fairy": "精霊の妖精",
+  "item.jsnboss.yggdrasil_spirit_spawn_egg": "ユグドラシルの精霊のスポーンエッグ",
+  "block.jsnboss.field_layer": "精霊の床",
+  "boss.jsnboss.grand_chant": "大詠唱 ― 妖精を倒して止めろ！",
+  "message.jsnboss.chant_broken": "結界が割れた！",
+  "message.jsnboss.chant_drain": "大詠唱が完成した…力を吸い取られた！"
 }

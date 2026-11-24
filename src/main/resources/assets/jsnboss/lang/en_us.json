@@ -90,5 +90,12 @@
   "elite.jsnboss.vampiric": "Vampiric %s",
   "elite.jsnboss.regen": "Regenerating %s",
   "elite.jsnboss.split": "Splitting %s",
-  "elite.jsnboss.summon": "Summoning %s"
+  "elite.jsnboss.summon": "Summoning %s",
+  "entity.jsnboss.yggdrasil_spirit": "Spirit of Yggdrasil",
+  "entity.jsnboss.spirit_fairy": "Spirit Fairy",
+  "item.jsnboss.yggdrasil_spirit_spawn_egg": "Spirit of Yggdrasil Spawn Egg",
+  "block.jsnboss.field_layer": "Spirit Field",
+  "boss.jsnboss.grand_chant": "Grand Chant - defeat the fairies to stop it!",
+  "message.jsnboss.chant_broken": "The barrier shattered!",
+  "message.jsnboss.chant_drain": "The Grand Chant is complete... your power was drained!"
 }

@@ -40,7 +40,8 @@ def bone_xf(name):
     # local: x -> R(x - p) + p + off ; then parent
     return M @ R, M @ (p - R @ p + off) + t
 
-FLIP = np.diag([-1.0, 1, 1])  # bedrock geo -> in-game (mirrored X)
+FLIP = np.diag([-1.0, 1, 1])
+LAST_T = None  # bedrock geo -> in-game (mirrored X)
 
 def render(yaw, pitch, scale, extra=(), bounds=None):
     cy, sy = math.cos(math.radians(yaw)), math.sin(math.radians(yaw))
@@ -66,6 +67,7 @@ def render(yaw, pitch, scale, extra=(), bounds=None):
         miny, maxy = (-pts[:, 1]).min() - 6, (-pts[:, 1]).max() + 4
     W, H = int((maxx - minx) * scale), int((maxy - miny) * scale)
     img = np.zeros((H, W, 3)); zb = np.full((H, W), np.inf); gl = np.zeros((H, W, 3))
+    trans = []   # 半透明のピクセル（あとで奥から順に重ねる）
     L = np.array([-0.45, 0.8, -0.4]); L /= np.linalg.norm(L)
     for (Av, Sv, Tv, nv, nworld, rect, col) in quads:
         if nv[2] > 0.02:  # back-facing (camera looks +Z)
@@ -97,6 +99,11 @@ def render(yaw, pitch, scale, extra=(), bounds=None):
             colr = texel[..., :3] * shade
             isg = gtex[..., 3] > 0
             colr[isg] = gtex[..., :3][isg]
+            tm = m & (texel[..., 3] < 250)
+            if tm.any():
+                ys, xs = np.nonzero(tm)
+                trans.append((ys + y0, xs + x0, z[tm], colr[tm], texel[..., 3][tm] / 255.0, isg[tm]))
+                m &= ~tm
         else:
             colr = np.broadcast_to(np.array(col, float) * shade, s.shape + (3,)).copy(); isg = np.zeros_like(m)
         sub = zb[y0:y1, x0:x1]
@@ -107,6 +114,28 @@ def render(yaw, pitch, scale, extra=(), bounds=None):
         gsel = upd & isg
         g[gsel] = colr[gsel]
     cover = np.isfinite(zb)
+    global LAST_T
+    LAST_T = None
+    if trans:
+        Y = np.concatenate([t[0] for t in trans]); X = np.concatenate([t[1] for t in trans])
+        Z = np.concatenate([t[2] for t in trans]); C = np.concatenate([t[3] for t in trans])
+        A = np.concatenate([t[4] for t in trans]); G = np.concatenate([t[5] for t in trans])
+        order = np.argsort(-Z)
+        bgimg = np.where(cover[..., None], img, 0)
+        img = bgimg; tcov = np.zeros_like(cover)
+        LAST_T = np.ones(cover.shape)
+        for i in order:
+            y, x = Y[i], X[i]
+            if Z[i] >= zb[y, x]:
+                continue
+            a = A[i]
+            img[y, x] = img[y, x] * (1 - a) + C[i] * a
+            if not cover[y, x]:
+                LAST_T[y, x] *= (1 - a)
+            if G[i]:
+                gl[y, x] = gl[y, x] * (1 - a) + C[i] * a
+            tcov[y, x] = True
+        cover = cover | tcov
     return img, gl, cover, (minx, miny), scale
 
 def box(o, s, col):
@@ -132,6 +161,8 @@ def to_image(img, gl, cover, bg_top=(28, 24, 34), bg_bot=(64, 40, 34)):
     grad = np.linspace(0, 1, H)[:, None, None]
     bg = np.array(bg_top) * (1 - grad) + np.array(bg_bot) * grad
     out = np.where(cover[..., None], img, np.broadcast_to(bg, img.shape))
+    if LAST_T is not None and LAST_T.shape == cover.shape:
+        out = out + np.broadcast_to(bg, img.shape) * LAST_T[..., None] * cover[..., None] * (LAST_T[..., None] < 1)
     bloom = np.array(Image.fromarray(np.clip(gl, 0, 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(6))).astype(float)
     out = np.clip(out + bloom * 0.7, 0, 255)
     return Image.fromarray(out.astype(np.uint8))

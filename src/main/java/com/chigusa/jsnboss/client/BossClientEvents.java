@@ -17,6 +17,11 @@ public final class BossClientEvents {
     @EventBusSubscriber(modid = BossConstants.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static final class ModBus {
         @SubscribeEvent
+        public static void registerParticles(net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent event) {
+            event.registerSpriteSet(com.chigusa.jsnboss.vfx.ModParticles.SPELL_CIRCLE.get(), SpellCircleParticle.Provider::new);
+        }
+
+        @SubscribeEvent
         public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
             event.registerEntityRenderer(ModEntities.FIRE_KNIGHT.get(), FireKnightRenderer::new);
             // 火の玉・斬撃・火柱はパーティクルで見せるので、モデルは描かない
@@ -78,6 +83,8 @@ public final class BossClientEvents {
 
             event.registerEntityRenderer(ModEntities.YGGDRASIL.get(), YggdrasilRenderer::new);
             event.registerEntityRenderer(ModEntities.GOLDEN_FRUIT.get(), GoldenFruitRenderer::new);
+            event.registerEntityRenderer(ModEntities.YGGDRASIL_SPIRIT.get(), YggdrasilSpiritRenderer::new);
+            event.registerEntityRenderer(ModEntities.SPIRIT_FAIRY.get(), SpiritFairyRenderer::new);
 
             VariantRenderers.register(event);
         }

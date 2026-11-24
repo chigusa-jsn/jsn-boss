@@ -1,0 +1,6 @@
+{
+  "parent": "jsnboss:block/field/template",
+  "textures": {
+    "top": "jsnboss:block/field/dark"
+  }
+}

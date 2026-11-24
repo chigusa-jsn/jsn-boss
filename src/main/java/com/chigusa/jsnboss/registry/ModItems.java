@@ -38,6 +38,10 @@ public final class ModItems {
             ITEMS.register("yggdrasil_spawn_egg",
                     () -> new DeferredSpawnEggItem(ModEntities.YGGDRASIL, 0x4A3524, 0x7AFFD0, new Item.Properties()));
 
+    public static final DeferredItem<DeferredSpawnEggItem> YGGDRASIL_SPIRIT_SPAWN_EGG =
+            ITEMS.register("yggdrasil_spirit_spawn_egg",
+                    () -> new DeferredSpawnEggItem(ModEntities.YGGDRASIL_SPIRIT, 0xEEF4EE, 0x3CB878, new Item.Properties()));
+
     public static final DeferredItem<DeferredSpawnEggItem> FALLEN_VALKYRIE_SPAWN_EGG =
             ITEMS.register("fallen_valkyrie_spawn_egg",
                     () -> new DeferredSpawnEggItem(ModEntities.FALLEN_VALKYRIE, 0x3A3F4A, 0x9FF4FF, new Item.Properties()));

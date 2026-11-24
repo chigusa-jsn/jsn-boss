@@ -36,7 +36,7 @@ public final class BossBarRenderer {
     private static final Map<String, Integer> STAGES = new HashMap<>();
     static {
         for (String b : new String[]{"fire_knight", "ice_witch", "dark_mage", "blade_dragon", "white_fox", "wind_cat",
-                "thunder_lion", "rock_giant", "ender_sentinel", "creeper_mother", "fenrir", "iron_spider", "fallen_valkyrie"}) {
+                "thunder_lion", "rock_giant", "ender_sentinel", "creeper_mother", "fenrir", "iron_spider", "fallen_valkyrie", "yggdrasil_spirit"}) {
             STAGES.put(b, 2);
         }
         STAGES.put("zombie_king", 3);
