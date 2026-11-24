@@ -116,25 +116,35 @@ def render(yaw, pitch, scale, extra=(), bounds=None):
     cover = np.isfinite(zb)
     global LAST_T
     LAST_T = None
-    if trans:
+    if trans and sum(len(t[0]) for t in trans) > 0:
         Y = np.concatenate([t[0] for t in trans]); X = np.concatenate([t[1] for t in trans])
         Z = np.concatenate([t[2] for t in trans]); C = np.concatenate([t[3] for t in trans])
         A = np.concatenate([t[4] for t in trans]); G = np.concatenate([t[5] for t in trans])
-        order = np.argsort(-Z)
-        bgimg = np.where(cover[..., None], img, 0)
-        img = bgimg; tcov = np.zeros_like(cover)
-        LAST_T = np.ones(cover.shape)
-        for i in order:
-            y, x = Y[i], X[i]
-            if Z[i] >= zb[y, x]:
-                continue
-            a = A[i]
-            img[y, x] = img[y, x] * (1 - a) + C[i] * a
-            if not cover[y, x]:
-                LAST_T[y, x] *= (1 - a)
-            if G[i]:
-                gl[y, x] = gl[y, x] * (1 - a) + C[i] * a
-            tcov[y, x] = True
+        H_, W_ = cover.shape
+        ok = Z < zb[Y, X]
+        Y, X, Z, C, A, G = Y[ok], X[ok], Z[ok], C[ok], A[ok], G[ok]
+        if len(Y) == 0:
+            return img, gl, cover, (minx, miny), scale
+        pix = Y * W_ + X
+        order = np.lexsort((Z, pix))                 # 画素ごとに、手前から順に
+        pix, Z, C, A, G = pix[order], Z[order], C[order], A[order], G[order]
+        logt = np.log(np.clip(1 - A, 1e-6, 1))
+        cum = np.cumsum(logt)
+        starts = np.r_[True, pix[1:] != pix[:-1]]
+        gidx = np.cumsum(starts) - 1
+        base = (cum - logt)[starts][gidx]              # グループの先頭までの累積
+        excl = (cum - logt) - base
+        w = A * np.exp(excl)
+        contrib = np.zeros((H_ * W_, 3)); np.add.at(contrib, pix, C * w[:, None])
+        gcon = np.zeros((H_ * W_, 3)); np.add.at(gcon, pix[G], (C * w[:, None])[G])
+        ttot = np.ones(H_ * W_); np.multiply.at(ttot, pix, 1 - A)
+        img = np.where(cover[..., None], img, 0).reshape(-1, 3)
+        img = img * ttot[:, None] + contrib
+        img = img.reshape(H_, W_, 3)
+        g2 = gl.reshape(-1, 3) * ttot[:, None] + gcon
+        gl = g2.reshape(H_, W_, 3)
+        tcov = np.zeros(H_ * W_, bool); tcov[pix] = True; tcov = tcov.reshape(H_, W_)
+        LAST_T = np.where(cover, 1.0, ttot.reshape(H_, W_))
         cover = cover | tcov
     return img, gl, cover, (minx, miny), scale
 

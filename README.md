@@ -234,7 +234,7 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 
 ### ユグドラシル（`jsnboss:yggdrasil`）— 高精細
 
-高さ約10ブロック、HP 3000。一歩も動かない、見上げるほど巨大な世界樹。ねじれた幹に古の顔と光るルーン、地面をはう8本の根、腕のように動く2本の大枝、ドーム型の葉の冠、光る苔の実がぶら下がるツタ。とても硬く、遠くまで攻撃が届く。HP が半分（1500）を切ると第2形態「怒れる世界樹」になり、葉が紅葉して光が赤橙に変わる。
+高さ約10ブロック（第2形態で約13、第3形態で約16ブロックに育つ）、HP 3000。一歩も動かない、見上げるほど巨大な世界樹。ねじれた幹に古の顔と光るルーン、地面をはう8本の根、腕のように動く2本の大枝、ドーム型の葉の冠、光る苔の実がぶら下がるツタ。とても硬く、遠くまで攻撃が届く。HP が半分（1500）を切ると第2形態「怒れる世界樹」になり、葉が紅葉して光が赤橙に変わる。
 （パーツ約150個の高精細モデル）
 
 - **黄金の実**：木の周りに4つ浮かび、1つにつき毎秒4ずつ木の HP を回復する。実は HP 30 で、叩けば壊せる。第2形態になると2つ生え直す
@@ -247,7 +247,7 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 | 根のなぎ払い（地面を走る輪、ジャンプで避ける、半径17） | 12 | 15 |
 | 毒の花粉（足元に毒の霧が6秒） | 毒II | 毒II＋弱体化 |
 | 種の爆弾（苔の種を放り投げる、着地で弾ける） | 10 × 5 | 12 × 8 |
-| 森の番兵召喚（苔むしたスケルトン「ボグド」、最大4体） | 2体 | 4体 |
+| 森の番兵召喚（苔むしたスケルトン「ボグド」、最大4体） | — | 4体 |
 | 大地の脈動（根の輪が外へ5重に広がる） | — | 18 |
 
 **第3形態「神樹」**：第2形態で HP を0にすると、一度だけ倒れずに復活する（5秒間は無敵）。樹皮が白銀に、冠が白金と桃色の花でいっぱいになり、目とルーンが金色に光る。最大HP 1500 の満タンで起き上がり、黄金の実が3つ生える（実質 HP 4500）。`/kill` では復活しない。
@@ -259,6 +259,46 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 | 浄化の波（光の輪が2重に広がる、ジャンプで避ける） | 16 |
 | 開花（黄金の実が3つまで生え直す） | — |
 | 枝の叩きつけ・根の突き上げ（第2形態と同じ） | 24・20 |
+
+### ユグドラシルの精霊（`jsnboss:yggdrasil_spirit`）— 高精細
+
+第3形態の神樹が倒れると、光りながら幹の中から現れる人型の精霊（ボスとしては**第4・第5形態**）。HP 3000（バー2本、1本 1500）。高さ約3.6ブロックで、ふわふわ浮いている。緑の長い髪に花と葉、枝の冠と背中の光輪、白と淡い緑の重ね着のドレス（裾に金の根の模様）。
+
+**第4形態「精霊」**：杖で 炎→氷→風→雷→土→闇→光→木 の順番に魔法を使う。魔法の前には、精霊とプレイヤーの足元に属性の詠唱陣（jsn-Craft と同じ柄）が出る。
+
+| 魔法 | 内容 | ダメージ |
+|---|---|---|
+| 炎 | 火の玉が1人に3つずつ降ってくる（床が光ってから） | 12〜14 |
+| 氷 | 氷の槍が列になって突き出す | 13 |
+| 風 | 吸い寄せて、風の刃を扇状に | 11 |
+| 雷 | 1人に3回、落雷（床が光ってから） | 12〜14 |
+| 土 | 足元と周りに岩の柱 | 15 |
+| 闇 | 小さなブラックホール＋闇の輪 | 6＋12 |
+| 光 | 足元と周りに光の柱 | 16 |
+| 木 | 根が列で突き出し、花びらが全方向に飛ぶ | 14・8 |
+| 魔弾（合間に） | 光の魔弾を3発 | 8 |
+
+**第5形態「魔法剣士」**（バー1本目がなくなると変身。杖が結晶の剣に変わり、放射状に光の翼が開く）：真ん中からほとんど動かず、**床を光らせて予告してから範囲を斬る**。属性は毎回ランダム（続けて同じ属性は出ない）。予告の床と剣の色が属性の色。
+
+| 剣技 | 予告の形 | ダメージ |
+|---|---|---|
+| 円舞斬 | 周り5ブロックの円 | 18 |
+| 五方閃 | 外へ15ブロックの線を5本 | 18 |
+| 星降り | 剣から玉を打ち上げ、3×3を10か所（プレイヤーの足元も） | 16 |
+| 波紋斬 | ドーナツ型の輪が3回外へ（内側は安全） | 16 |
+| 十字閃 | 十字 → バツ印 | 18 |
+| 市松斬 | 2×2の市松模様が白黒交互に2回 | 14 |
+| 天翔斬 | 舞い上がって、着地点（半径6）に急降下 | 22 |
+| 羽根の嵐 | 羽根が落ちた所（2×2を16か所）が爆ぜる | 14 |
+| 八属の剣舞 | 床を8つの扇形に分けて、8属性で順番に斬る | 18 |
+
+- **属性の床**：剣技が当たった床は、その属性の床に約10秒変わる（地面の上に薄い層を敷くだけで、元の地形にはさわらない。掘っても何も落ちない）
+  - 炎＝マグマの床（燃える）、氷＝凍った床（遅くなる）、雷＝帯電した床（ときどき感電）、土＝ひび割れた床（遅くなる）、闇＝闇の霧（暗闇）、木＝花の床（残っていると精霊が回復。踏むと散る）。風と光は床が残らない
+- **聖域**：白く光る円が2つ出る。中は床が変わらず、攻撃も来ない。20秒ごとに場所が変わる
+
+**大詠唱**（第4形態はバーが半分のとき、第5形態は変身直後とバーが半分のとき）：精霊が浮かび上がって結界で無敵になり、属性の違う妖精（HP 40）を4体呼ぶ。画面上に詠唱ゲージ（20秒）が出る。
+- 妖精を全部倒す → 結界が割れて精霊が落ち、5秒間スタン（受けるダメージ1.5倍）
+- 間に合わない → 近くのプレイヤーの**スタミナとマナを吸い取って（jsn-Craft）**、精霊の HP が750回復する。またバーが半分まで減ると、もう一度大詠唱（止めるまでくり返す）。jsn-Craft がないときは満腹度と経験値1レベルを吸う
 
 ## ボスバー
 
@@ -315,8 +355,8 @@ Minecraft 1.21.1 / NeoForge 向けのオリジナルボス MOD。モデルとア
 ```
 
 - クリエイティブの「スポーンエッグ」タブに各ボスのスポーンエッグ
-- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`、`/summon jsnboss:blade_dragon`、`/summon jsnboss:white_fox`、`/summon jsnboss:wind_cat`、`/summon jsnboss:thunder_lion`、`/summon jsnboss:rock_giant`、`/summon jsnboss:ender_sentinel`、`/summon jsnboss:creeper_mother`、`/summon jsnboss:fenrir`、`/summon jsnboss:iron_spider`、`/summon jsnboss:fallen_valkyrie`、`/summon jsnboss:yggdrasil`
-- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f、white_fox と wind_cat は 790f、thunder_lion は 890f、rock_giant は 1090f、ender_sentinel と creeper_mother は 790f、fenrir と iron_spider は 990f、fallen_valkyrie は 1090f、yggdrasil は 1490f。ユグドラシルの第3形態は第2形態で `/damage @e[type=jsnboss:yggdrasil,limit=1] 2000` のように倒すと見られる）
+- コマンド：`/summon jsnboss:fire_knight`、`/summon jsnboss:ice_witch`、`/summon jsnboss:zombie_king`、`/summon jsnboss:dark_mage`、`/summon jsnboss:blade_dragon`、`/summon jsnboss:white_fox`、`/summon jsnboss:wind_cat`、`/summon jsnboss:thunder_lion`、`/summon jsnboss:rock_giant`、`/summon jsnboss:ender_sentinel`、`/summon jsnboss:creeper_mother`、`/summon jsnboss:fenrir`、`/summon jsnboss:iron_spider`、`/summon jsnboss:fallen_valkyrie`、`/summon jsnboss:yggdrasil`、`/summon jsnboss:yggdrasil_spirit`
+- 第2形態をすぐ見たいとき：`/data merge entity @e[type=jsnboss:fire_knight,limit=1] {Health:740f}`（ice_witch も同じ、zombie_king は 990f、dark_mage は 590f、blade_dragon は 990f、white_fox と wind_cat は 790f、thunder_lion は 890f、rock_giant は 1090f、ender_sentinel と creeper_mother は 790f、fenrir と iron_spider は 990f、fallen_valkyrie は 1090f、yggdrasil は 1490f。ユグドラシルの第3形態は第2形態で `/damage @e[type=jsnboss:yggdrasil,limit=1] 2000` のように倒すと見られる。精霊の第5形態は 1490f）
 
 配布用の jar は `./gradlew build` で `build/libs/` にできる。GitHub に push すると Actions が自動でビルドする（jar は Actions の実行結果からダウンロードできる）。
 
