@@ -51,7 +51,6 @@ public final class VariantRenderers {
                 });
                 case "skeleton" -> event.registerEntityRenderer((net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.Skeleton>) type, ctx -> new SkeletonRenderer(ctx) {
                     @Override public ResourceLocation getTextureLocation(AbstractSkeleton e) { return themed(e); }
-                    @Override protected int getBlockLightLevel(AbstractSkeleton e, net.minecraft.core.BlockPos p) { return glows(e) ? 15 : super.getBlockLightLevel(e, p); }
                 });
                 case "spider" -> event.registerEntityRenderer((net.minecraft.world.entity.EntityType<Spider>) type, ctx -> new SpiderRenderer<Spider>(ctx) {
                     @Override public ResourceLocation getTextureLocation(Spider e) { return themed(e); }
