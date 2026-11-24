@@ -632,6 +632,19 @@ public class YggdrasilSpiritEntity extends AbstractBoss {
         if (t > 44) hoverAt(home.add(0, 2.5, 0), 0.1);
     }
 
+    // ============================================================ ボスバー
+    /** 形態ではなくHPでゲージを決める：1500超なら2本目、以下なら最後の1本。第5形態で回復しすぎるとゲージが戻る */
+    @Override
+    protected float bossBarProgress() {
+        float hp = getHealth();
+        return Mth.clamp(hp > BAR ? (hp - BAR) / BAR : hp / BAR, 0.0F, 1.0F);
+    }
+
+    @Override
+    protected int bossBarsLeft() {
+        return getHealth() > BAR ? 1 : 0;
+    }
+
     // ============================================================ 大詠唱
     private void beginChant() {
         this.entityData.set(CHANTING, true);
@@ -642,8 +655,9 @@ public class YggdrasilSpiritEntity extends AbstractBoss {
             Circles.grand(sl, home, isPhase2() ? Circles.STAR : Circles.NATURE, 15.0F, CHANT_TICKS);
             List<Element> els = new ArrayList<>(List.of(Element.values()));
             java.util.Collections.shuffle(els, new java.util.Random(random.nextLong()));
-            for (int i = 0; i < 4; i++) {
-                double a = i * Math.PI / 2 + random.nextDouble() * 0.5;
+            int n = isPhase2() ? 6 : 4;                  // 第5形態は6体
+            for (int i = 0; i < n; i++) {
+                double a = i * Math.PI * 2 / n + random.nextDouble() * 0.5;
                 SpiritFairyEntity f = SpiritFairyEntity.summon(this, home.add(Math.cos(a) * 9, 4, Math.sin(a) * 9), els.get(i), a);
                 fairies.add(f.getUUID());
                 Circles.circle(sl, f.position(), els.get(i).circle, 1.5F, 30, com.chigusa.jsnboss.vfx.CircleOptions.FLASH);
@@ -689,8 +703,8 @@ public class YggdrasilSpiritEntity extends AbstractBoss {
         if (t >= CHANT_TICKS) {                              // 間に合わなかった → スタミナとマナを吸って回復
             endChant();
             for (Entity e : fairyEntities()) e.discard();
-            float cap = isPhase2() ? BAR : MAX_HP;
-            setHealth(Math.min(cap, getHealth() + CHANT_HEAL));
+            // 第5形態でも上限はボス全体の最大HP。1500を超えた分はゲージが1本戻る（姿は第5形態のまま）
+            setHealth(Math.min(MAX_HP, getHealth() + CHANT_HEAL));
             playSound(SoundEvents.ZOMBIE_VILLAGER_CURE, 3.0F, 0.6F);
             shake(30);
             if (level() instanceof ServerLevel sl) {
