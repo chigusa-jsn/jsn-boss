@@ -1,4 +1,10 @@
 {
+  "music.yggdrasil": {
+    "sounds": [{ "name": "jsnboss:music/yggdrasil", "stream": true }]
+  },
+  "music.spirit_phase4": {
+    "sounds": [{ "name": "jsnboss:music/spirit_phase4", "stream": true }]
+  },
   "music.spirit_phase5": {
     "sounds": [{ "name": "jsnboss:music/spirit_phase5", "stream": true }]
   }

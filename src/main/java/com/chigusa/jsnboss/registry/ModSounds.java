@@ -11,6 +11,10 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public final class ModSounds {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Registries.SOUND_EVENT, BossConstants.MODID);
 
+    /** ユグドラシル（第1〜3形態）のボス曲 */
+    public static final DeferredHolder<SoundEvent, SoundEvent> MUSIC_YGGDRASIL = register("music.yggdrasil");
+    /** ユグドラシル精霊・第4形態のボス曲 */
+    public static final DeferredHolder<SoundEvent, SoundEvent> MUSIC_SPIRIT_PHASE4 = register("music.spirit_phase4");
     /** ユグドラシル精霊・第5形態のボス曲 */
     public static final DeferredHolder<SoundEvent, SoundEvent> MUSIC_SPIRIT_PHASE5 = register("music.spirit_phase5");
 

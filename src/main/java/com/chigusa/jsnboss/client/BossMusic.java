@@ -1,6 +1,7 @@
 package com.chigusa.jsnboss.client;
 
 import com.chigusa.jsnboss.BossConstants;
+import com.chigusa.jsnboss.entity.YggdrasilEntity;
 import com.chigusa.jsnboss.entity.YggdrasilSpiritEntity;
 import com.chigusa.jsnboss.registry.ModSounds;
 import net.minecraft.client.Minecraft;
@@ -29,12 +30,22 @@ public final class BossMusic {
     private static SoundEvent wanted(Minecraft mc) {
         Player p = mc.player;
         if (p == null || mc.level == null) return null;
+        SoundEvent best = null;
+        int bestPrio = -1;
         for (Entity e : mc.level.entitiesForRendering()) {
-            if (e instanceof YggdrasilSpiritEntity s && s.isAlive() && s.isPhase2() && s.distanceToSqr(p) < RANGE * RANGE) {
-                return ModSounds.MUSIC_SPIRIT_PHASE5.get();
+            if (!e.isAlive() || e.distanceToSqr(p) > RANGE * RANGE) continue;
+            SoundEvent s = null;
+            int prio = 0;
+            if (e instanceof YggdrasilSpiritEntity spirit) {
+                s = spirit.isPhase2() ? ModSounds.MUSIC_SPIRIT_PHASE5.get() : ModSounds.MUSIC_SPIRIT_PHASE4.get();
+                prio = spirit.isPhase2() ? 3 : 2;
+            } else if (e instanceof YggdrasilEntity) {
+                s = ModSounds.MUSIC_YGGDRASIL.get();
+                prio = 1;
             }
+            if (s != null && prio > bestPrio) { best = s; bestPrio = prio; }
         }
-        return null;
+        return best;
     }
 
     @SubscribeEvent
@@ -51,14 +62,15 @@ public final class BossMusic {
                 mc.getMusicManager().stopPlaying();
                 mc.getSoundManager().play(current);
             } else if (current.sound != want) {
-                current.fadeOut();                  // 曲が変わるときは前の曲が消えてから次へ
+                current.fadeOut(20);                // 曲が変わるときは1秒で前の曲を消してから次へ
             } else {
                 current.fadingOut = false;          // 戻ってきたらフェードを取り消す
+                current.fadeTicks = 60;
             }
             MusicManager mm = mc.getMusicManager();
             mm.nextSongDelay = Math.max(mm.nextSongDelay, 200);   // バニラ曲を始めさせない
         } else if (current != null) {
-            current.fadeOut();
+            current.fadeOut(60);
         }
     }
 
@@ -78,12 +90,17 @@ public final class BossMusic {
             this.volume = 0.01F;
         }
 
-        void fadeOut() { this.fadingOut = true; }
+        int fadeTicks = 60;
+
+        void fadeOut(int ticks) {
+            if (!fadingOut || ticks < fadeTicks) fadeTicks = ticks;
+            this.fadingOut = true;
+        }
 
         @Override
         public void tick() {
             if (fadingOut) {
-                level -= 1.0F / 60;                  // 3秒でフェードアウト
+                level -= 1.0F / fadeTicks;
                 if (level <= 0) { stop(); return; }
             } else if (level < 1.0F) {
                 level = Math.min(1.0F, level + 1.0F / 20);   // 1秒でフェードイン
