@@ -46,6 +46,7 @@ public final class BossSetup {
         ModEffects.MOB_EFFECTS.register(modBus);
         com.chigusa.jsnboss.registry.ModBlocks.BLOCKS.register(modBus);
         com.chigusa.jsnboss.vfx.ModParticles.PARTICLE_TYPES.register(modBus);
+        com.chigusa.jsnboss.registry.ModSounds.SOUND_EVENTS.register(modBus);
         modBus.addListener(BossSetup::onAttributes);
         modBus.addListener(EarlyClassInit::onCommonSetup);
         com.chigusa.jsnboss.registry.ModTabs.TABS.register(modBus);

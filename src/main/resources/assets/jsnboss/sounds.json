@@ -1,0 +1,5 @@
+{
+  "music.spirit_phase5": {
+    "sounds": [{ "name": "jsnboss:music/spirit_phase5", "stream": true }]
+  }
+}
