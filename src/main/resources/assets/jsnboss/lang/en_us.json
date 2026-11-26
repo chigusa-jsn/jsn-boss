@@ -258,5 +258,15 @@
   "entity.jsnboss.crawling_bones": "Crawling Bones",
   "item.jsnboss.crawling_bones_spawn_egg": "Crawling Bones Spawn Egg",
   "entity.jsnboss.grave_wisp": "Grave Wisp",
-  "item.jsnboss.grave_wisp_spawn_egg": "Grave Wisp Spawn Egg"
+  "item.jsnboss.grave_wisp_spawn_egg": "Grave Wisp Spawn Egg",
+  "entity.jsnboss.shadow_apprentice": "Shadow Apprentice",
+  "item.jsnboss.shadow_apprentice_spawn_egg": "Shadow Apprentice Spawn Egg",
+  "entity.jsnboss.shadow_assassin": "Shadow Assassin",
+  "item.jsnboss.shadow_assassin_spawn_egg": "Shadow Assassin Spawn Egg",
+  "entity.jsnboss.grimoire": "Grimoire",
+  "item.jsnboss.grimoire_spawn_egg": "Grimoire Spawn Egg",
+  "entity.jsnboss.shade_imp": "Shade Imp",
+  "item.jsnboss.shade_imp_spawn_egg": "Shade Imp Spawn Egg",
+  "entity.jsnboss.dark_eye": "Dark Eye",
+  "item.jsnboss.dark_eye_spawn_egg": "Dark Eye Spawn Egg"
 }

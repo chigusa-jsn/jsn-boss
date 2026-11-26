@@ -4,6 +4,7 @@ import com.chigusa.jsnboss.dungeon.DungeonMob;
 import com.chigusa.jsnboss.dungeon.fire.*;
 import com.chigusa.jsnboss.dungeon.ice.*;
 import com.chigusa.jsnboss.dungeon.undead.*;
+import com.chigusa.jsnboss.dungeon.dark.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -77,8 +78,21 @@ public final class ModDungeon {
     public static final DeferredHolder<EntityType<?>, EntityType<GraveWisp>> GRAVE_WISP =
             mob("grave_wisp", GraveWisp::new, 0.6F, 1.0F, false, GraveWisp::createAttributes, 0xA8F0E0, 0x0A1A18);
 
+    // ------------------------------------------------------------ 闇
+    public static final DeferredHolder<EntityType<?>, EntityType<ShadowApprentice>> SHADOW_APPRENTICE =
+            mob("shadow_apprentice", ShadowApprentice::new, 0.7F, 2.1F, false, ShadowApprentice::createAttributes, 0x3A2A52, 0xC060FF);
+    public static final DeferredHolder<EntityType<?>, EntityType<ShadowAssassin>> SHADOW_ASSASSIN =
+            mob("shadow_assassin", ShadowAssassin::new, 0.6F, 2.0F, false, ShadowAssassin::createAttributes, 0x1E1A26, 0x7A2A52);
+    public static final DeferredHolder<EntityType<?>, EntityType<Grimoire>> GRIMOIRE =
+            mob("grimoire", Grimoire::new, 0.9F, 0.8F, false, Grimoire::createAttributes, 0x4A1A2A, 0xE0D4B8);
+    public static final DeferredHolder<EntityType<?>, EntityType<ShadeImp>> SHADE_IMP =
+            mob("shade_imp", ShadeImp::new, 0.5F, 1.2F, false, ShadeImp::createAttributes, 0x16121E, 0xD080FF);
+    public static final DeferredHolder<EntityType<?>, EntityType<DarkEye>> DARK_EYE =
+            mob("dark_eye", DarkEye::new, 0.6F, 0.6F, false, DarkEye::createAttributes, 0x2A1E2E, 0xA040FF);
+
     static {
         MID_BAR_COLOR.put("flame_squire", 0xFFFF6A20);
+        MID_BAR_COLOR.put("shadow_apprentice", 0xFFB060FF);
         MID_BAR_COLOR.put("rotting_guard", 0xFF8ACC5A);
         RENDER_SCALE.put("rotting_guard", 1.25F);
         TRANSLUCENT.add("grave_wisp");

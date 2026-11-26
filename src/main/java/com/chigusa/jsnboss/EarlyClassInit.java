@@ -33,6 +33,8 @@ public final class EarlyClassInit {
         "dungeon.ice.FrostSprite", "dungeon.ice.IcicleCrawler",
         "dungeon.undead.RottingGuard", "dungeon.undead.GraveReaper", "dungeon.undead.BoneJuggernaut",
         "dungeon.undead.CrawlingBones", "dungeon.undead.GraveWisp",
+        "dungeon.dark.ShadowApprentice", "dungeon.dark.ShadowAssassin", "dungeon.dark.Grimoire",
+        "dungeon.dark.ShadeImp", "dungeon.dark.DarkEye",
     };
 
     /** バニラで「生き物じゃない」ため起動時に読み込まれず、後から遅れて読まれがちなもの */

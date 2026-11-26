@@ -258,5 +258,15 @@
   "entity.jsnboss.crawling_bones": "這う骨",
   "item.jsnboss.crawling_bones_spawn_egg": "這う骨のスポーンエッグ",
   "entity.jsnboss.grave_wisp": "墓場の魂",
-  "item.jsnboss.grave_wisp_spawn_egg": "墓場の魂のスポーンエッグ"
+  "item.jsnboss.grave_wisp_spawn_egg": "墓場の魂のスポーンエッグ",
+  "entity.jsnboss.shadow_apprentice": "影の弟子",
+  "item.jsnboss.shadow_apprentice_spawn_egg": "影の弟子のスポーンエッグ",
+  "entity.jsnboss.shadow_assassin": "影の暗殺者",
+  "item.jsnboss.shadow_assassin_spawn_egg": "影の暗殺者のスポーンエッグ",
+  "entity.jsnboss.grimoire": "魔導書の魔物",
+  "item.jsnboss.grimoire_spawn_egg": "魔導書の魔物のスポーンエッグ",
+  "entity.jsnboss.shade_imp": "影の小人",
+  "item.jsnboss.shade_imp_spawn_egg": "影の小人のスポーンエッグ",
+  "entity.jsnboss.dark_eye": "闇の目玉",
+  "item.jsnboss.dark_eye_spawn_egg": "闇の目玉のスポーンエッグ"
 }
