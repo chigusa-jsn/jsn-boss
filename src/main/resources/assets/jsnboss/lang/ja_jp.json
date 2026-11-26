@@ -236,5 +236,17 @@
   "item.jsnboss.ember_imp_spawn_egg": "燃える小鬼のスポーンエッグ",
   "entity.jsnboss.cinder_bat": "火の粉コウモリ",
   "item.jsnboss.cinder_bat_spawn_egg": "火の粉コウモリのスポーンエッグ",
-  "itemGroup.jsnboss.dungeon": "JSN Boss ダンジョンモブ"
+  "itemGroup.jsnboss.dungeon": "JSN Boss ダンジョンモブ",
+  "entity.jsnboss.frost_maiden": "霜の侍女",
+  "item.jsnboss.frost_maiden_spawn_egg": "霜の侍女のスポーンエッグ",
+  "entity.jsnboss.pack_alpha": "群れの長狼",
+  "item.jsnboss.pack_alpha_spawn_egg": "群れの長狼のスポーンエッグ",
+  "entity.jsnboss.frost_knight": "氷像の騎士",
+  "item.jsnboss.frost_knight_spawn_egg": "氷像の騎士のスポーンエッグ",
+  "entity.jsnboss.frostfang_bear": "氷牙の白熊",
+  "item.jsnboss.frostfang_bear_spawn_egg": "氷牙の白熊のスポーンエッグ",
+  "entity.jsnboss.frost_sprite": "氷の妖精",
+  "item.jsnboss.frost_sprite_spawn_egg": "氷の妖精のスポーンエッグ",
+  "entity.jsnboss.icicle_crawler": "つらら虫",
+  "item.jsnboss.icicle_crawler_spawn_egg": "つらら虫のスポーンエッグ"
 }

@@ -1,0 +1,202 @@
+{
+ "format_version": "1.8.0",
+ "animations": {
+  "animation.icicle_crawler.idle": {
+   "loop": true,
+   "animation_length": 2.0,
+   "bones": {
+    "body": {
+     "scale": {
+      "0.0": [
+       1,
+       1,
+       1
+      ],
+      "1.0": [
+       1,
+       1.05,
+       1
+      ],
+      "2.0": [
+       1,
+       1,
+       1
+      ]
+     }
+    }
+   }
+  },
+  "animation.icicle_crawler.walk": {
+   "loop": true,
+   "animation_length": 0.4,
+   "bones": {
+    "right_legs": {
+     "rotation": {
+      "0.0": [
+       0,
+       15,
+       0
+      ],
+      "0.2": [
+       0,
+       -15,
+       0
+      ],
+      "0.4": [
+       0,
+       15,
+       0
+      ]
+     }
+    },
+    "left_legs": {
+     "rotation": {
+      "0.0": [
+       0,
+       15,
+       0
+      ],
+      "0.2": [
+       0,
+       -15,
+       0
+      ],
+      "0.4": [
+       0,
+       15,
+       0
+      ]
+     }
+    },
+    "body": {
+     "rotation": {
+      "0.0": [
+       0,
+       3,
+       0
+      ],
+      "0.2": [
+       0,
+       -3,
+       0
+      ],
+      "0.4": [
+       0,
+       3,
+       0
+      ]
+     }
+    }
+   }
+  },
+  "animation.icicle_crawler.attack_shoot": {
+   "loop": false,
+   "animation_length": 1.0,
+   "bones": {
+    "body": {
+     "rotation": {
+      "0.0": [
+       0,
+       0,
+       0
+      ],
+      "0.4": [
+       -25,
+       0,
+       0
+      ],
+      "0.5": [
+       10,
+       0,
+       0
+      ],
+      "1.0": [
+       0,
+       0,
+       0
+      ]
+     },
+     "position": {
+      "0.0": [
+       0,
+       0,
+       0
+      ],
+      "0.4": [
+       0,
+       1,
+       0
+      ],
+      "0.5": [
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   }
+  },
+  "animation.icicle_crawler.attack_bite": {
+   "loop": false,
+   "animation_length": 0.6,
+   "bones": {
+    "body": {
+     "position": {
+      "0.0": [
+       0,
+       0,
+       0
+      ],
+      "0.2": [
+       0,
+       0,
+       1
+      ],
+      "0.3": [
+       0,
+       0,
+       -2
+      ],
+      "0.6": [
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   }
+  },
+  "animation.icicle_crawler.death": {
+   "loop": "hold_on_last_frame",
+   "animation_length": 1.0,
+   "bones": {
+    "root": {
+     "rotation": {
+      "0.0": [
+       0,
+       0,
+       0
+      ],
+      "0.6": [
+       0,
+       0,
+       180
+      ]
+     },
+     "position": {
+      "0.0": [
+       0,
+       0,
+       0
+      ],
+      "0.6": [
+       0,
+       4,
+       0
+      ]
+     }
+    }
+   }
+  }
+ }
+}

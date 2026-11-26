@@ -97,7 +97,7 @@ public abstract class DungeonMob extends AbstractBoss {
     /** 飛ぶモブ：相手からどれくらい上に浮くか */
     protected double hoverHeight() { return 3.0; }
 
-    /** 飛ぶモブ：相手からどれくらい離れて回るか（0 なら真上に寄ってくる） */
+    /** 相手からどれくらい離れていたいか。飛ぶモブはその距離で回り、地上のモブは近づかれると離れる（0 なら寄ってくる） */
     protected double keepDistance() { return 0.0; }
 
     // ============================================================ 共通
@@ -156,8 +156,18 @@ public abstract class DungeonMob extends AbstractBoss {
 
         getLookControl().setLookAt(target, 30.0F, 30.0F);
         if (!flying() && !stationary() && (tickCount % 10 == 0 || getNavigation().isDone())) {
-            getNavigation().moveTo(target, 1.0);
+            double kd = keepDistance();
+            double dist = distanceTo(target);
+            if (kd <= 0 || dist > kd + 3) {
+                getNavigation().moveTo(target, 1.0);
+            } else if (dist < kd - 2) {                     // 近すぎたら離れる（魔法使いタイプ）
+                Vec3 away = position().subtract(target.position()).multiply(1, 0, 1).normalize().scale(5);
+                getNavigation().moveTo(getX() + away.x, getY(), getZ() + away.z, 1.1);
+            } else {
+                getNavigation().stop();
+            }
         }
+        if (keepDistance() > 0 && !flying()) face(target, 15.0F);
         if (stationary() || flying()) face(target, 15.0F);
         if (globalCd <= 0) {
             Move next = choose(target);
@@ -240,6 +250,12 @@ public abstract class DungeonMob extends AbstractBoss {
             if (damage(e, amount, knock)) out.add(e);
         }
         return out;
+    }
+
+    /** 凍えさせる（画面がこおり、動きが遅くなる） */
+    protected static void chill(LivingEntity e, int ticks) {
+        e.setTicksFrozen(Math.max(e.getTicksFrozen(), e.getTicksRequiredToFreeze() + ticks));
+        e.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN, ticks, 1));
     }
 
     protected Vec3 eyePos() { return new Vec3(getX(), getEyeY(), getZ()); }

@@ -29,6 +29,8 @@ public final class EarlyClassInit {
         "entity.YggdrasilEntity", "entity.TornadoEntity",
         "dungeon.DungeonMob", "dungeon.fire.FlameSquire", "dungeon.fire.LavaArmor", "dungeon.fire.FlameEye",
         "dungeon.fire.EmberImp", "dungeon.fire.CinderBat",
+        "dungeon.ice.FrostMaiden", "dungeon.ice.PackAlpha", "dungeon.ice.FrostKnight", "dungeon.ice.FrostfangBear",
+        "dungeon.ice.FrostSprite", "dungeon.ice.IcicleCrawler",
     };
 
     /** バニラで「生き物じゃない」ため起動時に読み込まれず、後から遅れて読まれがちなもの */

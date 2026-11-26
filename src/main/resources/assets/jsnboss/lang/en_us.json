@@ -236,5 +236,17 @@
   "item.jsnboss.ember_imp_spawn_egg": "Ember Imp Spawn Egg",
   "entity.jsnboss.cinder_bat": "Cinder Bat",
   "item.jsnboss.cinder_bat_spawn_egg": "Cinder Bat Spawn Egg",
-  "itemGroup.jsnboss.dungeon": "JSN Boss Dungeon Mobs"
+  "itemGroup.jsnboss.dungeon": "JSN Boss Dungeon Mobs",
+  "entity.jsnboss.frost_maiden": "Frost Maiden",
+  "item.jsnboss.frost_maiden_spawn_egg": "Frost Maiden Spawn Egg",
+  "entity.jsnboss.pack_alpha": "Pack Alpha",
+  "item.jsnboss.pack_alpha_spawn_egg": "Pack Alpha Spawn Egg",
+  "entity.jsnboss.frost_knight": "Frost Statue Knight",
+  "item.jsnboss.frost_knight_spawn_egg": "Frost Statue Knight Spawn Egg",
+  "entity.jsnboss.frostfang_bear": "Frostfang Bear",
+  "item.jsnboss.frostfang_bear_spawn_egg": "Frostfang Bear Spawn Egg",
+  "entity.jsnboss.frost_sprite": "Frost Sprite",
+  "item.jsnboss.frost_sprite_spawn_egg": "Frost Sprite Spawn Egg",
+  "entity.jsnboss.icicle_crawler": "Icicle Crawler",
+  "item.jsnboss.icicle_crawler_spawn_egg": "Icicle Crawler Spawn Egg"
 }

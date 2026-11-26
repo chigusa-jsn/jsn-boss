@@ -30,7 +30,8 @@ public final class BossClientEvents {
                 @SuppressWarnings("unchecked")
                 var type = (net.minecraft.world.entity.EntityType<com.chigusa.jsnboss.dungeon.DungeonMob>) (Object) e.getValue().get();
                 float shadow = type.getWidth() * 0.6F;
-                event.registerEntityRenderer(type, ctx -> new DungeonMobRenderer(ctx, id, shadow));
+                float scale = com.chigusa.jsnboss.registry.ModDungeon.RENDER_SCALE.getOrDefault(id, 1.0F);
+                event.registerEntityRenderer(type, ctx -> new DungeonMobRenderer(ctx, id, shadow, scale));
             }
             // 火の玉・斬撃・火柱はパーティクルで見せるので、モデルは描かない
             event.registerEntityRenderer(ModEntities.KNIGHT_FIREBALL.get(), NoopRenderer::new);

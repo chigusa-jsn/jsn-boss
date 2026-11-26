@@ -2,6 +2,7 @@ package com.chigusa.jsnboss.registry;
 
 import com.chigusa.jsnboss.dungeon.DungeonMob;
 import com.chigusa.jsnboss.dungeon.fire.*;
+import com.chigusa.jsnboss.dungeon.ice.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -29,6 +30,8 @@ public final class ModDungeon {
     /** 全部のダンジョンモブ（id → 種類） */
     public static final Map<String, DeferredHolder<EntityType<?>, ? extends EntityType<? extends DungeonMob>>> TYPES = new LinkedHashMap<>();
     public static final List<DeferredItem<DeferredSpawnEggItem>> EGGS = new ArrayList<>();
+    /** 見た目の大きさ（モデルを拡大して描く。当たり判定は登録の大きさ） */
+    public static final Map<String, Float> RENDER_SCALE = new HashMap<>();
     /** 中ボス id → ボスバーの色（ARGB） */
     public static final Map<String, Integer> MID_BAR_COLOR = new HashMap<>();
     private static final Map<String, Supplier<AttributeSupplier.Builder>> ATTRS = new HashMap<>();
@@ -45,8 +48,26 @@ public final class ModDungeon {
     public static final DeferredHolder<EntityType<?>, EntityType<CinderBat>> CINDER_BAT =
             mob("cinder_bat", CinderBat::new, 0.9F, 0.8F, true, CinderBat::createAttributes, 0x3A2420, 0xFF7A20);
 
+    // ------------------------------------------------------------ 氷
+    public static final DeferredHolder<EntityType<?>, EntityType<FrostMaiden>> FROST_MAIDEN =
+            mob("frost_maiden", FrostMaiden::new, 0.7F, 2.1F, false, FrostMaiden::createAttributes, 0x5AA0D8, 0xE8F6FF);
+    public static final DeferredHolder<EntityType<?>, EntityType<PackAlpha>> PACK_ALPHA =
+            mob("pack_alpha", PackAlpha::new, 1.6F, 1.9F, false, PackAlpha::createAttributes, 0x9AA2AC, 0x7AD8FF);
+    public static final DeferredHolder<EntityType<?>, EntityType<FrostKnight>> FROST_KNIGHT =
+            mob("frost_knight", FrostKnight::new, 1.0F, 2.4F, false, FrostKnight::createAttributes, 0x9AD8F4, 0x2A5A84);
+    public static final DeferredHolder<EntityType<?>, EntityType<FrostfangBear>> FROSTFANG_BEAR =
+            mob("frostfang_bear", FrostfangBear::new, 1.6F, 1.7F, false, FrostfangBear::createAttributes, 0xE8EEF2, 0x7AD8FF);
+    public static final DeferredHolder<EntityType<?>, EntityType<FrostSprite>> FROST_SPRITE =
+            mob("frost_sprite", FrostSprite::new, 0.6F, 1.0F, false, FrostSprite::createAttributes, 0xF4FBFF, 0x9AD8F4);
+    public static final DeferredHolder<EntityType<?>, EntityType<IcicleCrawler>> ICICLE_CRAWLER =
+            mob("icicle_crawler", IcicleCrawler::new, 0.9F, 0.6F, false, IcicleCrawler::createAttributes, 0x4A6A84, 0xBFEAFF);
+
     static {
         MID_BAR_COLOR.put("flame_squire", 0xFFFF6A20);
+        MID_BAR_COLOR.put("frost_maiden", 0xFF6AC8FF);
+        MID_BAR_COLOR.put("pack_alpha", 0xFFB8D8F0);
+        RENDER_SCALE.put("pack_alpha", 1.5F);
+        RENDER_SCALE.put("frostfang_bear", 1.3F);
     }
 
     private static <T extends DungeonMob> DeferredHolder<EntityType<?>, EntityType<T>> mob(

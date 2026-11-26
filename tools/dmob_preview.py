@@ -6,12 +6,13 @@ import render_preview as rp
 from PIL import Image, ImageDraw, ImageFont
 
 FONT = "/usr/share/fonts/opentype/noto/NotoSansCJK-Black.ttc"
-out, items = sys.argv[1], [a.split(":", 1) for a in sys.argv[2:]]
+out, items = sys.argv[1], [(a.split(":") + ["1"])[:3] for a in sys.argv[2:]]
 S = 6
 cards = []
-for name, label in items:
+for name, label, sc in items:
     rp.load(name)
     rp.POSE.clear()
+    if float(sc) != 1: rp.POSE["root"] = {"scale": [float(sc)] * 3}
     views = []
     for yaw, pitch, extra in ((-35, 14, rp.player(-26)), (150, 10, ())):
         im, gl, cv, _, _ = rp.render(yaw, pitch, S, extra)
