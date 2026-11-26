@@ -41,7 +41,7 @@ public class FlyingSwordEntity extends Projectile {
         super(type, level);
     }
 
-    public static void shoot(BladeDragonEntity owner, Vec3 pos, Vec3 velocity, float damage, boolean red) {
+    public static void shoot(AbstractBoss owner, Vec3 pos, Vec3 velocity, float damage, boolean red) {
         FlyingSwordEntity sword = new FlyingSwordEntity(ModEntities.FLYING_SWORD.get(), owner.level());
         sword.setOwner(owner);
         sword.setPos(pos);

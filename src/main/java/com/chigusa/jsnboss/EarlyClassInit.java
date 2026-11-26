@@ -46,6 +46,7 @@ public final class EarlyClassInit {
         "dungeon.nature.MushroomSoldier", "dungeon.nature.SeedSquirrel",
         "dungeon.machine.ReconDrone", "dungeon.machine.CogTank", "dungeon.machine.SteamAutomaton",
         "dungeon.machine.ClockworkMouse", "dungeon.machine.MiniDrone",
+        "dungeon.elite.BladeWyvern", "dungeon.elite.BlackwingAttendant", "dungeon.elite.FoxfireMaiden", "dungeon.elite.TreantWarden",
     };
 
     /** バニラで「生き物じゃない」ため起動時に読み込まれず、後から遅れて読まれがちなもの */

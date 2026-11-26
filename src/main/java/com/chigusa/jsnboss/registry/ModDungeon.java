@@ -11,6 +11,7 @@ import com.chigusa.jsnboss.dungeon.earth.*;
 import com.chigusa.jsnboss.dungeon.voidset.*;
 import com.chigusa.jsnboss.dungeon.nature.*;
 import com.chigusa.jsnboss.dungeon.machine.*;
+import com.chigusa.jsnboss.dungeon.elite.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -168,8 +169,24 @@ public final class ModDungeon {
     public static final DeferredHolder<EntityType<?>, EntityType<MiniDrone>> MINI_DRONE =
             mob("mini_drone", MiniDrone::new, 0.7F, 0.6F, false, MiniDrone::createAttributes, 0x4A4E56, 0xFF3A2A);
 
+    // ------------------------------------------------------------ 残りの中ボス
+    public static final DeferredHolder<EntityType<?>, EntityType<BladeWyvern>> BLADE_WYVERN =
+            mob("blade_wyvern", BladeWyvern::new, 1.8F, 1.4F, false, BladeWyvern::createAttributes, 0x3A3E4A, 0xE080FF);
+    public static final DeferredHolder<EntityType<?>, EntityType<BlackwingAttendant>> BLACKWING_ATTENDANT =
+            mob("blackwing_attendant", BlackwingAttendant::new, 0.8F, 2.0F, false, BlackwingAttendant::createAttributes, 0x2A2630, 0xD4A84A);
+    public static final DeferredHolder<EntityType<?>, EntityType<FoxfireMaiden>> FOXFIRE_MAIDEN =
+            mob("foxfire_maiden", FoxfireMaiden::new, 0.7F, 1.9F, false, FoxfireMaiden::createAttributes, 0xF4F0EC, 0xC02A2A);
+    public static final DeferredHolder<EntityType<?>, EntityType<TreantWarden>> TREANT_WARDEN =
+            mob("treant_warden", TreantWarden::new, 1.5F, 2.9F, false, TreantWarden::createAttributes, 0x6A4A2E, 0x5A9A42);
+
     static {
         MID_BAR_COLOR.put("flame_squire", 0xFFFF6A20);
+        MID_BAR_COLOR.put("blade_wyvern", 0xFFD080FF);
+        MID_BAR_COLOR.put("blackwing_attendant", 0xFFD4A84A);
+        MID_BAR_COLOR.put("foxfire_maiden", 0xFF7AB8FF);
+        MID_BAR_COLOR.put("treant_warden", 0xFF6ACC4A);
+        RENDER_SCALE.put("blade_wyvern", 1.5F);
+        RENDER_SCALE.put("treant_warden", 1.3F);
         MID_BAR_COLOR.put("recon_drone", 0xFFFF5040);
         RENDER_SCALE.put("recon_drone", 1.3F);
         RENDER_SCALE.put("cog_tank", 1.2F);

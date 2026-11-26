@@ -328,5 +328,13 @@
   "entity.jsnboss.clockwork_mouse": "ぜんまいねずみ",
   "item.jsnboss.clockwork_mouse_spawn_egg": "ぜんまいねずみのスポーンエッグ",
   "entity.jsnboss.mini_drone": "小型ドローン",
-  "item.jsnboss.mini_drone_spawn_egg": "小型ドローンのスポーンエッグ"
+  "item.jsnboss.mini_drone_spawn_egg": "小型ドローンのスポーンエッグ",
+  "entity.jsnboss.blade_wyvern": "刃の飛竜",
+  "item.jsnboss.blade_wyvern_spawn_egg": "刃の飛竜のスポーンエッグ",
+  "entity.jsnboss.blackwing_attendant": "黒翼の従者",
+  "item.jsnboss.blackwing_attendant_spawn_egg": "黒翼の従者のスポーンエッグ",
+  "entity.jsnboss.foxfire_maiden": "狐火の巫女",
+  "item.jsnboss.foxfire_maiden_spawn_egg": "狐火の巫女のスポーンエッグ",
+  "entity.jsnboss.treant_warden": "樹人の守り手",
+  "item.jsnboss.treant_warden_spawn_egg": "樹人の守り手のスポーンエッグ"
 }

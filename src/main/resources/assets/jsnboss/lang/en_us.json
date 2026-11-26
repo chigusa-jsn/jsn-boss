@@ -328,5 +328,13 @@
   "entity.jsnboss.clockwork_mouse": "Clockwork Mouse",
   "item.jsnboss.clockwork_mouse_spawn_egg": "Clockwork Mouse Spawn Egg",
   "entity.jsnboss.mini_drone": "Mini Drone",
-  "item.jsnboss.mini_drone_spawn_egg": "Mini Drone Spawn Egg"
+  "item.jsnboss.mini_drone_spawn_egg": "Mini Drone Spawn Egg",
+  "entity.jsnboss.blade_wyvern": "Blade Wyvern",
+  "item.jsnboss.blade_wyvern_spawn_egg": "Blade Wyvern Spawn Egg",
+  "entity.jsnboss.blackwing_attendant": "Blackwing Attendant",
+  "item.jsnboss.blackwing_attendant_spawn_egg": "Blackwing Attendant Spawn Egg",
+  "entity.jsnboss.foxfire_maiden": "Foxfire Maiden",
+  "item.jsnboss.foxfire_maiden_spawn_egg": "Foxfire Maiden Spawn Egg",
+  "entity.jsnboss.treant_warden": "Treant Warden",
+  "item.jsnboss.treant_warden_spawn_egg": "Treant Warden Spawn Egg"
 }
