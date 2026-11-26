@@ -54,5 +54,18 @@ public final class ModTabs {
             })
             .build());
 
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EMBLEMS = TABS.register("emblems", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.jsnboss.emblems"))
+            .icon(() -> new ItemStack(ModEmblems.EMBLEMS.get("crimson").get(2).get()))
+            .withTabsBefore(DUNGEON.getId())
+            .displayItems((params, out) -> {
+                for (var s : ModEmblems.SETS) {
+                    out.accept(ModEmblems.CORES.get(s.key()).get());
+                    out.accept(ModEmblems.SHARDS.get(s.key()).get());
+                    for (var e : ModEmblems.EMBLEMS.get(s.key())) out.accept(e.get());
+                }
+            })
+            .build());
+
     private ModTabs() {}
 }

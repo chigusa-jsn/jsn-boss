@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "jsnboss:corpse_king_emblem_1"
+    },
+    {
+      "item": "jsnboss:corpse_king_core"
+    },
+    {
+      "item": "jsnboss:corpse_king_shard"
+    },
+    {
+      "item": "jsnboss:corpse_king_shard"
+    },
+    {
+      "item": "jsnboss:corpse_king_shard"
+    },
+    {
+      "item": "jsnboss:corpse_king_shard"
+    },
+    {
+      "item": "jsnboss:corpse_king_shard"
+    },
+    {
+      "item": "jsnboss:corpse_king_shard"
+    }
+  ],
+  "result": {
+    "id": "jsnboss:corpse_king_emblem_2",
+    "count": 1
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "jsnboss:abyss_emblem_2"
+    },
+    {
+      "item": "jsnboss:abyss_core"
+    },
+    {
+      "item": "jsnboss:abyss_core"
+    },
+    {
+      "item": "jsnboss:abyss_shard"
+    },
+    {
+      "item": "jsnboss:abyss_shard"
+    },
+    {
+      "item": "jsnboss:abyss_shard"
+    },
+    {
+      "item": "jsnboss:abyss_shard"
+    },
+    {
+      "item": "jsnboss:abyss_shard"
+    },
+    {
+      "item": "jsnboss:abyss_shard"
+    }
+  ],
+  "result": {
+    "id": "jsnboss:abyss_emblem_3",
+    "count": 1
+  }
+}

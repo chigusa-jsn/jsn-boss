@@ -41,6 +41,7 @@ public final class BossSetup {
         raiseMaxHealthCap();
         ModMobs.init();
         com.chigusa.jsnboss.registry.ModDungeon.init();
+        com.chigusa.jsnboss.registry.ModEmblems.init();
         com.chigusa.jsnboss.registry.ModThemed.init();
         ModEntities.ENTITY_TYPES.register(modBus);
         ModItems.ITEMS.register(modBus);

@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "jsnboss:crimson_emblem_2"
+    },
+    {
+      "item": "jsnboss:crimson_core"
+    },
+    {
+      "item": "jsnboss:crimson_core"
+    },
+    {
+      "item": "jsnboss:crimson_shard"
+    },
+    {
+      "item": "jsnboss:crimson_shard"
+    },
+    {
+      "item": "jsnboss:crimson_shard"
+    },
+    {
+      "item": "jsnboss:crimson_shard"
+    },
+    {
+      "item": "jsnboss:crimson_shard"
+    },
+    {
+      "item": "jsnboss:crimson_shard"
+    }
+  ],
+  "result": {
+    "id": "jsnboss:crimson_emblem_3",
+    "count": 1
+  }
+}

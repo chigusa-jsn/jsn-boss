@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "jsnboss:verdant_emblem_2"
+    },
+    {
+      "item": "jsnboss:verdant_core"
+    },
+    {
+      "item": "jsnboss:verdant_core"
+    },
+    {
+      "item": "jsnboss:verdant_shard"
+    },
+    {
+      "item": "jsnboss:verdant_shard"
+    },
+    {
+      "item": "jsnboss:verdant_shard"
+    },
+    {
+      "item": "jsnboss:verdant_shard"
+    },
+    {
+      "item": "jsnboss:verdant_shard"
+    },
+    {
+      "item": "jsnboss:verdant_shard"
+    }
+  ],
+  "result": {
+    "id": "jsnboss:verdant_emblem_3",
+    "count": 1
+  }
+}

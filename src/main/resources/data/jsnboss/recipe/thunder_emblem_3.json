@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "jsnboss:thunder_emblem_2"
+    },
+    {
+      "item": "jsnboss:thunder_core"
+    },
+    {
+      "item": "jsnboss:thunder_core"
+    },
+    {
+      "item": "jsnboss:thunder_shard"
+    },
+    {
+      "item": "jsnboss:thunder_shard"
+    },
+    {
+      "item": "jsnboss:thunder_shard"
+    },
+    {
+      "item": "jsnboss:thunder_shard"
+    },
+    {
+      "item": "jsnboss:thunder_shard"
+    },
+    {
+      "item": "jsnboss:thunder_shard"
+    }
+  ],
+  "result": {
+    "id": "jsnboss:thunder_emblem_3",
+    "count": 1
+  }
+}

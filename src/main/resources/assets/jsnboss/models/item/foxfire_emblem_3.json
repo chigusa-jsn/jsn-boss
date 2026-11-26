@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "jsnboss:item/foxfire_emblem_3"
+  }
+}

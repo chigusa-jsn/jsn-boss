@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "jsnboss:frostbloom_emblem_2"
+    },
+    {
+      "item": "jsnboss:frostbloom_core"
+    },
+    {
+      "item": "jsnboss:frostbloom_core"
+    },
+    {
+      "item": "jsnboss:frostbloom_shard"
+    },
+    {
+      "item": "jsnboss:frostbloom_shard"
+    },
+    {
+      "item": "jsnboss:frostbloom_shard"
+    },
+    {
+      "item": "jsnboss:frostbloom_shard"
+    },
+    {
+      "item": "jsnboss:frostbloom_shard"
+    },
+    {
+      "item": "jsnboss:frostbloom_shard"
+    }
+  ],
+  "result": {
+    "id": "jsnboss:frostbloom_emblem_3",
+    "count": 1
+  }
+}

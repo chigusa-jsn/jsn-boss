@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "jsnboss:void_emblem_1"
+    },
+    {
+      "item": "jsnboss:void_core"
+    },
+    {
+      "item": "jsnboss:void_shard"
+    },
+    {
+      "item": "jsnboss:void_shard"
+    },
+    {
+      "item": "jsnboss:void_shard"
+    },
+    {
+      "item": "jsnboss:void_shard"
+    },
+    {
+      "item": "jsnboss:void_shard"
+    },
+    {
+      "item": "jsnboss:void_shard"
+    }
+  ],
+  "result": {
+    "id": "jsnboss:void_emblem_2",
+    "count": 1
+  }
+}

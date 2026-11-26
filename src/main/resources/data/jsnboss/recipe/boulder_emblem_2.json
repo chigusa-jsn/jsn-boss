@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "jsnboss:boulder_emblem_1"
+    },
+    {
+      "item": "jsnboss:boulder_core"
+    },
+    {
+      "item": "jsnboss:boulder_shard"
+    },
+    {
+      "item": "jsnboss:boulder_shard"
+    },
+    {
+      "item": "jsnboss:boulder_shard"
+    },
+    {
+      "item": "jsnboss:boulder_shard"
+    },
+    {
+      "item": "jsnboss:boulder_shard"
+    },
+    {
+      "item": "jsnboss:boulder_shard"
+    }
+  ],
+  "result": {
+    "id": "jsnboss:boulder_emblem_2",
+    "count": 1
+  }
+}

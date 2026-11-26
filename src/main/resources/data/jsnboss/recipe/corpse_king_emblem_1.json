@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "GSG",
+    "SCS",
+    "GSG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "S": {
+      "item": "jsnboss:corpse_king_shard"
+    },
+    "C": {
+      "item": "jsnboss:corpse_king_core"
+    }
+  },
+  "result": {
+    "id": "jsnboss:corpse_king_emblem_1",
+    "count": 1
+  }
+}

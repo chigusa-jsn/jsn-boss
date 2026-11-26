@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "jsnboss:shadow_blade_emblem_2"
+    },
+    {
+      "item": "jsnboss:shadow_blade_core"
+    },
+    {
+      "item": "jsnboss:shadow_blade_core"
+    },
+    {
+      "item": "jsnboss:shadow_blade_shard"
+    },
+    {
+      "item": "jsnboss:shadow_blade_shard"
+    },
+    {
+      "item": "jsnboss:shadow_blade_shard"
+    },
+    {
+      "item": "jsnboss:shadow_blade_shard"
+    },
+    {
+      "item": "jsnboss:shadow_blade_shard"
+    },
+    {
+      "item": "jsnboss:shadow_blade_shard"
+    }
+  ],
+  "result": {
+    "id": "jsnboss:shadow_blade_emblem_3",
+    "count": 1
+  }
+}

@@ -27,6 +27,8 @@ sourceSets.main.resources {
 }
 
 repositories {
+    // 紋章の枠（Curios API）
+    maven { url = 'https://maven.theillusivec4.top/' }
     maven {
         name = 'GeckoLib'
         url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
@@ -124,6 +126,8 @@ configurations {
 
 dependencies {
     // ボスのモデルとアニメーション
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
     implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
 
     // Example optional mod dependency with JEI

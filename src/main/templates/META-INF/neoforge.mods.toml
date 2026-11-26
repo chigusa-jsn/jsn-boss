@@ -98,3 +98,10 @@ file="META-INF/accesstransformer.cfg"
     versionRange="[4.7,)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="curios"
+    type="required"
+    versionRange="[9.0.0,)"
+    ordering="NONE"
+    side="BOTH"

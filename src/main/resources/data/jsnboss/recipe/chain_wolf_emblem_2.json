@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "jsnboss:chain_wolf_emblem_1"
+    },
+    {
+      "item": "jsnboss:chain_wolf_core"
+    },
+    {
+      "item": "jsnboss:chain_wolf_shard"
+    },
+    {
+      "item": "jsnboss:chain_wolf_shard"
+    },
+    {
+      "item": "jsnboss:chain_wolf_shard"
+    },
+    {
+      "item": "jsnboss:chain_wolf_shard"
+    },
+    {
+      "item": "jsnboss:chain_wolf_shard"
+    },
+    {
+      "item": "jsnboss:chain_wolf_shard"
+    }
+  ],
+  "result": {
+    "id": "jsnboss:chain_wolf_emblem_2",
+    "count": 1
+  }
+}

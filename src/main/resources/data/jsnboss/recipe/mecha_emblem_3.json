@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "jsnboss:mecha_emblem_2"
+    },
+    {
+      "item": "jsnboss:mecha_core"
+    },
+    {
+      "item": "jsnboss:mecha_core"
+    },
+    {
+      "item": "jsnboss:mecha_shard"
+    },
+    {
+      "item": "jsnboss:mecha_shard"
+    },
+    {
+      "item": "jsnboss:mecha_shard"
+    },
+    {
+      "item": "jsnboss:mecha_shard"
+    },
+    {
+      "item": "jsnboss:mecha_shard"
+    },
+    {
+      "item": "jsnboss:mecha_shard"
+    }
+  ],
+  "result": {
+    "id": "jsnboss:mecha_emblem_3",
+    "count": 1
+  }
+}

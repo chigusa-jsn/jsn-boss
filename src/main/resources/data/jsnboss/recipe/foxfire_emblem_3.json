@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "jsnboss:foxfire_emblem_2"
+    },
+    {
+      "item": "jsnboss:foxfire_core"
+    },
+    {
+      "item": "jsnboss:foxfire_core"
+    },
+    {
+      "item": "jsnboss:foxfire_shard"
+    },
+    {
+      "item": "jsnboss:foxfire_shard"
+    },
+    {
+      "item": "jsnboss:foxfire_shard"
+    },
+    {
+      "item": "jsnboss:foxfire_shard"
+    },
+    {
+      "item": "jsnboss:foxfire_shard"
+    },
+    {
+      "item": "jsnboss:foxfire_shard"
+    }
+  ],
+  "result": {
+    "id": "jsnboss:foxfire_emblem_3",
+    "count": 1
+  }
+}

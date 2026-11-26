@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "GSG",
+    "SCS",
+    "GSG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "S": {
+      "item": "jsnboss:thunder_shard"
+    },
+    "C": {
+      "item": "jsnboss:thunder_core"
+    }
+  },
+  "result": {
+    "id": "jsnboss:thunder_emblem_1",
+    "count": 1
+  }
+}

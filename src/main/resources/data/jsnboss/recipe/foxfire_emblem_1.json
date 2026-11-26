@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "GSG",
+    "SCS",
+    "GSG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "S": {
+      "item": "jsnboss:foxfire_shard"
+    },
+    "C": {
+      "item": "jsnboss:foxfire_core"
+    }
+  },
+  "result": {
+    "id": "jsnboss:foxfire_emblem_1",
+    "count": 1
+  }
+}
