@@ -42,6 +42,8 @@ public final class EarlyClassInit {
         "dungeon.earth.PebbleGolem", "dungeon.earth.BurrowMole",
         "dungeon.voidset.VoidScout", "dungeon.voidset.VoidStalker", "dungeon.voidset.RiftWraith",
         "dungeon.voidset.VoidShard", "dungeon.voidset.WatcherMote",
+        "dungeon.nature.SporeNursery", "dungeon.nature.VenusSnapper", "dungeon.nature.ThornStag",
+        "dungeon.nature.MushroomSoldier", "dungeon.nature.SeedSquirrel",
     };
 
     /** バニラで「生き物じゃない」ため起動時に読み込まれず、後から遅れて読まれがちなもの */

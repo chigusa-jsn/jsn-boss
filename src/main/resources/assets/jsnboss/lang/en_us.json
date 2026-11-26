@@ -308,5 +308,15 @@
   "entity.jsnboss.void_shard": "Void Shard",
   "item.jsnboss.void_shard_spawn_egg": "Void Shard Spawn Egg",
   "entity.jsnboss.watcher_mote": "Watcher Mote",
-  "item.jsnboss.watcher_mote_spawn_egg": "Watcher Mote Spawn Egg"
+  "item.jsnboss.watcher_mote_spawn_egg": "Watcher Mote Spawn Egg",
+  "entity.jsnboss.spore_nursery": "Spore Nursery",
+  "item.jsnboss.spore_nursery_spawn_egg": "Spore Nursery Spawn Egg",
+  "entity.jsnboss.venus_snapper": "Venus Snapper",
+  "item.jsnboss.venus_snapper_spawn_egg": "Venus Snapper Spawn Egg",
+  "entity.jsnboss.thorn_stag": "Thorn Stag",
+  "item.jsnboss.thorn_stag_spawn_egg": "Thorn Stag Spawn Egg",
+  "entity.jsnboss.mushroom_soldier": "Mushroom Soldier",
+  "item.jsnboss.mushroom_soldier_spawn_egg": "Mushroom Soldier Spawn Egg",
+  "entity.jsnboss.seed_squirrel": "Seed Squirrel",
+  "item.jsnboss.seed_squirrel_spawn_egg": "Seed Squirrel Spawn Egg"
 }

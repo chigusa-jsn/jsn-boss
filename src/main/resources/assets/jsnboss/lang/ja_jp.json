@@ -308,5 +308,15 @@
   "entity.jsnboss.void_shard": "虚空のかけら",
   "item.jsnboss.void_shard_spawn_egg": "虚空のかけらのスポーンエッグ",
   "entity.jsnboss.watcher_mote": "監視の小目",
-  "item.jsnboss.watcher_mote_spawn_egg": "監視の小目のスポーンエッグ"
+  "item.jsnboss.watcher_mote_spawn_egg": "監視の小目のスポーンエッグ",
+  "entity.jsnboss.spore_nursery": "胞子の苗床",
+  "item.jsnboss.spore_nursery_spawn_egg": "胞子の苗床のスポーンエッグ",
+  "entity.jsnboss.venus_snapper": "毒花の魔物",
+  "item.jsnboss.venus_snapper_spawn_egg": "毒花の魔物のスポーンエッグ",
+  "entity.jsnboss.thorn_stag": "茨の大鹿",
+  "item.jsnboss.thorn_stag_spawn_egg": "茨の大鹿のスポーンエッグ",
+  "entity.jsnboss.mushroom_soldier": "キノコ兵",
+  "item.jsnboss.mushroom_soldier_spawn_egg": "キノコ兵のスポーンエッグ",
+  "entity.jsnboss.seed_squirrel": "種まきリス",
+  "item.jsnboss.seed_squirrel_spawn_egg": "種まきリスのスポーンエッグ"
 }

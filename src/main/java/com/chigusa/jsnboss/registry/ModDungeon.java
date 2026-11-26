@@ -9,6 +9,7 @@ import com.chigusa.jsnboss.dungeon.wind.*;
 import com.chigusa.jsnboss.dungeon.thunder.*;
 import com.chigusa.jsnboss.dungeon.earth.*;
 import com.chigusa.jsnboss.dungeon.voidset.*;
+import com.chigusa.jsnboss.dungeon.nature.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -142,8 +143,24 @@ public final class ModDungeon {
     public static final DeferredHolder<EntityType<?>, EntityType<WatcherMote>> WATCHER_MOTE =
             mob("watcher_mote", WatcherMote::new, 0.6F, 0.6F, false, WatcherMote::createAttributes, 0x2A2234, 0xC070FF);
 
+    // ------------------------------------------------------------ 自然
+    public static final DeferredHolder<EntityType<?>, EntityType<SporeNursery>> SPORE_NURSERY =
+            mob("spore_nursery", SporeNursery::new, 2.0F, 3.2F, false, SporeNursery::createAttributes, 0x5AA04A, 0x8AE06A);
+    public static final DeferredHolder<EntityType<?>, EntityType<VenusSnapper>> VENUS_SNAPPER =
+            mob("venus_snapper", VenusSnapper::new, 1.2F, 2.4F, false, VenusSnapper::createAttributes, 0x7AC04A, 0xC03040);
+    public static final DeferredHolder<EntityType<?>, EntityType<ThornStag>> THORN_STAG =
+            mob("thorn_stag", ThornStag::new, 1.2F, 2.2F, false, ThornStag::createAttributes, 0x7A6A4A, 0x4A8A3A);
+    public static final DeferredHolder<EntityType<?>, EntityType<MushroomSoldier>> MUSHROOM_SOLDIER =
+            mob("mushroom_soldier", MushroomSoldier::new, 0.6F, 0.95F, false, MushroomSoldier::createAttributes, 0xE8DCC0, 0xC02A2A);
+    public static final DeferredHolder<EntityType<?>, EntityType<SeedSquirrel>> SEED_SQUIRREL =
+            mob("seed_squirrel", SeedSquirrel::new, 0.5F, 0.7F, false, SeedSquirrel::createAttributes, 0xB06A3A, 0xF0DCC0);
+
     static {
         MID_BAR_COLOR.put("flame_squire", 0xFFFF6A20);
+        MID_BAR_COLOR.put("spore_nursery", 0xFF8AE06A);
+        RENDER_SCALE.put("spore_nursery", 1.4F);
+        RENDER_SCALE.put("venus_snapper", 1.3F);
+        RENDER_SCALE.put("thorn_stag", 1.2F);
         MID_BAR_COLOR.put("void_scout", 0xFFC070FF);
         TRANSLUCENT.add("rift_wraith");
         MID_BAR_COLOR.put("boulder_golem", 0xFFC8A050);
