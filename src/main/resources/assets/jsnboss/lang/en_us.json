@@ -248,5 +248,15 @@
   "entity.jsnboss.frost_sprite": "Frost Sprite",
   "item.jsnboss.frost_sprite_spawn_egg": "Frost Sprite Spawn Egg",
   "entity.jsnboss.icicle_crawler": "Icicle Crawler",
-  "item.jsnboss.icicle_crawler_spawn_egg": "Icicle Crawler Spawn Egg"
+  "item.jsnboss.icicle_crawler_spawn_egg": "Icicle Crawler Spawn Egg",
+  "entity.jsnboss.rotting_guard": "Rotting Guard",
+  "item.jsnboss.rotting_guard_spawn_egg": "Rotting Guard Spawn Egg",
+  "entity.jsnboss.grave_reaper": "Grave Reaper",
+  "item.jsnboss.grave_reaper_spawn_egg": "Grave Reaper Spawn Egg",
+  "entity.jsnboss.bone_juggernaut": "Bone Juggernaut",
+  "item.jsnboss.bone_juggernaut_spawn_egg": "Bone Juggernaut Spawn Egg",
+  "entity.jsnboss.crawling_bones": "Crawling Bones",
+  "item.jsnboss.crawling_bones_spawn_egg": "Crawling Bones Spawn Egg",
+  "entity.jsnboss.grave_wisp": "Grave Wisp",
+  "item.jsnboss.grave_wisp_spawn_egg": "Grave Wisp Spawn Egg"
 }

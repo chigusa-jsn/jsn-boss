@@ -3,6 +3,7 @@ package com.chigusa.jsnboss.registry;
 import com.chigusa.jsnboss.dungeon.DungeonMob;
 import com.chigusa.jsnboss.dungeon.fire.*;
 import com.chigusa.jsnboss.dungeon.ice.*;
+import com.chigusa.jsnboss.dungeon.undead.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -32,6 +33,8 @@ public final class ModDungeon {
     public static final List<DeferredItem<DeferredSpawnEggItem>> EGGS = new ArrayList<>();
     /** 見た目の大きさ（モデルを拡大して描く。当たり判定は登録の大きさ） */
     public static final Map<String, Float> RENDER_SCALE = new HashMap<>();
+    /** 半透明で描くモブ */
+    public static final java.util.Set<String> TRANSLUCENT = new java.util.HashSet<>();
     /** 中ボス id → ボスバーの色（ARGB） */
     public static final Map<String, Integer> MID_BAR_COLOR = new HashMap<>();
     private static final Map<String, Supplier<AttributeSupplier.Builder>> ATTRS = new HashMap<>();
@@ -62,8 +65,23 @@ public final class ModDungeon {
     public static final DeferredHolder<EntityType<?>, EntityType<IcicleCrawler>> ICICLE_CRAWLER =
             mob("icicle_crawler", IcicleCrawler::new, 0.9F, 0.6F, false, IcicleCrawler::createAttributes, 0x4A6A84, 0xBFEAFF);
 
+    // ------------------------------------------------------------ アンデッド
+    public static final DeferredHolder<EntityType<?>, EntityType<RottingGuard>> ROTTING_GUARD =
+            mob("rotting_guard", RottingGuard::new, 0.9F, 2.6F, false, RottingGuard::createAttributes, 0x6A8A5A, 0x7A4A2A);
+    public static final DeferredHolder<EntityType<?>, EntityType<GraveReaper>> GRAVE_REAPER =
+            mob("grave_reaper", GraveReaper::new, 0.8F, 2.3F, false, GraveReaper::createAttributes, 0x2A2630, 0x7AF0A0);
+    public static final DeferredHolder<EntityType<?>, EntityType<BoneJuggernaut>> BONE_JUGGERNAUT =
+            mob("bone_juggernaut", BoneJuggernaut::new, 1.1F, 2.4F, false, BoneJuggernaut::createAttributes, 0xD8D0B8, 0x3A3A42);
+    public static final DeferredHolder<EntityType<?>, EntityType<CrawlingBones>> CRAWLING_BONES =
+            mob("crawling_bones", CrawlingBones::new, 0.8F, 0.5F, false, CrawlingBones::createAttributes, 0xD8D0B8, 0x7AF0A0);
+    public static final DeferredHolder<EntityType<?>, EntityType<GraveWisp>> GRAVE_WISP =
+            mob("grave_wisp", GraveWisp::new, 0.6F, 1.0F, false, GraveWisp::createAttributes, 0xA8F0E0, 0x0A1A18);
+
     static {
         MID_BAR_COLOR.put("flame_squire", 0xFFFF6A20);
+        MID_BAR_COLOR.put("rotting_guard", 0xFF8ACC5A);
+        RENDER_SCALE.put("rotting_guard", 1.25F);
+        TRANSLUCENT.add("grave_wisp");
         MID_BAR_COLOR.put("frost_maiden", 0xFF6AC8FF);
         MID_BAR_COLOR.put("pack_alpha", 0xFFB8D8F0);
         RENDER_SCALE.put("pack_alpha", 1.5F);

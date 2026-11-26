@@ -72,6 +72,9 @@ public abstract class DungeonMob extends AbstractBoss {
     /** 1回の技で同じ相手に何度も当たらないように */
     protected final Set<UUID> hitOnce = new HashSet<>();
     private boolean enrageApplied;
+    /** 盾を構えている間：正面からのダメージを guardFactor 倍にする */
+    private boolean guarding;
+    private float guardFactor = 1.0F;
     private double orbit = Math.random() * Math.PI * 2;
 
     protected DungeonMob(EntityType<? extends Monster> type, Level level, Tier tier, BossEvent.BossBarColor color) {
@@ -201,6 +204,7 @@ public abstract class DungeonMob extends AbstractBoss {
     private void endMove() {
         Move done = current;
         current = null;
+        guarding = false;
         lastMove = done;
         float speedUp = enraged() ? 0.7F : 1.0F;
         cooldowns.put(done.name(), (int) (done.cooldown() * speedUp));
@@ -250,6 +254,24 @@ public abstract class DungeonMob extends AbstractBoss {
             if (damage(e, amount, knock)) out.add(e);
         }
         return out;
+    }
+
+    /** 盾を構える／下ろす（技の途中で使う。技が終わると自動で下ろす） */
+    protected void setGuarding(boolean on, float factor) {
+        guarding = on;
+        guardFactor = factor;
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (guarding && current != null && source.getSourcePosition() != null) {
+            Vec3 to = source.getSourcePosition().subtract(position()).multiply(1, 0, 1);
+            if (to.lengthSqr() > 1.0E-4 && to.normalize().dot(forward()) > 0.35) {   // 正面から：盾ではじく
+                playSound(net.minecraft.sounds.SoundEvents.SHIELD_BLOCK, 1.0F, 1.0F);
+                amount *= guardFactor;
+            }
+        }
+        return super.hurt(source, amount);
     }
 
     /** 凍えさせる（画面がこおり、動きが遅くなる） */

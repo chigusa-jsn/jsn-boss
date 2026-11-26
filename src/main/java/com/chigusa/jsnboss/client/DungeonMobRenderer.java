@@ -14,6 +14,16 @@ public class DungeonMobRenderer extends GeoEntityRenderer<DungeonMob> {
         addRenderLayer(new AutoGlowingGeoLayer<>(this));
         this.shadowRadius = shadow;
         if (scale != 1.0F) withScale(scale);
+        this.translucent = com.chigusa.jsnboss.registry.ModDungeon.TRANSLUCENT.contains(id);
+    }
+
+    private final boolean translucent;
+
+    @Override
+    public net.minecraft.client.renderer.RenderType getRenderType(DungeonMob animatable, net.minecraft.resources.ResourceLocation texture,
+                                                                   net.minecraft.client.renderer.MultiBufferSource bufferSource, float partialTick) {
+        return translucent ? net.minecraft.client.renderer.RenderType.entityTranslucent(texture)
+                : super.getRenderType(animatable, texture, bufferSource, partialTick);
     }
 
     @Override

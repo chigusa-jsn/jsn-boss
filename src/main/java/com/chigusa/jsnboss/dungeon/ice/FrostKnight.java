@@ -5,7 +5,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.BossEvent;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -21,8 +20,6 @@ public class FrostKnight extends DungeonMob {
     static final Move SLASH = new Move("slash", 20, 24, 0, 3.6, 4, false);
     static final Move GUARD = new Move("guard", 50, 120, 0, 8, 2, false);
     private static final List<Move> MOVES = List.of(SLASH, GUARD);
-
-    private boolean guarding;
 
     public FrostKnight(EntityType<? extends Monster> type, Level level) {
         super(type, level, Tier.STRONG, BossEvent.BossBarColor.BLUE);
@@ -50,22 +47,9 @@ public class FrostKnight extends DungeonMob {
                 }
             }
         } else if (m == GUARD) {
-            guarding = t >= 5 && t < 45;
+            setGuarding(t >= 5 && t < 45, 0.2F);
             if (t == 5) playSound(SoundEvents.SHIELD_BLOCK, 1.0F, 1.4F);
         }
-    }
-
-    @Override
-    public boolean hurt(DamageSource source, float amount) {
-        if (guarding && isAttacking() && source.getSourcePosition() != null) {
-            Vec3 to = source.getSourcePosition().subtract(position()).multiply(1, 0, 1).normalize();
-            if (to.dot(forward()) > 0.35) {                     // 正面から：盾ではじく
-                playSound(SoundEvents.SHIELD_BLOCK, 1.0F, 1.2F);
-                if (level() instanceof ServerLevel sl) sl.sendParticles(ParticleTypes.SNOWFLAKE, getX() + to.x, getY() + 1.2, getZ() + to.z, 8, 0.2, 0.3, 0.2, 0.05);
-                amount *= 0.2F;
-            }
-        }
-        return super.hurt(source, amount);
     }
 
     @Override

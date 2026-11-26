@@ -248,5 +248,15 @@
   "entity.jsnboss.frost_sprite": "氷の妖精",
   "item.jsnboss.frost_sprite_spawn_egg": "氷の妖精のスポーンエッグ",
   "entity.jsnboss.icicle_crawler": "つらら虫",
-  "item.jsnboss.icicle_crawler_spawn_egg": "つらら虫のスポーンエッグ"
+  "item.jsnboss.icicle_crawler_spawn_egg": "つらら虫のスポーンエッグ",
+  "entity.jsnboss.rotting_guard": "腐肉の近衛",
+  "item.jsnboss.rotting_guard_spawn_egg": "腐肉の近衛のスポーンエッグ",
+  "entity.jsnboss.grave_reaper": "墓守の大鎌",
+  "item.jsnboss.grave_reaper_spawn_egg": "墓守の大鎌のスポーンエッグ",
+  "entity.jsnboss.bone_juggernaut": "骨の重装兵",
+  "item.jsnboss.bone_juggernaut_spawn_egg": "骨の重装兵のスポーンエッグ",
+  "entity.jsnboss.crawling_bones": "這う骨",
+  "item.jsnboss.crawling_bones_spawn_egg": "這う骨のスポーンエッグ",
+  "entity.jsnboss.grave_wisp": "墓場の魂",
+  "item.jsnboss.grave_wisp_spawn_egg": "墓場の魂のスポーンエッグ"
 }

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "jsnboss:rotting_guard",
+    "jsnboss:grave_reaper",
+    "jsnboss:bone_juggernaut",
+    "jsnboss:crawling_bones",
+    "jsnboss:grave_wisp"
+  ]
+}
