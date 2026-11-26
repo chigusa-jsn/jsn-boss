@@ -43,7 +43,9 @@ public final class MobHealthBars {
     @SubscribeEvent
     public static void onNameTag(RenderNameTagEvent event) {
         Entity ent = event.getEntity();
-        if (!(ent instanceof Mob mob) || ent instanceof AbstractBoss) return;
+        if (!(ent instanceof Mob mob)) return;
+        // ボスバーが出るものは頭の上に出さない（ダンジョンの強い敵・弱い敵は出す）
+        if (ent instanceof AbstractBoss && !(ent instanceof com.chigusa.jsnboss.dungeon.DungeonMob dm && !dm.hasBossBar())) return;
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.options.hideGui || !mob.isAlive() || mob.isInvisibleTo(mc.player)) return;
         if (mob.distanceToSqr(mc.gameRenderer.getMainCamera().getPosition()) > RANGE * RANGE) return;

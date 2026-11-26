@@ -40,6 +40,7 @@ public final class BossSetup {
     public static void init(IEventBus modBus) {
         raiseMaxHealthCap();
         ModMobs.init();
+        com.chigusa.jsnboss.registry.ModDungeon.init();
         com.chigusa.jsnboss.registry.ModThemed.init();
         ModEntities.ENTITY_TYPES.register(modBus);
         ModItems.ITEMS.register(modBus);
@@ -48,6 +49,7 @@ public final class BossSetup {
         com.chigusa.jsnboss.vfx.ModParticles.PARTICLE_TYPES.register(modBus);
         com.chigusa.jsnboss.registry.ModSounds.SOUND_EVENTS.register(modBus);
         modBus.addListener(BossSetup::onAttributes);
+        modBus.addListener(com.chigusa.jsnboss.registry.ModDungeon::onAttributes);
         modBus.addListener(EarlyClassInit::onCommonSetup);
         com.chigusa.jsnboss.registry.ModTabs.TABS.register(modBus);
     }

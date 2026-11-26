@@ -64,6 +64,11 @@ public final class BossBarRenderer {
         LerpingBossEvent bar = event.getBossEvent();
         String boss = bossKey(bar.getName());
         if (boss == null) return;
+        Integer mini = com.chigusa.jsnboss.registry.ModDungeon.MID_BAR_COLOR.get(boss);
+        if (mini != null) {
+            drawMini(event, bar, boss, mini);
+            return;
+        }
         Integer total = STAGES.get(boss);
         if (total == null) return;
 
@@ -118,6 +123,52 @@ public final class BossBarRenderer {
         event.setCanceled(true);
 
         if (STATES.size() > 8) prune(now);
+    }
+
+    /** ダンジョンの中ボス用：細い1本のバー（名前は小さめ、HP は右下） */
+    private static void drawMini(CustomizeGuiOverlayEvent.BossEventProgress event, LerpingBossEvent bar, String boss, int color) {
+        long now = Util.getMillis();
+        State st = update(bar, 0, now);
+        GuiGraphics g = event.getGuiGraphics();
+        Font font = Minecraft.getInstance().font;
+        int w = 150, h = 4;
+        int cx = g.guiWidth() / 2;
+        int x0 = cx - w / 2, y0 = event.getY();
+
+        Component name = bar.getName();
+        g.pose().pushPose();
+        g.pose().translate(cx, y0, 0);
+        g.pose().scale(0.8F, 0.8F, 1.0F);
+        g.drawString(font, name, -font.width(name) / 2, 0, 0xFFF4E8DC);
+        g.pose().popPose();
+
+        int by = y0 + 9;
+        g.fill(x0 - 1, by - 1, x0 + w + 1, by + h + 1, 0xE0100C0C);
+        g.fill(x0, by, x0 + w, by + h, 0xFF3A2A26);
+        int fw = Math.round(w * st.shown), tw = Math.round(w * st.trail);
+        if (tw > fw) g.fill(x0 + fw, by, x0 + tw, by + h, TRAIL_COLOR);
+        if (fw > 0) {
+            g.fill(x0, by, x0 + fw, by + h, color);
+            g.fill(x0, by, x0 + fw, by + 1, lighten(color));
+        }
+        float half = barMax(boss, 0, bar);
+        if (half > 0) {
+            float max = half * 2.0F;
+            String text = (int) Math.ceil(Mth.clamp(bar.getProgress(), 0, 1) * max) + " / " + Math.round(max);
+            g.pose().pushPose();
+            g.pose().translate(x0 + w, by + h + 2, 0);
+            g.pose().scale(0.7F, 0.7F, 1.0F);
+            g.drawString(font, text, -font.width(text), 0, 0xFFF4F0E0);
+            g.pose().popPose();
+        }
+        event.setIncrement(24);
+        event.setCanceled(true);
+    }
+
+    private static int lighten(int argb) {
+        int r = (argb >> 16) & 255, gg = (argb >> 8) & 255, b = argb & 255;
+        r += (255 - r) * 2 / 5; gg += (255 - gg) * 2 / 5; b += (255 - b) * 2 / 5;
+        return 0xFF000000 | (r << 16) | (gg << 8) | b;
     }
 
     private static State update(LerpingBossEvent bar, int left, long now) {

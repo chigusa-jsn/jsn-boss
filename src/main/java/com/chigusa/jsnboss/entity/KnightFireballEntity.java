@@ -31,7 +31,7 @@ public class KnightFireballEntity extends Projectile {
         super(type, level);
     }
 
-    public static void shoot(FireKnightEntity owner, Vec3 pos, Vec3 velocity, boolean blue, float damage) {
+    public static void shoot(net.minecraft.world.entity.LivingEntity owner, Vec3 pos, Vec3 velocity, boolean blue, float damage) {
         KnightFireballEntity ball = new KnightFireballEntity(ModEntities.KNIGHT_FIREBALL.get(), owner.level());
         ball.setOwner(owner);
         ball.setPos(pos);

@@ -225,5 +225,16 @@
   "entity.jsnboss.glow_blaze": "Glow Blaze",
   "item.jsnboss.glow_blaze_spawn_egg": "Glow Blaze Spawn Egg",
   "entity.jsnboss.glow_creeper": "Glow Creeper",
-  "item.jsnboss.glow_creeper_spawn_egg": "Glow Creeper Spawn Egg"
+  "item.jsnboss.glow_creeper_spawn_egg": "Glow Creeper Spawn Egg",
+  "entity.jsnboss.flame_squire": "Flame Squire",
+  "item.jsnboss.flame_squire_spawn_egg": "Flame Squire Spawn Egg",
+  "entity.jsnboss.lava_armor": "Lava Armor",
+  "item.jsnboss.lava_armor_spawn_egg": "Lava Armor Spawn Egg",
+  "entity.jsnboss.flame_eye": "Flame Eye",
+  "item.jsnboss.flame_eye_spawn_egg": "Flame Eye Spawn Egg",
+  "entity.jsnboss.ember_imp": "Ember Imp",
+  "item.jsnboss.ember_imp_spawn_egg": "Ember Imp Spawn Egg",
+  "entity.jsnboss.cinder_bat": "Cinder Bat",
+  "item.jsnboss.cinder_bat_spawn_egg": "Cinder Bat Spawn Egg",
+  "itemGroup.jsnboss.dungeon": "JSN Boss Dungeon Mobs"
 }

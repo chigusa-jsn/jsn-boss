@@ -39,7 +39,7 @@ public class FirePillarEntity extends Entity {
     private static final double RADIUS = 1.3;
     private static final double HEIGHT = 4.5;
 
-    private FireKnightEntity owner;
+    private net.minecraft.world.entity.LivingEntity owner;
     private final Set<UUID> localHits = new HashSet<>();
 
     public FirePillarEntity(EntityType<? extends FirePillarEntity> type, Level level) {
@@ -47,7 +47,7 @@ public class FirePillarEntity extends Entity {
         this.noPhysics = true;
     }
 
-    public static void spawn(FireKnightEntity owner, double x, double y, double z, boolean blue, boolean patch) {
+    public static void spawn(net.minecraft.world.entity.LivingEntity owner, double x, double y, double z, boolean blue, boolean patch) {
         FirePillarEntity e = new FirePillarEntity(ModEntities.FIRE_PILLAR.get(), owner.level());
         e.owner = owner;
         e.setPos(x, y, z);
@@ -87,7 +87,7 @@ public class FirePillarEntity extends Entity {
     }
 
     private void erupt() {
-        Set<UUID> hits = owner != null ? owner.pillarHits : localHits;
+        Set<UUID> hits = owner instanceof FireKnightEntity fk ? fk.pillarHits : localHits;
         for (LivingEntity e : level().getEntitiesOfClass(LivingEntity.class,
                 this.getBoundingBox().inflate(RADIUS + 1, HEIGHT, RADIUS + 1),
                 e -> e.isAlive() && !(e instanceof AbstractBoss) && !e.isSpectator())) {

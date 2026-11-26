@@ -27,6 +27,8 @@ public final class EarlyClassInit {
         "entity.FoxfireEntity", "entity.DarkOrbEntity", "entity.KnightFireballEntity",
         "entity.IceSpikeEntity", "entity.FlameSlashEntity", "entity.FlyingSwordEntity",
         "entity.YggdrasilEntity", "entity.TornadoEntity",
+        "dungeon.DungeonMob", "dungeon.fire.FlameSquire", "dungeon.fire.LavaArmor", "dungeon.fire.FlameEye",
+        "dungeon.fire.EmberImp", "dungeon.fire.CinderBat",
     };
 
     /** バニラで「生き物じゃない」ため起動時に読み込まれず、後から遅れて読まれがちなもの */

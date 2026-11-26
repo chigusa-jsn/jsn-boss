@@ -225,5 +225,16 @@
   "entity.jsnboss.glow_blaze": "光るブレイズ",
   "item.jsnboss.glow_blaze_spawn_egg": "光るブレイズのスポーンエッグ",
   "entity.jsnboss.glow_creeper": "光るクリーパー",
-  "item.jsnboss.glow_creeper_spawn_egg": "光るクリーパーのスポーンエッグ"
+  "item.jsnboss.glow_creeper_spawn_egg": "光るクリーパーのスポーンエッグ",
+  "entity.jsnboss.flame_squire": "炎の従騎士",
+  "item.jsnboss.flame_squire_spawn_egg": "炎の従騎士のスポーンエッグ",
+  "entity.jsnboss.lava_armor": "溶岩の甲冑兵",
+  "item.jsnboss.lava_armor_spawn_egg": "溶岩の甲冑兵のスポーンエッグ",
+  "entity.jsnboss.flame_eye": "炎の魔眼",
+  "item.jsnboss.flame_eye_spawn_egg": "炎の魔眼のスポーンエッグ",
+  "entity.jsnboss.ember_imp": "燃える小鬼",
+  "item.jsnboss.ember_imp_spawn_egg": "燃える小鬼のスポーンエッグ",
+  "entity.jsnboss.cinder_bat": "火の粉コウモリ",
+  "item.jsnboss.cinder_bat_spawn_egg": "火の粉コウモリのスポーンエッグ",
+  "itemGroup.jsnboss.dungeon": "JSN Boss ダンジョンモブ"
 }

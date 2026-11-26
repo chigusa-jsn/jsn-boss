@@ -24,6 +24,14 @@ public final class BossClientEvents {
         @SubscribeEvent
         public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
             event.registerEntityRenderer(ModEntities.FIRE_KNIGHT.get(), FireKnightRenderer::new);
+            // ダンジョンモブはどれも同じ作り（entity/<id> のモデル・アニメ・テクスチャ）
+            for (var e : com.chigusa.jsnboss.registry.ModDungeon.TYPES.entrySet()) {
+                String id = e.getKey();
+                @SuppressWarnings("unchecked")
+                var type = (net.minecraft.world.entity.EntityType<com.chigusa.jsnboss.dungeon.DungeonMob>) (Object) e.getValue().get();
+                float shadow = type.getWidth() * 0.6F;
+                event.registerEntityRenderer(type, ctx -> new DungeonMobRenderer(ctx, id, shadow));
+            }
             // 火の玉・斬撃・火柱はパーティクルで見せるので、モデルは描かない
             event.registerEntityRenderer(ModEntities.KNIGHT_FIREBALL.get(), NoopRenderer::new);
             event.registerEntityRenderer(ModEntities.FLAME_SLASH.get(), NoopRenderer::new);

@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-/** クリエイティブタブ：「JSN Boss ボス」と「JSN Boss 亜種モブ」 */
+/** クリエイティブタブ：「JSN Boss ボス」「JSN Boss 亜種モブ」「JSN Boss ダンジョンモブ」 */
 public final class ModTabs {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, BossConstants.MODID);
 
@@ -42,6 +42,15 @@ public final class ModTabs {
             .displayItems((params, out) -> {
                 for (var egg : ModMobs.EGGS) out.accept(egg.get());
                 for (var egg : ModThemed.EGGS.values()) out.accept(egg.get());
+            })
+            .build());
+
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> DUNGEON = TABS.register("dungeon", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.jsnboss.dungeon"))
+            .icon(() -> new ItemStack(ModDungeon.EGGS.get(0).get()))
+            .withTabsBefore(MOBS.getId())
+            .displayItems((params, out) -> {
+                for (var egg : ModDungeon.EGGS) out.accept(egg.get());
             })
             .build());
 

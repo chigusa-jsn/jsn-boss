@@ -39,7 +39,7 @@ public class FlameSlashEntity extends Projectile {
         this.noPhysics = true;
     }
 
-    public static void shoot(FireKnightEntity owner, Vec3 pos, Vec3 velocity, boolean vertical, boolean blue, float damage) {
+    public static void shoot(net.minecraft.world.entity.LivingEntity owner, Vec3 pos, Vec3 velocity, boolean vertical, boolean blue, float damage) {
         FlameSlashEntity slash = new FlameSlashEntity(ModEntities.FLAME_SLASH.get(), owner.level());
         slash.setOwner(owner);
         slash.setPos(pos);
