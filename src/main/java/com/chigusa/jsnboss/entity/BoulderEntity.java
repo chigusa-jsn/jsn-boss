@@ -69,6 +69,15 @@ public class BoulderEntity extends Entity {
         owner.level().addFreshEntity(e);
     }
 
+    /** 大きさを指定して投げる（小石など） */
+    public static void throwSized(AbstractBoss owner, Vec3 from, Vec3 target, float damage, float size) {
+        Vec3 d = target.subtract(from);
+        double horiz = Math.sqrt(d.x * d.x + d.z * d.z);
+        double time = Math.max(8, horiz / 1.0);
+        Vec3 vel = new Vec3(d.x / time, (d.y + 0.5 * 0.05 * time * time) / time, d.z / time);
+        owner.level().addFreshEntity(make(owner, from, vel, THROWN, size, damage));
+    }
+
     /** 火のついた TNT を target に向けて放物線で投げる（着地でブロックを壊さない爆発） */
     public static void throwTnt(AbstractBoss owner, Vec3 from, Vec3 target, float damage) {
         Vec3 d = target.subtract(from);

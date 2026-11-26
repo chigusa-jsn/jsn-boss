@@ -7,6 +7,7 @@ import com.chigusa.jsnboss.dungeon.undead.*;
 import com.chigusa.jsnboss.dungeon.dark.*;
 import com.chigusa.jsnboss.dungeon.wind.*;
 import com.chigusa.jsnboss.dungeon.thunder.*;
+import com.chigusa.jsnboss.dungeon.earth.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -116,8 +117,23 @@ public final class ModDungeon {
     public static final DeferredHolder<EntityType<?>, EntityType<VoltBeetle>> VOLT_BEETLE =
             mob("volt_beetle", VoltBeetle::new, 0.7F, 0.5F, false, VoltBeetle::createAttributes, 0x2A3A5A, 0x7AD8FF);
 
+    // ------------------------------------------------------------ 大地
+    public static final DeferredHolder<EntityType<?>, EntityType<BoulderGolem>> BOULDER_GOLEM =
+            mob("boulder_golem", BoulderGolem::new, 1.5F, 2.4F, false, BoulderGolem::createAttributes, 0x8A8A84, 0xFFB040);
+    public static final DeferredHolder<EntityType<?>, EntityType<StoneTortoise>> STONE_TORTOISE =
+            mob("stone_tortoise", StoneTortoise::new, 1.7F, 1.3F, false, StoneTortoise::createAttributes, 0x8A8A84, 0x5A8A3A);
+    public static final DeferredHolder<EntityType<?>, EntityType<ClayBrute>> CLAY_BRUTE =
+            mob("clay_brute", ClayBrute::new, 1.3F, 2.2F, false, ClayBrute::createAttributes, 0xB0704A, 0x6A3E24);
+    public static final DeferredHolder<EntityType<?>, EntityType<PebbleGolem>> PEBBLE_GOLEM =
+            mob("pebble_golem", PebbleGolem::new, 0.6F, 0.9F, false, PebbleGolem::createAttributes, 0x9A968C, 0xFFB040);
+    public static final DeferredHolder<EntityType<?>, EntityType<BurrowMole>> BURROW_MOLE =
+            mob("burrow_mole", BurrowMole::new, 0.7F, 0.5F, false, BurrowMole::createAttributes, 0x3A3036, 0xE8A0A8);
+
     static {
         MID_BAR_COLOR.put("flame_squire", 0xFFFF6A20);
+        MID_BAR_COLOR.put("boulder_golem", 0xFFC8A050);
+        RENDER_SCALE.put("boulder_golem", 1.2F);
+        RENDER_SCALE.put("stone_tortoise", 1.2F);
         MID_BAR_COLOR.put("thunder_lioness", 0xFFFFE04A);
         RENDER_SCALE.put("thunder_lioness", 1.4F);
         RENDER_SCALE.put("storm_lizard", 1.3F);

@@ -288,5 +288,15 @@
   "entity.jsnboss.spark_jelly": "Spark Jelly",
   "item.jsnboss.spark_jelly_spawn_egg": "Spark Jelly Spawn Egg",
   "entity.jsnboss.volt_beetle": "Volt Beetle",
-  "item.jsnboss.volt_beetle_spawn_egg": "Volt Beetle Spawn Egg"
+  "item.jsnboss.volt_beetle_spawn_egg": "Volt Beetle Spawn Egg",
+  "entity.jsnboss.boulder_golem": "Boulder Golem",
+  "item.jsnboss.boulder_golem_spawn_egg": "Boulder Golem Spawn Egg",
+  "entity.jsnboss.stone_tortoise": "Stone Tortoise",
+  "item.jsnboss.stone_tortoise_spawn_egg": "Stone Tortoise Spawn Egg",
+  "entity.jsnboss.clay_brute": "Clay Brute",
+  "item.jsnboss.clay_brute_spawn_egg": "Clay Brute Spawn Egg",
+  "entity.jsnboss.pebble_golem": "Pebble Golem",
+  "item.jsnboss.pebble_golem_spawn_egg": "Pebble Golem Spawn Egg",
+  "entity.jsnboss.burrow_mole": "Burrow Mole",
+  "item.jsnboss.burrow_mole_spawn_egg": "Burrow Mole Spawn Egg"
 }

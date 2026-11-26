@@ -288,5 +288,15 @@
   "entity.jsnboss.spark_jelly": "電気クラゲ",
   "item.jsnboss.spark_jelly_spawn_egg": "電気クラゲのスポーンエッグ",
   "entity.jsnboss.volt_beetle": "雷虫",
-  "item.jsnboss.volt_beetle_spawn_egg": "雷虫のスポーンエッグ"
+  "item.jsnboss.volt_beetle_spawn_egg": "雷虫のスポーンエッグ",
+  "entity.jsnboss.boulder_golem": "岩石のゴーレム",
+  "item.jsnboss.boulder_golem_spawn_egg": "岩石のゴーレムのスポーンエッグ",
+  "entity.jsnboss.stone_tortoise": "岩甲羅の亀",
+  "item.jsnboss.stone_tortoise_spawn_egg": "岩甲羅の亀のスポーンエッグ",
+  "entity.jsnboss.clay_brute": "粘土の巨兵",
+  "item.jsnboss.clay_brute_spawn_egg": "粘土の巨兵のスポーンエッグ",
+  "entity.jsnboss.pebble_golem": "小石ゴーレム",
+  "item.jsnboss.pebble_golem_spawn_egg": "小石ゴーレムのスポーンエッグ",
+  "entity.jsnboss.burrow_mole": "もぐら",
+  "item.jsnboss.burrow_mole_spawn_egg": "もぐらのスポーンエッグ"
 }

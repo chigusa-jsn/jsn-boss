@@ -38,6 +38,8 @@ public final class EarlyClassInit {
         "dungeon.wind.WhirlLynx", "dungeon.wind.GaleEagle", "dungeon.wind.TornadoSpirit", "dungeon.wind.WindPuff", "dungeon.wind.GaleWeasel",
         "dungeon.thunder.ThunderLioness", "dungeon.thunder.VoltSentinel", "dungeon.thunder.StormLizard",
         "dungeon.thunder.SparkJelly", "dungeon.thunder.VoltBeetle",
+        "dungeon.earth.BoulderGolem", "dungeon.earth.StoneTortoise", "dungeon.earth.ClayBrute",
+        "dungeon.earth.PebbleGolem", "dungeon.earth.BurrowMole",
     };
 
     /** バニラで「生き物じゃない」ため起動時に読み込まれず、後から遅れて読まれがちなもの */

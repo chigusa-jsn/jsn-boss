@@ -1,0 +1,126 @@
+{
+ "format_version": "1.12.0",
+ "minecraft:geometry": [
+  {
+   "description": {
+    "identifier": "geometry.burrow_mole",
+    "texture_width": 64,
+    "texture_height": 64,
+    "visible_bounds_width": 6,
+    "visible_bounds_height": 5,
+    "visible_bounds_offset": [
+     0,
+     2,
+     0
+    ]
+   },
+   "bones": [
+    {
+     "name": "root",
+     "pivot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "body",
+     "pivot": [
+      0,
+      2,
+      0
+     ],
+     "parent": "root",
+     "cubes": [
+      {
+       "origin": [
+        -3,
+        0,
+        -4
+       ],
+       "size": [
+        6,
+        5,
+        9
+       ],
+       "uv": [
+        0,
+        0
+       ]
+      },
+      {
+       "origin": [
+        -1,
+        1,
+        -6
+       ],
+       "size": [
+        2,
+        2,
+        2
+       ],
+       "uv": [
+        53,
+        0
+       ]
+      }
+     ]
+    },
+    {
+     "name": "right_claw",
+     "pivot": [
+      -3,
+      2,
+      -4
+     ],
+     "parent": "body",
+     "cubes": [
+      {
+       "origin": [
+        -5,
+        0,
+        -5
+       ],
+       "size": [
+        2,
+        2,
+        3
+       ],
+       "uv": [
+        31,
+        0
+       ]
+      }
+     ]
+    },
+    {
+     "name": "left_claw",
+     "pivot": [
+      3,
+      2,
+      -4
+     ],
+     "parent": "body",
+     "cubes": [
+      {
+       "origin": [
+        3,
+        0,
+        -5
+       ],
+       "size": [
+        2,
+        2,
+        3
+       ],
+       "uv": [
+        42,
+        0
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
