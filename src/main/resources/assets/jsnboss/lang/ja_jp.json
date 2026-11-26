@@ -457,7 +457,7 @@
   "emblem.jsnboss.star_tree.effect_2": "6秒ごとに体力 2 回復",
   "item.jsnboss.star_tree_emblem_3": "星樹の紋章 III",
   "emblem.jsnboss.star_tree.effect_3": "4秒ごとに体力 2 回復",
-  "itemGroup.jsnboss.emblems": "JSN Boss：紋章",
+  "itemGroup.jsnboss.emblems": "JSN Boss 紋章",
   "curios.identifier.emblem": "紋章",
   "curios.modifiers.emblem": "紋章につけたとき：",
   "emblem.jsnboss.rank_1": "ランク I",
