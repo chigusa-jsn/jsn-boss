@@ -298,5 +298,15 @@
   "entity.jsnboss.pebble_golem": "Pebble Golem",
   "item.jsnboss.pebble_golem_spawn_egg": "Pebble Golem Spawn Egg",
   "entity.jsnboss.burrow_mole": "Burrow Mole",
-  "item.jsnboss.burrow_mole_spawn_egg": "Burrow Mole Spawn Egg"
+  "item.jsnboss.burrow_mole_spawn_egg": "Burrow Mole Spawn Egg",
+  "entity.jsnboss.void_scout": "Void Scout",
+  "item.jsnboss.void_scout_spawn_egg": "Void Scout Spawn Egg",
+  "entity.jsnboss.void_stalker": "Void Stalker",
+  "item.jsnboss.void_stalker_spawn_egg": "Void Stalker Spawn Egg",
+  "entity.jsnboss.rift_wraith": "Rift Wraith",
+  "item.jsnboss.rift_wraith_spawn_egg": "Rift Wraith Spawn Egg",
+  "entity.jsnboss.void_shard": "Void Shard",
+  "item.jsnboss.void_shard_spawn_egg": "Void Shard Spawn Egg",
+  "entity.jsnboss.watcher_mote": "Watcher Mote",
+  "item.jsnboss.watcher_mote_spawn_egg": "Watcher Mote Spawn Egg"
 }

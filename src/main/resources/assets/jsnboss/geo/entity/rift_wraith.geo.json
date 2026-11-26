@@ -1,0 +1,194 @@
+{
+ "format_version": "1.12.0",
+ "minecraft:geometry": [
+  {
+   "description": {
+    "identifier": "geometry.rift_wraith",
+    "texture_width": 64,
+    "texture_height": 64,
+    "visible_bounds_width": 6,
+    "visible_bounds_height": 5,
+    "visible_bounds_offset": [
+     0,
+     2,
+     0
+    ]
+   },
+   "bones": [
+    {
+     "name": "root",
+     "pivot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "rift",
+     "pivot": [
+      0,
+      14,
+      0
+     ],
+     "parent": "root",
+     "cubes": [
+      {
+       "origin": [
+        -1,
+        4,
+        -1
+       ],
+       "size": [
+        2,
+        20,
+        2
+       ],
+       "uv": [
+        0,
+        0
+       ]
+      },
+      {
+       "origin": [
+        -3,
+        8,
+        -1
+       ],
+       "size": [
+        6,
+        12,
+        1
+       ],
+       "uv": [
+        9,
+        0
+       ]
+      },
+      {
+       "origin": [
+        -5,
+        11,
+        -1
+       ],
+       "size": [
+        10,
+        6,
+        1
+       ],
+       "uv": [
+        0,
+        23
+       ]
+      }
+     ]
+    },
+    {
+     "name": "right_hand",
+     "pivot": [
+      -4,
+      15,
+      0
+     ],
+     "parent": "rift",
+     "cubes": [
+      {
+       "origin": [
+        -8,
+        10,
+        -2
+       ],
+       "size": [
+        3,
+        8,
+        2
+       ],
+       "uv": [
+        24,
+        0
+       ],
+       "rotation": [
+        0,
+        0,
+        -20
+       ],
+       "pivot": [
+        -6.5,
+        14,
+        -1
+       ]
+      },
+      {
+       "origin": [
+        -9,
+        7,
+        -3
+       ],
+       "size": [
+        3,
+        3,
+        3
+       ],
+       "uv": [
+        23,
+        23
+       ]
+      }
+     ]
+    },
+    {
+     "name": "left_hand",
+     "pivot": [
+      4,
+      15,
+      0
+     ],
+     "parent": "rift",
+     "cubes": [
+      {
+       "origin": [
+        5,
+        10,
+        -2
+       ],
+       "size": [
+        3,
+        8,
+        2
+       ],
+       "uv": [
+        35,
+        0
+       ],
+       "rotation": [
+        0,
+        0,
+        20
+       ],
+       "pivot": [
+        6.5,
+        14,
+        -1
+       ]
+      },
+      {
+       "origin": [
+        6,
+        7,
+        -3
+       ],
+       "size": [
+        3,
+        3,
+        3
+       ],
+       "uv": [
+        36,
+        23
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

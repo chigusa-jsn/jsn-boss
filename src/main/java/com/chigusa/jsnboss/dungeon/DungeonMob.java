@@ -291,6 +291,15 @@ public abstract class DungeonMob extends AbstractBoss {
         }
     }
 
+    /** 瞬間移動（紫の粒と音つき）。うまくいったら true */
+    protected boolean blinkTo(double x, double z, double nearY) {
+        if (level() instanceof ServerLevel sl) sl.sendParticles(ParticleTypes.PORTAL, getX(), getY() + 1, getZ(), 30, 0.3, 0.8, 0.3, 0.3);
+        boolean ok = randomTeleport(x, groundY(x, nearY + 2, z), z, false);
+        if (ok && level() instanceof ServerLevel sl) sl.sendParticles(ParticleTypes.PORTAL, getX(), getY() + 1, getZ(), 30, 0.3, 0.8, 0.3, 0.3);
+        if (ok) playSound(net.minecraft.sounds.SoundEvents.ENDERMAN_TELEPORT, 0.8F, 1.0F);
+        return ok;
+    }
+
     /** 凍えさせる（画面がこおり、動きが遅くなる） */
     protected static void chill(LivingEntity e, int ticks) {
         e.setTicksFrozen(Math.max(e.getTicksFrozen(), e.getTicksRequiredToFreeze() + ticks));

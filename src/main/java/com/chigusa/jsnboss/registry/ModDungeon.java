@@ -8,6 +8,7 @@ import com.chigusa.jsnboss.dungeon.dark.*;
 import com.chigusa.jsnboss.dungeon.wind.*;
 import com.chigusa.jsnboss.dungeon.thunder.*;
 import com.chigusa.jsnboss.dungeon.earth.*;
+import com.chigusa.jsnboss.dungeon.voidset.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -129,8 +130,22 @@ public final class ModDungeon {
     public static final DeferredHolder<EntityType<?>, EntityType<BurrowMole>> BURROW_MOLE =
             mob("burrow_mole", BurrowMole::new, 0.7F, 0.5F, false, BurrowMole::createAttributes, 0x3A3036, 0xE8A0A8);
 
+    // ------------------------------------------------------------ 虚空
+    public static final DeferredHolder<EntityType<?>, EntityType<VoidScout>> VOID_SCOUT =
+            mob("void_scout", VoidScout::new, 0.7F, 2.6F, false, VoidScout::createAttributes, 0x1A1220, 0xC070FF);
+    public static final DeferredHolder<EntityType<?>, EntityType<VoidStalker>> VOID_STALKER =
+            mob("void_stalker", VoidStalker::new, 0.7F, 2.0F, false, VoidStalker::createAttributes, 0x241A30, 0xE080FF);
+    public static final DeferredHolder<EntityType<?>, EntityType<RiftWraith>> RIFT_WRAITH =
+            mob("rift_wraith", RiftWraith::new, 0.8F, 1.8F, false, RiftWraith::createAttributes, 0x4A2A6A, 0xFFFFFF);
+    public static final DeferredHolder<EntityType<?>, EntityType<VoidShard>> VOID_SHARD =
+            mob("void_shard", VoidShard::new, 0.5F, 0.9F, false, VoidShard::createAttributes, 0x8A40D0, 0xF0D0FF);
+    public static final DeferredHolder<EntityType<?>, EntityType<WatcherMote>> WATCHER_MOTE =
+            mob("watcher_mote", WatcherMote::new, 0.6F, 0.6F, false, WatcherMote::createAttributes, 0x2A2234, 0xC070FF);
+
     static {
         MID_BAR_COLOR.put("flame_squire", 0xFFFF6A20);
+        MID_BAR_COLOR.put("void_scout", 0xFFC070FF);
+        TRANSLUCENT.add("rift_wraith");
         MID_BAR_COLOR.put("boulder_golem", 0xFFC8A050);
         RENDER_SCALE.put("boulder_golem", 1.2F);
         RENDER_SCALE.put("stone_tortoise", 1.2F);

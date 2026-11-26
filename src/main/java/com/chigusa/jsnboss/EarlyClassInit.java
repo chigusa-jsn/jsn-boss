@@ -40,6 +40,8 @@ public final class EarlyClassInit {
         "dungeon.thunder.SparkJelly", "dungeon.thunder.VoltBeetle",
         "dungeon.earth.BoulderGolem", "dungeon.earth.StoneTortoise", "dungeon.earth.ClayBrute",
         "dungeon.earth.PebbleGolem", "dungeon.earth.BurrowMole",
+        "dungeon.voidset.VoidScout", "dungeon.voidset.VoidStalker", "dungeon.voidset.RiftWraith",
+        "dungeon.voidset.VoidShard", "dungeon.voidset.WatcherMote",
     };
 
     /** バニラで「生き物じゃない」ため起動時に読み込まれず、後から遅れて読まれがちなもの */

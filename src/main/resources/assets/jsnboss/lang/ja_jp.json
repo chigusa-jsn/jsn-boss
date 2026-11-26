@@ -298,5 +298,15 @@
   "entity.jsnboss.pebble_golem": "小石ゴーレム",
   "item.jsnboss.pebble_golem_spawn_egg": "小石ゴーレムのスポーンエッグ",
   "entity.jsnboss.burrow_mole": "もぐら",
-  "item.jsnboss.burrow_mole_spawn_egg": "もぐらのスポーンエッグ"
+  "item.jsnboss.burrow_mole_spawn_egg": "もぐらのスポーンエッグ",
+  "entity.jsnboss.void_scout": "虚空の斥候",
+  "item.jsnboss.void_scout_spawn_egg": "虚空の斥候のスポーンエッグ",
+  "entity.jsnboss.void_stalker": "虚空の狩人",
+  "item.jsnboss.void_stalker_spawn_egg": "虚空の狩人のスポーンエッグ",
+  "entity.jsnboss.rift_wraith": "次元の歪み",
+  "item.jsnboss.rift_wraith_spawn_egg": "次元の歪みのスポーンエッグ",
+  "entity.jsnboss.void_shard": "虚空のかけら",
+  "item.jsnboss.void_shard_spawn_egg": "虚空のかけらのスポーンエッグ",
+  "entity.jsnboss.watcher_mote": "監視の小目",
+  "item.jsnboss.watcher_mote_spawn_egg": "監視の小目のスポーンエッグ"
 }
