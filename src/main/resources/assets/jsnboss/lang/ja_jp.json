@@ -278,5 +278,15 @@
   "entity.jsnboss.wind_puff": "風のわたぼうし",
   "item.jsnboss.wind_puff_spawn_egg": "風のわたぼうしのスポーンエッグ",
   "entity.jsnboss.gale_weasel": "疾風のイタチ",
-  "item.jsnboss.gale_weasel_spawn_egg": "疾風のイタチのスポーンエッグ"
+  "item.jsnboss.gale_weasel_spawn_egg": "疾風のイタチのスポーンエッグ",
+  "entity.jsnboss.thunder_lioness": "雷鳴の牝獅子",
+  "item.jsnboss.thunder_lioness_spawn_egg": "雷鳴の牝獅子のスポーンエッグ",
+  "entity.jsnboss.volt_sentinel": "雷の機兵",
+  "item.jsnboss.volt_sentinel_spawn_egg": "雷の機兵のスポーンエッグ",
+  "entity.jsnboss.storm_lizard": "雷鳴の大トカゲ",
+  "item.jsnboss.storm_lizard_spawn_egg": "雷鳴の大トカゲのスポーンエッグ",
+  "entity.jsnboss.spark_jelly": "電気クラゲ",
+  "item.jsnboss.spark_jelly_spawn_egg": "電気クラゲのスポーンエッグ",
+  "entity.jsnboss.volt_beetle": "雷虫",
+  "item.jsnboss.volt_beetle_spawn_egg": "雷虫のスポーンエッグ"
 }

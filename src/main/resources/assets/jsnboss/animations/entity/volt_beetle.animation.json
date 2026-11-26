@@ -1,0 +1,174 @@
+{
+ "format_version": "1.8.0",
+ "animations": {
+  "animation.volt_beetle.idle": {
+   "loop": true,
+   "animation_length": 2.0,
+   "bones": {
+    "body": {
+     "scale": {
+      "0.0": [
+       1,
+       1,
+       1
+      ],
+      "1.0": [
+       1,
+       1.05,
+       1
+      ],
+      "2.0": [
+       1,
+       1,
+       1
+      ]
+     }
+    }
+   }
+  },
+  "animation.volt_beetle.walk": {
+   "loop": true,
+   "animation_length": 0.3,
+   "bones": {
+    "right_legs": {
+     "rotation": {
+      "0.0": [
+       0,
+       15,
+       0
+      ],
+      "0.15": [
+       0,
+       -15,
+       0
+      ],
+      "0.3": [
+       0,
+       15,
+       0
+      ]
+     }
+    },
+    "left_legs": {
+     "rotation": {
+      "0.0": [
+       0,
+       15,
+       0
+      ],
+      "0.15": [
+       0,
+       -15,
+       0
+      ],
+      "0.3": [
+       0,
+       15,
+       0
+      ]
+     }
+    }
+   }
+  },
+  "animation.volt_beetle.attack_ram": {
+   "loop": false,
+   "animation_length": 1.0,
+   "bones": {
+    "right_legs": {
+     "rotation": {
+      "0.0": [
+       0,
+       15,
+       0
+      ],
+      "0.15": [
+       0,
+       -15,
+       0
+      ],
+      "0.3": [
+       0,
+       15,
+       0
+      ]
+     }
+    },
+    "left_legs": {
+     "rotation": {
+      "0.0": [
+       0,
+       15,
+       0
+      ],
+      "0.15": [
+       0,
+       -15,
+       0
+      ],
+      "0.3": [
+       0,
+       15,
+       0
+      ]
+     }
+    },
+    "body": {
+     "rotation": {
+      "0.0": [
+       0,
+       0,
+       0
+      ],
+      "0.3": [
+       -20,
+       0,
+       0
+      ],
+      "0.4": [
+       10,
+       0,
+       0
+      ],
+      "0.7": [
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   }
+  },
+  "animation.volt_beetle.death": {
+   "loop": "hold_on_last_frame",
+   "animation_length": 1.0,
+   "bones": {
+    "root": {
+     "rotation": {
+      "0.0": [
+       0,
+       0,
+       0
+      ],
+      "0.6": [
+       0,
+       0,
+       180
+      ]
+     },
+     "position": {
+      "0.0": [
+       0,
+       0,
+       0
+      ],
+      "0.6": [
+       0,
+       4,
+       0
+      ]
+     }
+    }
+   }
+  }
+ }
+}

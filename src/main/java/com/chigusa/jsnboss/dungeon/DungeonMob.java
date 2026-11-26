@@ -274,6 +274,23 @@ public abstract class DungeonMob extends AbstractBoss {
         return super.hurt(source, amount);
     }
 
+    /** しびれさせる（とても遅くなり、少し弱る） */
+    protected static void shock(LivingEntity e, int ticks) {
+        e.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN, ticks, 2));
+        e.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.WEAKNESS, ticks, 0));
+    }
+
+    /** a から b へ電気の線を描く */
+    protected void sparkLine(Vec3 a, Vec3 b) {
+        if (!(level() instanceof ServerLevel sl)) return;
+        int n = Math.max(4, (int) (a.distanceTo(b) * 3));
+        for (int i = 0; i <= n; i++) {
+            Vec3 p = a.lerp(b, i / (double) n);
+            sl.sendParticles(ParticleTypes.ELECTRIC_SPARK, p.x + (random.nextDouble() - 0.5) * 0.2, p.y + (random.nextDouble() - 0.5) * 0.2,
+                    p.z + (random.nextDouble() - 0.5) * 0.2, 1, 0, 0, 0, 0);
+        }
+    }
+
     /** 凍えさせる（画面がこおり、動きが遅くなる） */
     protected static void chill(LivingEntity e, int ticks) {
         e.setTicksFrozen(Math.max(e.getTicksFrozen(), e.getTicksRequiredToFreeze() + ticks));

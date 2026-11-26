@@ -36,6 +36,8 @@ public final class EarlyClassInit {
         "dungeon.dark.ShadowApprentice", "dungeon.dark.ShadowAssassin", "dungeon.dark.Grimoire",
         "dungeon.dark.ShadeImp", "dungeon.dark.DarkEye",
         "dungeon.wind.WhirlLynx", "dungeon.wind.GaleEagle", "dungeon.wind.TornadoSpirit", "dungeon.wind.WindPuff", "dungeon.wind.GaleWeasel",
+        "dungeon.thunder.ThunderLioness", "dungeon.thunder.VoltSentinel", "dungeon.thunder.StormLizard",
+        "dungeon.thunder.SparkJelly", "dungeon.thunder.VoltBeetle",
     };
 
     /** バニラで「生き物じゃない」ため起動時に読み込まれず、後から遅れて読まれがちなもの */

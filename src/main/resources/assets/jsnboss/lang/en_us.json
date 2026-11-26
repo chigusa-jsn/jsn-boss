@@ -278,5 +278,15 @@
   "entity.jsnboss.wind_puff": "Wind Puff",
   "item.jsnboss.wind_puff_spawn_egg": "Wind Puff Spawn Egg",
   "entity.jsnboss.gale_weasel": "Gale Weasel",
-  "item.jsnboss.gale_weasel_spawn_egg": "Gale Weasel Spawn Egg"
+  "item.jsnboss.gale_weasel_spawn_egg": "Gale Weasel Spawn Egg",
+  "entity.jsnboss.thunder_lioness": "Thunder Lioness",
+  "item.jsnboss.thunder_lioness_spawn_egg": "Thunder Lioness Spawn Egg",
+  "entity.jsnboss.volt_sentinel": "Volt Sentinel",
+  "item.jsnboss.volt_sentinel_spawn_egg": "Volt Sentinel Spawn Egg",
+  "entity.jsnboss.storm_lizard": "Storm Lizard",
+  "item.jsnboss.storm_lizard_spawn_egg": "Storm Lizard Spawn Egg",
+  "entity.jsnboss.spark_jelly": "Spark Jelly",
+  "item.jsnboss.spark_jelly_spawn_egg": "Spark Jelly Spawn Egg",
+  "entity.jsnboss.volt_beetle": "Volt Beetle",
+  "item.jsnboss.volt_beetle_spawn_egg": "Volt Beetle Spawn Egg"
 }

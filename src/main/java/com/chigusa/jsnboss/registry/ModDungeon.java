@@ -6,6 +6,7 @@ import com.chigusa.jsnboss.dungeon.ice.*;
 import com.chigusa.jsnboss.dungeon.undead.*;
 import com.chigusa.jsnboss.dungeon.dark.*;
 import com.chigusa.jsnboss.dungeon.wind.*;
+import com.chigusa.jsnboss.dungeon.thunder.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -103,8 +104,24 @@ public final class ModDungeon {
     public static final DeferredHolder<EntityType<?>, EntityType<GaleWeasel>> GALE_WEASEL =
             mob("gale_weasel", GaleWeasel::new, 0.6F, 0.5F, false, GaleWeasel::createAttributes, 0xA87A4A, 0x8AF0C8);
 
+    // ------------------------------------------------------------ 雷
+    public static final DeferredHolder<EntityType<?>, EntityType<ThunderLioness>> THUNDER_LIONESS =
+            mob("thunder_lioness", ThunderLioness::new, 1.2F, 1.6F, false, ThunderLioness::createAttributes, 0xC8A060, 0x7AD8FF);
+    public static final DeferredHolder<EntityType<?>, EntityType<VoltSentinel>> VOLT_SENTINEL =
+            mob("volt_sentinel", VoltSentinel::new, 1.0F, 2.5F, false, VoltSentinel::createAttributes, 0xC87A4A, 0x7AD8FF);
+    public static final DeferredHolder<EntityType<?>, EntityType<StormLizard>> STORM_LIZARD =
+            mob("storm_lizard", StormLizard::new, 1.3F, 0.9F, false, StormLizard::createAttributes, 0x3A4A62, 0x7AD8FF);
+    public static final DeferredHolder<EntityType<?>, EntityType<SparkJelly>> SPARK_JELLY =
+            mob("spark_jelly", SparkJelly::new, 0.7F, 1.0F, false, SparkJelly::createAttributes, 0x7AC0FF, 0xE8F8FF);
+    public static final DeferredHolder<EntityType<?>, EntityType<VoltBeetle>> VOLT_BEETLE =
+            mob("volt_beetle", VoltBeetle::new, 0.7F, 0.5F, false, VoltBeetle::createAttributes, 0x2A3A5A, 0x7AD8FF);
+
     static {
         MID_BAR_COLOR.put("flame_squire", 0xFFFF6A20);
+        MID_BAR_COLOR.put("thunder_lioness", 0xFFFFE04A);
+        RENDER_SCALE.put("thunder_lioness", 1.4F);
+        RENDER_SCALE.put("storm_lizard", 1.3F);
+        TRANSLUCENT.add("spark_jelly");
         MID_BAR_COLOR.put("whirl_lynx", 0xFF7AF0B8);
         RENDER_SCALE.put("whirl_lynx", 1.4F);
         RENDER_SCALE.put("gale_eagle", 1.6F);
