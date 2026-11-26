@@ -268,5 +268,15 @@
   "entity.jsnboss.shade_imp": "影の小人",
   "item.jsnboss.shade_imp_spawn_egg": "影の小人のスポーンエッグ",
   "entity.jsnboss.dark_eye": "闇の目玉",
-  "item.jsnboss.dark_eye_spawn_egg": "闇の目玉のスポーンエッグ"
+  "item.jsnboss.dark_eye_spawn_egg": "闇の目玉のスポーンエッグ",
+  "entity.jsnboss.whirl_lynx": "旋風の山猫",
+  "item.jsnboss.whirl_lynx_spawn_egg": "旋風の山猫のスポーンエッグ",
+  "entity.jsnboss.gale_eagle": "疾風の鷲",
+  "item.jsnboss.gale_eagle_spawn_egg": "疾風の鷲のスポーンエッグ",
+  "entity.jsnboss.tornado_spirit": "竜巻の精",
+  "item.jsnboss.tornado_spirit_spawn_egg": "竜巻の精のスポーンエッグ",
+  "entity.jsnboss.wind_puff": "風のわたぼうし",
+  "item.jsnboss.wind_puff_spawn_egg": "風のわたぼうしのスポーンエッグ",
+  "entity.jsnboss.gale_weasel": "疾風のイタチ",
+  "item.jsnboss.gale_weasel_spawn_egg": "疾風のイタチのスポーンエッグ"
 }

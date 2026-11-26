@@ -5,6 +5,7 @@ import com.chigusa.jsnboss.dungeon.fire.*;
 import com.chigusa.jsnboss.dungeon.ice.*;
 import com.chigusa.jsnboss.dungeon.undead.*;
 import com.chigusa.jsnboss.dungeon.dark.*;
+import com.chigusa.jsnboss.dungeon.wind.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -90,8 +91,24 @@ public final class ModDungeon {
     public static final DeferredHolder<EntityType<?>, EntityType<DarkEye>> DARK_EYE =
             mob("dark_eye", DarkEye::new, 0.6F, 0.6F, false, DarkEye::createAttributes, 0x2A1E2E, 0xA040FF);
 
+    // ------------------------------------------------------------ 風
+    public static final DeferredHolder<EntityType<?>, EntityType<WhirlLynx>> WHIRL_LYNX =
+            mob("whirl_lynx", WhirlLynx::new, 1.2F, 1.6F, false, WhirlLynx::createAttributes, 0xA8C4B4, 0x8AF0C8);
+    public static final DeferredHolder<EntityType<?>, EntityType<GaleEagle>> GALE_EAGLE =
+            mob("gale_eagle", GaleEagle::new, 1.2F, 1.1F, false, GaleEagle::createAttributes, 0x6A4A32, 0xF0ECE4);
+    public static final DeferredHolder<EntityType<?>, EntityType<TornadoSpirit>> TORNADO_SPIRIT =
+            mob("tornado_spirit", TornadoSpirit::new, 0.8F, 1.7F, false, TornadoSpirit::createAttributes, 0xA8F0D8, 0x3A987A);
+    public static final DeferredHolder<EntityType<?>, EntityType<WindPuff>> WIND_PUFF =
+            mob("wind_puff", WindPuff::new, 0.7F, 0.8F, false, WindPuff::createAttributes, 0xF4FBF8, 0x7AD070);
+    public static final DeferredHolder<EntityType<?>, EntityType<GaleWeasel>> GALE_WEASEL =
+            mob("gale_weasel", GaleWeasel::new, 0.6F, 0.5F, false, GaleWeasel::createAttributes, 0xA87A4A, 0x8AF0C8);
+
     static {
         MID_BAR_COLOR.put("flame_squire", 0xFFFF6A20);
+        MID_BAR_COLOR.put("whirl_lynx", 0xFF7AF0B8);
+        RENDER_SCALE.put("whirl_lynx", 1.4F);
+        RENDER_SCALE.put("gale_eagle", 1.6F);
+        TRANSLUCENT.add("tornado_spirit");
         MID_BAR_COLOR.put("shadow_apprentice", 0xFFB060FF);
         MID_BAR_COLOR.put("rotting_guard", 0xFF8ACC5A);
         RENDER_SCALE.put("rotting_guard", 1.25F);

@@ -268,5 +268,15 @@
   "entity.jsnboss.shade_imp": "Shade Imp",
   "item.jsnboss.shade_imp_spawn_egg": "Shade Imp Spawn Egg",
   "entity.jsnboss.dark_eye": "Dark Eye",
-  "item.jsnboss.dark_eye_spawn_egg": "Dark Eye Spawn Egg"
+  "item.jsnboss.dark_eye_spawn_egg": "Dark Eye Spawn Egg",
+  "entity.jsnboss.whirl_lynx": "Whirl Lynx",
+  "item.jsnboss.whirl_lynx_spawn_egg": "Whirl Lynx Spawn Egg",
+  "entity.jsnboss.gale_eagle": "Gale Eagle",
+  "item.jsnboss.gale_eagle_spawn_egg": "Gale Eagle Spawn Egg",
+  "entity.jsnboss.tornado_spirit": "Tornado Spirit",
+  "item.jsnboss.tornado_spirit_spawn_egg": "Tornado Spirit Spawn Egg",
+  "entity.jsnboss.wind_puff": "Wind Puff",
+  "item.jsnboss.wind_puff_spawn_egg": "Wind Puff Spawn Egg",
+  "entity.jsnboss.gale_weasel": "Gale Weasel",
+  "item.jsnboss.gale_weasel_spawn_egg": "Gale Weasel Spawn Egg"
 }

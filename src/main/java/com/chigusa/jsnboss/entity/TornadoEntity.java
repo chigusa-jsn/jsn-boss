@@ -31,7 +31,7 @@ public class TornadoEntity extends Entity {
             SynchedEntityData.defineId(TornadoEntity.class, EntityDataSerializers.INT);
     private static final Vector3f MINT = new Vector3f(0.55F, 1.0F, 0.86F);
 
-    private WindCatEntity owner;
+    private AbstractBoss owner;
     private UUID targetId;
     private float damage = 10.0F;
     private double angle;
@@ -42,7 +42,7 @@ public class TornadoEntity extends Entity {
         this.noPhysics = true;
     }
 
-    private static TornadoEntity make(WindCatEntity owner, double x, double y, double z, int mode, float damage) {
+    private static TornadoEntity make(AbstractBoss owner, double x, double y, double z, int mode, float damage) {
         TornadoEntity e = new TornadoEntity(ModEntities.TORNADO.get(), owner.level());
         e.owner = owner;
         e.damage = damage;
@@ -51,7 +51,7 @@ public class TornadoEntity extends Entity {
         return e;
     }
 
-    public static void spawnSeeker(WindCatEntity owner, double x, double y, double z, LivingEntity target, float damage) {
+    public static void spawnSeeker(AbstractBoss owner, double x, double y, double z, LivingEntity target, float damage) {
         TornadoEntity e = make(owner, x, y, z, SEEK, damage);
         if (target != null) e.targetId = target.getUUID();
         owner.level().addFreshEntity(e);
@@ -63,7 +63,7 @@ public class TornadoEntity extends Entity {
         owner.level().addFreshEntity(e);
     }
 
-    public static void spawnTrail(WindCatEntity owner, double x, double y, double z, float damage) {
+    public static void spawnTrail(AbstractBoss owner, double x, double y, double z, float damage) {
         owner.level().addFreshEntity(make(owner, x, y, z, TRAIL, damage));
     }
 

@@ -35,6 +35,7 @@ public final class EarlyClassInit {
         "dungeon.undead.CrawlingBones", "dungeon.undead.GraveWisp",
         "dungeon.dark.ShadowApprentice", "dungeon.dark.ShadowAssassin", "dungeon.dark.Grimoire",
         "dungeon.dark.ShadeImp", "dungeon.dark.DarkEye",
+        "dungeon.wind.WhirlLynx", "dungeon.wind.GaleEagle", "dungeon.wind.TornadoSpirit", "dungeon.wind.WindPuff", "dungeon.wind.GaleWeasel",
     };
 
     /** バニラで「生き物じゃない」ため起動時に読み込まれず、後から遅れて読まれがちなもの */
