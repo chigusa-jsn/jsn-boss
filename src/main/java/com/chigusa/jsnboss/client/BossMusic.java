@@ -1,6 +1,7 @@
 package com.chigusa.jsnboss.client;
 
 import com.chigusa.jsnboss.BossConstants;
+import com.chigusa.jsnboss.entity.AbstractBoss;
 import com.chigusa.jsnboss.entity.YggdrasilEntity;
 import com.chigusa.jsnboss.entity.YggdrasilSpiritEntity;
 import com.chigusa.jsnboss.registry.ModSounds;
@@ -8,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.MusicManager;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -24,6 +26,8 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 @EventBusSubscriber(modid = BossConstants.MODID, value = Dist.CLIENT)
 public final class BossMusic {
     private static final double RANGE = 80.0;
+    /** ボス曲の最大音量（「音楽」スライダーにさらに掛かる）。ゲーム内で大きすぎないよう少し抑えている */
+    private static final float MAX_VOLUME = 0.6F;
     private static Track current;
 
     /** 今流すべき曲（なければ null） */
@@ -32,6 +36,7 @@ public final class BossMusic {
         if (p == null || mc.level == null) return null;
         SoundEvent best = null;
         int bestPrio = -1;
+        double bestDist = Double.MAX_VALUE;
         for (Entity e : mc.level.entitiesForRendering()) {
             if (!e.isAlive() || e.distanceToSqr(p) > RANGE * RANGE) continue;
             SoundEvent s = null;
@@ -42,8 +47,16 @@ public final class BossMusic {
             } else if (e instanceof YggdrasilEntity) {
                 s = ModSounds.MUSIC_YGGDRASIL.get();
                 prio = 1;
+            } else if (e instanceof AbstractBoss) {
+                String id = BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).getPath();
+                if (id.endsWith("_clone")) id = id.substring(0, id.length() - 6);
+                var h = ModSounds.BOSS_MUSIC.get(id);
+                if (h != null) { s = h.get(); prio = 1; }
             }
-            if (s != null && prio > bestPrio) { best = s; bestPrio = prio; }
+            if (s == null) continue;
+            double d = e.distanceToSqr(p);
+            // 優先度が高い方、同じなら近いボスの曲
+            if (prio > bestPrio || prio == bestPrio && d < bestDist) { best = s; bestPrio = prio; bestDist = d; }
         }
         return best;
     }
@@ -105,7 +118,7 @@ public final class BossMusic {
             } else if (level < 1.0F) {
                 level = Math.min(1.0F, level + 1.0F / 20);   // 1秒でフェードイン
             }
-            this.volume = Math.max(0.01F, level);
+            this.volume = Math.max(0.01F, level * MAX_VOLUME);
         }
 
         @Override

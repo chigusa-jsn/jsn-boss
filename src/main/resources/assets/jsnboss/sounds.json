@@ -1,11 +1,138 @@
 {
   "music.yggdrasil": {
-    "sounds": [{ "name": "jsnboss:music/yggdrasil", "stream": true }]
+    "sounds": [
+      {
+        "name": "jsnboss:music/yggdrasil",
+        "stream": true
+      }
+    ]
   },
   "music.spirit_phase4": {
-    "sounds": [{ "name": "jsnboss:music/spirit_phase4", "stream": true }]
+    "sounds": [
+      {
+        "name": "jsnboss:music/spirit_phase4",
+        "stream": true
+      }
+    ]
   },
   "music.spirit_phase5": {
-    "sounds": [{ "name": "jsnboss:music/spirit_phase5", "stream": true }]
+    "sounds": [
+      {
+        "name": "jsnboss:music/spirit_phase5",
+        "stream": true
+      }
+    ]
+  },
+  "music.fire_knight": {
+    "sounds": [
+      {
+        "name": "jsnboss:music/fire_knight",
+        "stream": true
+      }
+    ]
+  },
+  "music.ice_witch": {
+    "sounds": [
+      {
+        "name": "jsnboss:music/ice_witch",
+        "stream": true
+      }
+    ]
+  },
+  "music.zombie_king": {
+    "sounds": [
+      {
+        "name": "jsnboss:music/zombie_king",
+        "stream": true
+      }
+    ]
+  },
+  "music.dark_mage": {
+    "sounds": [
+      {
+        "name": "jsnboss:music/dark_mage",
+        "stream": true
+      }
+    ]
+  },
+  "music.blade_dragon": {
+    "sounds": [
+      {
+        "name": "jsnboss:music/blade_dragon",
+        "stream": true
+      }
+    ]
+  },
+  "music.white_fox": {
+    "sounds": [
+      {
+        "name": "jsnboss:music/white_fox",
+        "stream": true
+      }
+    ]
+  },
+  "music.wind_cat": {
+    "sounds": [
+      {
+        "name": "jsnboss:music/wind_cat",
+        "stream": true
+      }
+    ]
+  },
+  "music.thunder_lion": {
+    "sounds": [
+      {
+        "name": "jsnboss:music/thunder_lion",
+        "stream": true
+      }
+    ]
+  },
+  "music.rock_giant": {
+    "sounds": [
+      {
+        "name": "jsnboss:music/rock_giant",
+        "stream": true
+      }
+    ]
+  },
+  "music.ender_sentinel": {
+    "sounds": [
+      {
+        "name": "jsnboss:music/ender_sentinel",
+        "stream": true
+      }
+    ]
+  },
+  "music.creeper_mother": {
+    "sounds": [
+      {
+        "name": "jsnboss:music/creeper_mother",
+        "stream": true
+      }
+    ]
+  },
+  "music.fenrir": {
+    "sounds": [
+      {
+        "name": "jsnboss:music/fenrir",
+        "stream": true
+      }
+    ]
+  },
+  "music.iron_spider": {
+    "sounds": [
+      {
+        "name": "jsnboss:music/iron_spider",
+        "stream": true
+      }
+    ]
+  },
+  "music.fallen_valkyrie": {
+    "sounds": [
+      {
+        "name": "jsnboss:music/fallen_valkyrie",
+        "stream": true
+      }
+    ]
   }
 }
