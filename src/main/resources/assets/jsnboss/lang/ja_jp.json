@@ -318,5 +318,15 @@
   "entity.jsnboss.mushroom_soldier": "キノコ兵",
   "item.jsnboss.mushroom_soldier_spawn_egg": "キノコ兵のスポーンエッグ",
   "entity.jsnboss.seed_squirrel": "種まきリス",
-  "item.jsnboss.seed_squirrel_spawn_egg": "種まきリスのスポーンエッグ"
+  "item.jsnboss.seed_squirrel_spawn_egg": "種まきリスのスポーンエッグ",
+  "entity.jsnboss.recon_drone": "機甲の偵察機",
+  "item.jsnboss.recon_drone_spawn_egg": "機甲の偵察機のスポーンエッグ",
+  "entity.jsnboss.cog_tank": "歯車の戦車",
+  "item.jsnboss.cog_tank_spawn_egg": "歯車の戦車のスポーンエッグ",
+  "entity.jsnboss.steam_automaton": "蒸気の自動人形",
+  "item.jsnboss.steam_automaton_spawn_egg": "蒸気の自動人形のスポーンエッグ",
+  "entity.jsnboss.clockwork_mouse": "ぜんまいねずみ",
+  "item.jsnboss.clockwork_mouse_spawn_egg": "ぜんまいねずみのスポーンエッグ",
+  "entity.jsnboss.mini_drone": "小型ドローン",
+  "item.jsnboss.mini_drone_spawn_egg": "小型ドローンのスポーンエッグ"
 }

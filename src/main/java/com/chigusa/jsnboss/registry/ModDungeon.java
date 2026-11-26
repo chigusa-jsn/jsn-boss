@@ -10,6 +10,7 @@ import com.chigusa.jsnboss.dungeon.thunder.*;
 import com.chigusa.jsnboss.dungeon.earth.*;
 import com.chigusa.jsnboss.dungeon.voidset.*;
 import com.chigusa.jsnboss.dungeon.nature.*;
+import com.chigusa.jsnboss.dungeon.machine.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -155,8 +156,23 @@ public final class ModDungeon {
     public static final DeferredHolder<EntityType<?>, EntityType<SeedSquirrel>> SEED_SQUIRREL =
             mob("seed_squirrel", SeedSquirrel::new, 0.5F, 0.7F, false, SeedSquirrel::createAttributes, 0xB06A3A, 0xF0DCC0);
 
+    // ------------------------------------------------------------ 機械
+    public static final DeferredHolder<EntityType<?>, EntityType<ReconDrone>> RECON_DRONE =
+            mob("recon_drone", ReconDrone::new, 1.6F, 1.4F, false, ReconDrone::createAttributes, 0x4A4E56, 0xFF3A2A);
+    public static final DeferredHolder<EntityType<?>, EntityType<CogTank>> COG_TANK =
+            mob("cog_tank", CogTank::new, 1.6F, 1.2F, false, CogTank::createAttributes, 0xC89A3A, 0x2A2C32);
+    public static final DeferredHolder<EntityType<?>, EntityType<SteamAutomaton>> STEAM_AUTOMATON =
+            mob("steam_automaton", SteamAutomaton::new, 1.0F, 2.3F, false, SteamAutomaton::createAttributes, 0xC89A3A, 0xFF8A20);
+    public static final DeferredHolder<EntityType<?>, EntityType<ClockworkMouse>> CLOCKWORK_MOUSE =
+            mob("clockwork_mouse", ClockworkMouse::new, 0.5F, 0.4F, false, ClockworkMouse::createAttributes, 0xA8ACB4, 0xC89A3A);
+    public static final DeferredHolder<EntityType<?>, EntityType<MiniDrone>> MINI_DRONE =
+            mob("mini_drone", MiniDrone::new, 0.7F, 0.6F, false, MiniDrone::createAttributes, 0x4A4E56, 0xFF3A2A);
+
     static {
         MID_BAR_COLOR.put("flame_squire", 0xFFFF6A20);
+        MID_BAR_COLOR.put("recon_drone", 0xFFFF5040);
+        RENDER_SCALE.put("recon_drone", 1.3F);
+        RENDER_SCALE.put("cog_tank", 1.2F);
         MID_BAR_COLOR.put("spore_nursery", 0xFF8AE06A);
         RENDER_SCALE.put("spore_nursery", 1.4F);
         RENDER_SCALE.put("venus_snapper", 1.3F);

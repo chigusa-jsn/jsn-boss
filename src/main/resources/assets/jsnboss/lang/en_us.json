@@ -318,5 +318,15 @@
   "entity.jsnboss.mushroom_soldier": "Mushroom Soldier",
   "item.jsnboss.mushroom_soldier_spawn_egg": "Mushroom Soldier Spawn Egg",
   "entity.jsnboss.seed_squirrel": "Seed Squirrel",
-  "item.jsnboss.seed_squirrel_spawn_egg": "Seed Squirrel Spawn Egg"
+  "item.jsnboss.seed_squirrel_spawn_egg": "Seed Squirrel Spawn Egg",
+  "entity.jsnboss.recon_drone": "Recon Drone",
+  "item.jsnboss.recon_drone_spawn_egg": "Recon Drone Spawn Egg",
+  "entity.jsnboss.cog_tank": "Cog Tank",
+  "item.jsnboss.cog_tank_spawn_egg": "Cog Tank Spawn Egg",
+  "entity.jsnboss.steam_automaton": "Steam Automaton",
+  "item.jsnboss.steam_automaton_spawn_egg": "Steam Automaton Spawn Egg",
+  "entity.jsnboss.clockwork_mouse": "Clockwork Mouse",
+  "item.jsnboss.clockwork_mouse_spawn_egg": "Clockwork Mouse Spawn Egg",
+  "entity.jsnboss.mini_drone": "Mini Drone",
+  "item.jsnboss.mini_drone_spawn_egg": "Mini Drone Spawn Egg"
 }
